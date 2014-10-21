@@ -3,12 +3,12 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Final Fantasy I In Browser</title>
-
+		<link rel="stylesheet" type="text/css" href="/css/style.css" />
 		<script type="text/javascript" src="/lib/createjs-2013.12.12.min.js"></script>
 		<!-- http://code.createjs.com/createjs-2013.12.12.min.js -->
 		<script type="text/javascript">
 			var stage, ball;
-			function init() {
+			function createjsInit() {
 				stage = new createjs.Stage("mainStage");
 				ball = new createjs.Shape();
 				ball.graphics.beginFill("#AAAAAA").drawCircle(0, 0, 50);
@@ -47,8 +47,23 @@
 			}
 		</script>
 	</head>
-	<body onload="init()">
-		<canvas id="mainStage" width="800", height="600">
+	<body onload="createjsInit()">
+	    <div style="position: absolute; left: 50%; top: 50%;">
+	    	<div style="position: relative; left: -50%; top: -20vh;">
+				<div class="container">
+					<section id="content">
+						<form action="">
+							<h1>Login or Register</h1>
+							<div> <input type="text" placeholder="Username" required id="username" /> </div>
+							<div> <input type="password" placeholder="Password" required id="password" /> </div>
+							<p id="exceptionText"> //Here I will put exceptions. </p>
+							<div> <input type="submit" value="Continue" /> </div>
+						</form>
+					</section>
+				</div>
+			</div>
+	    </div>
+		<canvas id="mainStage" width="800" height="600">
 			CreateJS didn't load.
 		</canvas>
 	</body>
