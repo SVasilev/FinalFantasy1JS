@@ -45,6 +45,10 @@
 			for(resolution in resolutions) {
 
 			}
+			
+			function handleExceptions() {
+				document.getElementById('exceptionText').innerHTML = "Asd";
+			}
 		</script>
 	</head>
 	<body onload="createjsInit()">
@@ -56,8 +60,8 @@
 							<h1>Login or Register</h1>
 							<div> <input type="text" placeholder="Username" required id="username" /> </div>
 							<div> <input type="password" placeholder="Password" required id="password" /> </div>
-							<p id="exceptionText"> //Here I will put exceptions. </p>
-							<div> <input type="submit" value="Continue" /> </div>
+							<p id="exceptionText" > //Here I will put exceptions. </p>
+							<div> <input type="submit" value="Continue" onclick="handleExceptions();" /> </div>
 						</form>
 					</section>
 				</div>
