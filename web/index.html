@@ -5,6 +5,7 @@
 		<title>Final Fantasy I In Browser</title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css" />
 		<script type="text/javascript" src="/lib/createjs-2013.12.12.min.js"></script>
+		<script type="text/javascript" src="/lib/phaser.min.js"></script>
 		<!-- http://code.createjs.com/createjs-2013.12.12.min.js -->
 		<script type="text/javascript">
 			var stage, ball;
@@ -46,8 +47,26 @@
 
 			}
 			
+			function fadeOut(element) {
+				var opacity = 1;
+			    var timer = setInterval(function () {
+			        if (opacity <= 0.1){
+			            clearInterval(timer);
+			            element.innerHTML = '&nbsp;';
+			        }
+			        element.style.opacity = opacity;
+			        element.style.filter = 'alpha(opacity=' + opacity * 100 + ")";
+			        opacity -= opacity * 0.1;
+			    }, 80);
+			}
+			
 			function handleExceptions() {
-				document.getElementById('exceptionText').innerHTML = "Asd";
+				if(true/*here lies a backand logic*/)
+				{
+					var element = document.getElementById('exceptionText');
+					element.innerHTML = "User already exists.";
+					fadeOut(element);
+				}
 			}
 		</script>
 	</head>
@@ -58,9 +77,9 @@
 					<section id="content">
 						<form action="">
 							<h1>Login or Register</h1>
-							<div> <input type="text" placeholder="Username" required id="username" /> </div>
+							<div> <input type="text" placeholder="E-mail" required id="e-mail" /> </div>
 							<div> <input type="password" placeholder="Password" required id="password" /> </div>
-							<p id="exceptionText" > //Here I will put exceptions. </p>
+							<div> <p id="exceptionText"> &nbsp; </p> </div>
 							<div> <input type="submit" value="Continue" onclick="handleExceptions();" /> </div>
 						</form>
 					</section>

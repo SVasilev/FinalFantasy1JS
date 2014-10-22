@@ -169,7 +169,7 @@ form:after {
 	border: 1px solid #ed1c24;
 	outline: none;
 }
-#username { background-position: 10px 10px !important }
+#e-mail { background-position: 10px 10px !important }
 #password  { background-position: 10px -53px !important }
 #content form input[type="submit"] {
 	background: rgb(254,231,154);
@@ -209,10 +209,7 @@ form:after {
 	background: linear-gradient(top,  rgba(254,193,81,1) 0%,rgba(254,231,154,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fec151', endColorstr='#fee79a',GradientType=0 );
 }
-#content form div a {
+#content form div p {
 	color: #004a80;
-    float: right;
-    font-size: 15px;
-    margin: 30px 15px 0 0;
-    text-decoration: underline;
+    font-size: 16px;
 }
