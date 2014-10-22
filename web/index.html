@@ -5,8 +5,8 @@
 		<title>Final Fantasy I In Browser</title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css" />
 		<script type="text/javascript" src="/lib/createjs-2013.12.12.min.js"></script>
-		<script type="text/javascript" src="/lib/phaser.min.js"></script>
-		<!-- http://code.createjs.com/createjs-2013.12.12.min.js -->
+		<script type="text/javascript" src="/lib/phaser/phaser.min.js"></script>
+		<script type="text/javascript" src="/lib/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript">
 			var stage, ball;
 			function createjsInit() {
@@ -68,11 +68,23 @@
 					fadeOut(element);
 				}
 			}
+			
+			function check() {
+				$.ajax({
+			        url: './services/gameQueries.js?cmd=blabla',
+			        success: function(response) {
+			            alert(response.toString());
+			        },
+					error: function(response) {
+						alert(response.responseText);
+					}
+			    });
+			}
 		</script>
 	</head>
 	<body onload="createjsInit()">
 	    <div style="position: absolute; left: 40%; top: 50%;">
-	    	<div style="position: relative; left: -30%; top: -20vh;">
+	    	<div style="position: relative; left: -33%; top: -20vh;">
 				<div class="container">
 					<section id="content">
 						<form action="">
@@ -80,7 +92,7 @@
 							<div> <input type="text" placeholder="E-mail" required id="e-mail" /> </div> 
 							<div> <input type="password" placeholder="Password" required id="password" /> </div>
 							<div> <p id="exceptionText"> &nbsp; </p> </div>
-							<div> <input type="submit" value="Continue" onclick="handleExceptions();" /> </div> 
+							<div> <input type="submit" value="Continue" onclick="check();" /> </div> 
 						</form>
 					</section>
 				</div>

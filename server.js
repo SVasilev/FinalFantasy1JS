@@ -6,9 +6,7 @@ var express = require('./lib/node_modules/express'),
 app.get(/.*services\/(.+)\.js.*/, function(req, res) {
 	var servicePath = './services/' + req.params[0] + '.js';
 	service = require(servicePath);
-	res.end(JSON.stringify(req.query));
-	//res.end(servicePath);
-	//res.end("asd");
+	res.end(JSON.stringify(service.executeCommand(req.query)));
 });
 
 app.use(express.static(__dirname + '/web'));
