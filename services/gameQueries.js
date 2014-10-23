@@ -5,27 +5,30 @@ var mysql = require('../lib/node_modules/mysql'),
 		password : 'goshko',
 		port	 : 3306,
 		database : 'ff1',
-		debug 	 : true,
+		//debug 	 : true,
 	});
 
 	
 
 module.exports = {
 	checkUser: function checkUser(requestParameters) {
-		connection.connect(function(err) {
+		/*connection.connect(function(err) {
 		  if ( !err ) {
 		    console.log("Connected to MySQL");
 		  } else if ( err ) {
 		    console.log(err);
 		  }
-		});
+		});*/
 
-		var result = "";
+		var result;
+		//var result = 5;
 		connection.query('SELECT * FROM user', function(err, rows, fields) {
 			//if (err) throw err;
 			//result = 'The solution is: ' + rows[0].id + 41;
-			//console.log('The solution is: ', rows[0].id);
-			return rows[0].id;
+			console.log('The solution is: ', rows[0].ID);
+			var result = 2;
+			//return rows[0].id;
+			//result = "ASD";//rows[0].ID;
 		});
 
 		
