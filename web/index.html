@@ -69,7 +69,7 @@
 				}
 			}
 			
-			function check() {
+			function checkUser() {
 				$.ajax({
 			        url: './services/gameQueries.js?cmd=blabla',
 			        success: function(response) {
@@ -89,7 +89,7 @@
 					<section id="content">
 						<form action="">
 							<h1>Login or Register</h1>
-							<div> <input type="text" placeholder="E-mail" required id="e-mail" /> </div> 
+							<div> <input type="email" placeholder="E-mail" required id="e-mail" /> </div> 
 							<div> <input type="password" placeholder="Password" required id="password" /> </div>
 							<div> <p id="exceptionText"> &nbsp; </p> </div>
 							<div> <input type="submit" value="Continue" onclick="check();" /> </div> 
