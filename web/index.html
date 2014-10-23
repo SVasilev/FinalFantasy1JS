@@ -69,9 +69,9 @@
 				}
 			}
 			
-			function checkUser() {
+			function executeQuery(parameters) {
 				$.ajax({
-			        url: './services/gameQueries.js?cmd=blabla',
+			        url: './services/gameQueries.js?' + parameters,
 			        success: function(response) {
 			            alert(response.toString());
 			        },
@@ -80,6 +80,20 @@
 					}
 			    });
 			}
+			
+			function checkUserExistance() {
+				var email 	 = document.getElementById('email').value,
+					password = document.getElementById('password').value;
+				
+				if(email && password) {
+					//alert(email + " " + password);
+					var a = 'cmd=checkUserExistance&email=' + email + '&password=' + password;
+					//executeQuery('cmd=checkUserExistance');
+					executeQuery(a);
+				}
+			}
+
+			
 		</script>
 	</head>
 	<body onload="createjsInit()">
@@ -87,12 +101,12 @@
 	    	<div style="position: relative; left: -33%; top: -20vh;">
 				<div class="container">
 					<section id="content">
-						<form action="">
+						<form  action="">
 							<h1>Login or Register</h1>
-							<div> <input type="email" placeholder="E-mail" required id="e-mail" /> </div> 
+							<div> <input type="email" placeholder="E-mail" required id="email" autocomplete="off" /> </div> 
 							<div> <input type="password" placeholder="Password" required id="password" /> </div>
 							<div> <p id="exceptionText"> &nbsp; </p> </div>
-							<div> <input type="submit" value="Continue" onclick="check();" /> </div> 
+							<div> <input type="submit" value="Continue" onclick="checkUserExistance()" /> </div> 
 						</form>
 					</section>
 				</div>

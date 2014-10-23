@@ -158,7 +158,7 @@ form:after {
 	padding: 15px 10px 15px 40px;
 	width: 80%;
 }
-#content form input[type="text"]:focus,
+#content form input[type="email"]:focus,
 #content form input[type="password"]:focus {
 	-webkit-box-shadow: 0 0 2px #ed1c24 inset;
 	-moz-box-shadow: 0 0 2px #ed1c24 inset;
@@ -169,7 +169,7 @@ form:after {
 	border: 1px solid #ed1c24;
 	outline: none;
 }
-#e-mail { background-position: 10px 10px !important }
+#email { background-position: 10px 10px !important }
 #password  { background-position: 10px -53px !important }
 #content form input[type="submit"] {
 	background: rgb(254,231,154);
