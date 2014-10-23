@@ -3,10 +3,10 @@ var express = require('./lib/node_modules/express'),
 	port    = process.env.PORT || 8080;
 
 //Queries to database are made through http://localhost:8080/services/<backendFile>.js
-app.get(/.*services\/(.+)\.js.*/, function(req, res) {
-	var servicePath = './services/' + req.params[0] + '.js';
-	service = require(servicePath);
-	res.end(JSON.stringify(service.executeCommand(req.query)));
+app.get(/.*services\/(.+)\.js.*/, function(request, resesponse) {
+	var servicePath = './services/' + request.params[0] + '.js';
+	var service = require(servicePath);
+	service.executeCommand(request, resesponse);
 });
 
 app.use(express.static(__dirname + '/web'));
