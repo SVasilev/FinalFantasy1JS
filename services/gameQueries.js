@@ -1,4 +1,5 @@
-var mysql = require('../lib/node_modules/mysql'),
+var utils = require('../lib/utils/logic.js'),
+	mysql = require('../lib/node_modules/mysql'),
 	connection = mysql.createConnection({
 		host     : 'localhost',
 		user     : 'Sopata',
@@ -7,30 +8,32 @@ var mysql = require('../lib/node_modules/mysql'),
 	});
 
 module.exports = {
-	invalidCommand: function invalidCommand() {
+	invalidCommand: function() {
 		response.end("Invalid Command");
 	},
-	checkUserExistance: function checkUserExistance(request, response) {
-		//alert("asd");
+	registerUser: function (request, response) {
 		connection.query('SELECT * FROM user', function(error, rows, fields) {
 			if(error) throw error;
-			//res.end(reqest.query.cmd.toString());
-			
-			//res.end("asd");
-			/*if(request.query.email == rows[0].email.toString())
-			{
-				response.end("Exist");
-			}
+			if(utils.emailExists(rows, request.query.email.toString())) response.end("User already exists.");
 			else
 			{
-				response.end("Doesnt exist");
-			}*/
+				var post = { 
+					email: request.query.email.toString(),
+					password: request.query.password.toString(), //TODO Make it with CryptoJS
+					salt: utils.generateRandomSalt(), 
+					created: new Date()
+				};
+				connection.query("INSERT INTO USER SET ?", post, function(error, rows, fields) {
+					if(error) throw error;
+					response.end("User created.");
+				});
+			}
 		});
 	},
 	executeCommand: function(request, response) {
 		switch (request.query.cmd) {
-		case 'checkUserExistance':
-			this.checkUserExistance(request, response);
+		case 'registerUser':
+			this.registerUser(request, response);
 			break;
 		default:
 			this.invalidCommand();

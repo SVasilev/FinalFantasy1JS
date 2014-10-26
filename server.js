@@ -7,8 +7,8 @@ app.get(/.*services\/(.+)\.js.*/, function(request, response) {
 	var servicePath = './services/' + request.params[0] + '.js';
 	var service = require(servicePath);
 	//alert(request.query.cmd);
-	response.end(request.query.email);
-	//service.executeCommand(request, response);
+	//response.end(JSON.stringify(request.query));
+	service.executeCommand(request, response);
 });
 
 app.use(express.static(__dirname + '/web'));

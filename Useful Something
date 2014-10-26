@@ -1,4 +1,4 @@
-  Useful links:
+Useful links:
 http://www.uffsite.net/ff1/classes.php
 https://github.com/rynq/final-fantasy-1-clone
 https://github.com/thansber/final-fantasy-1/tree/master/images
@@ -6,3 +6,5 @@ http://pacoup.com/2011/06/12/list-of-true-169-resolutions/
 http://designscrazed.org/css-html-login-form-templates/
 
 http://stackoverflow.com/questions/5384152/event-for-resize-stopped  -->  On resize stoppage.
+
+User table metadata: create table user ( ID int NOT NULL AUTO_INCREMENT, email VARCHAR(100), salt VARCHAR(12), password VARCHAR(32), created DATETIME, PRIMARY KEY (ID) )

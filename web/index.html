@@ -6,6 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="/css/style.css" />
 		<script type="text/javascript" src="/lib/createjs-2013.12.12.min.js"></script>
 		<script type="text/javascript" src="/lib/phaser/phaser.min.js"></script>
+		<script type="text/javascript" src="/lib/utils/presentation.js"></script>
 		<script type="text/javascript" src="/lib/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript">
 			var stage, ball;
@@ -46,54 +47,6 @@
 			for(resolution in resolutions) {
 
 			}
-			
-			function fadeOut(element) {
-				var opacity = 1;
-			    var timer = setInterval(function () {
-			        if (opacity <= 0.1){
-			            clearInterval(timer);
-			            element.innerHTML = '&nbsp;';
-			        }
-			        element.style.opacity = opacity;
-			        element.style.filter = 'alpha(opacity=' + opacity * 100 + ")";
-			        opacity -= opacity * 0.1;
-			    }, 80);
-			}
-			
-			function handleExceptions() {
-				if(true/*here lies a backand logic*/)
-				{
-					var element = document.getElementById('exceptionText');
-					element.innerHTML = "User already exists.";
-					fadeOut(element);
-				}
-			}
-			
-			function executeQuery(parameters) {
-				$.ajax({
-			        url: './services/gameQueries.js?' + parameters,
-			        success: function(response) {
-			            alert(response.toString());
-			        },
-					error: function(response) {
-						alert(response.responseText);
-					}
-			    });
-			}
-			
-			function checkUserExistance() {
-				var email 	 = document.getElementById('email').value,
-					password = document.getElementById('password').value;
-				
-				if(email && password) {
-					//alert(email + " " + password);
-					var a = 'cmd=checkUserExistance&email=' + email + '&password=' + password;
-					//executeQuery('cmd=checkUserExistance');
-					executeQuery(a);
-				}
-			}
-
-			
 		</script>
 	</head>
 	<body onload="createjsInit()">
@@ -101,12 +54,12 @@
 	    	<div style="position: relative; left: -33%; top: -20vh;">
 				<div class="container">
 					<section id="content">
-						<form  action="">
+						<form id="login" action="#">
 							<h1>Login or Register</h1>
 							<div> <input type="email" placeholder="E-mail" required id="email" autocomplete="off" /> </div> 
 							<div> <input type="password" placeholder="Password" required id="password" /> </div>
 							<div> <p id="exceptionText"> &nbsp; </p> </div>
-							<div> <input type="submit" value="Continue" onclick="checkUserExistance()" /> </div> 
+							<div> <button type="button" onclick="presentationUtils.registerUser()" > Continue </button> </div>
 						</form>
 					</section>
 				</div>
