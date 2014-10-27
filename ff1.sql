@@ -29,7 +29,7 @@ CREATE TABLE `user` (
   `password` varchar(32) NOT NULL,
   `created` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'thesopa@abv.bg','asd','asd','2014-10-22 21:41:09'),(4,'thegoshko@abv.bg','asd','asd','2014-10-26 21:26:19'),(19,'bobi@dimitrov.com','asd','glupakoTI','2014-10-26 22:06:35'),(20,'bobia@dimitrov.com','asd','asd','2014-10-26 22:07:33'),(21,'d@a','0f2bgPLYhGms','ssss','2014-10-26 22:09:42'),(22,'d@aa','LK0qSL5JVRz0','b','2014-10-26 22:26:13'),(23,'d@aaa','QlMcYStuKJo1','b','2014-10-26 22:30:46'),(24,'d@aaaa','5vWeZEZLu6Z2','a','2014-10-26 22:37:34'),(25,'asd@asd','cNWKzbNFgkxp','asdasd','2014-10-26 22:41:01'),(26,'a@a','WBxgn9p7pQqo','b','2014-10-26 22:51:21'),(27,'a@ab','NiYKuRKrk8yD','a','2014-10-26 22:51:58'),(28,'a@aa','oTDpWMHVE15l','b','2014-10-26 22:52:54');
+INSERT INTO `user` VALUES (29,'thesopa@abv.bg','v5qgOBBwT5K9','db8e8ef6b98c6d9dffcef7544e5bcf8a','2014-10-27 17:27:57');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-26 23:00:15
+-- Dump completed on 2014-10-27 17:29:28
