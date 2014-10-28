@@ -42,6 +42,11 @@ form:after {
 	clear: both;
 	visibility: hidden;
 }
+#login
+{
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: scale(1);
+}
 .container { margin: 25px auto; position: relative; width: 900px; }
 #content {
 	background: #f9f9f9;

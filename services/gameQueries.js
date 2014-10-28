@@ -16,6 +16,9 @@ module.exports = {
 		var userEmail 	 = request.query.email.toString(),
 			userPassword = request.query.password.toString();
 		
+		
+		if(!utils.isValidEmail(userEmail)) { response.end("Invalid email."); return; }
+		
 		connection.query('SELECT * FROM user', function(error, rows, fields) {
 			if(error) throw error;
 			var currentUser = utils.findUserWithProperty(rows, userEmail, 'email');
