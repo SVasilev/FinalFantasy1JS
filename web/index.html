@@ -4,81 +4,56 @@
 		<meta charset="UTF-8">
 		<title>Final Fantasy I In Browser</title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css" />
-		<script type="text/javascript" src="/lib/createjs-2013.12.12.min.js"></script>
 		<script type="text/javascript" src="/lib/phaser/phaser.min.js"></script>
 		<script type="text/javascript" src="/lib/utils/presentation.js"></script>
-		<script type="text/javascript" src="/lib/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="/lib/jquery/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript">
+			var game = new Phaser.Game(1280, 720, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
-			function onResize(event)
-			{
-				var CHROME_DIV_BOUNDRIES = 20;
-				// browser viewport size
-				var browserWidth  = window.innerWidth  - CHROME_DIV_BOUNDRIES;
-				var browserHeight = window.innerHeight - CHROME_DIV_BOUNDRIES;
-				// stage dimensions
-				var stageWidth  = 1280; // your stage width
-				var stageHeight = 720;  // your stage height
-			    //var scale = Math.min(browserWidth / stageWidth, browserHeight / stageHeight);
-			    stage.scaleX = browserWidth / stageWidth;
-			    stage.scaleY = browserHeight / stageHeight;
-			   	// adjust canvas size
-			   	stage.canvas.width  = stageWidth  * browserWidth / stageWidth;
-			  	stage.canvas.height = stageHeight * browserHeight / stageHeight;
-			  	stage.update();
-			}
-
-			window.onresize = onResize;
-
-			var resolutions = [{ width: 1280, height: 720 }, { width: 1024, height: 576 }];
-			
-			var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create });
-
-			var text;
-			var counter = 0;
-
-			function preload () {
-
-			    //  You can fill the preloader with as many assets as your game requires
-
-			    //  Here we are loading an image. The first parameter is the unique
-			    //  string by which we'll identify the image later in our code.
-
-			    //  The second parameter is the URL of the image (relative)
-			    game.load.image('login', 'assets/img/game/example.png');
+			function preload() {
+			    game.load.image('nanoha', 'assets/img/game/ff1Logo.jpg');
 
 			}
 
 			function create() {
+			    var sprite = game.add.sprite(game.world.centerX, game.world.centerY, 'nanoha');
+			    sprite.anchor.set(0.5);
 
-			    //  This creates a simple sprite that is using our loaded image and
-			    //  displays it on-screen and assign it to a variable
-			    var image = game.add.sprite(game.world.centerX, game.world.centerY, 'login');
-
-			    //  Moves the image anchor to the middle, so it centers inside the game properly
-			    image.anchor.set(0.5);
-
-			    //  Enables all kind of input actions on this image (click, etc)
-			    image.inputEnabled = true;
-
-			    text = game.add.text(250, 16, '', { fill: '#ffffff' });
-
-			    image.events.onInputDown.add(listener, this);
-
+			    game.stage.backgroundColor = '#4d4d4d';
+			    
+			    var shape = game.add.graphics(0, 0);  //init rect
+				shape.lineStyle(2, 0x0000FF, 1); // width, color (0x0000FF), alpha (0 -> 1) // required settings
+				shape.beginFill(0xFFFF0B, 1) // color (0xFFFF0B), alpha (0 -> 1) // required settings
+				shape.drawRect(1280 - 100, 720 - 100, 100, 100); // (x, y, w, h) 
+				shape.endFill();
+			    	
+			    
+				//Scaling
+				this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+				//Redefinition of game.scale.setShowAll
+	            game.scale.setShowAll = function () {
+	            	var xScaleMultiplier = window.innerWidth / this.game.width,
+			    		yScaleMultiplier = window.innerHeight / this.game.height;
+				    this.width  = Math.round(this.game.width * xScaleMultiplier);
+				    this.height = Math.round(this.game.height * yScaleMultiplier);
+	            }
+			    game.scale.refresh();
 			}
 
-			function listener () {
 
-			    counter++;
-			    text.text = "You clicked " + counter + " times!";
+			function update() {
+				
+			}
 
+			function render () {
+			    game.debug.inputInfo(32, 32);
 			}
 			
 		</script>
 	</head>
-	<body onload="createjsInit()">
+	<body>
 	    <div id="login" style="position: absolute; left: 40%; top: 50%;">
-	    	<div style="position: relative; left: -30%; top: -20vh;">
+	    	<div style="position: relative; left: -33%; top: -23vh;">
 				<div class="container">
 					<section id="content">
 						<form action="#">
@@ -92,6 +67,5 @@
 				</div>
 			</div>
 	    </div>
-		
 	</body>
 </html>
