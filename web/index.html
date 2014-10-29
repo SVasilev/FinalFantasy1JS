@@ -29,14 +29,7 @@
 			    	
 			    
 				//Scaling
-				this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-				//Redefinition of game.scale.setShowAll
-	            game.scale.setShowAll = function () {
-	            	var xScaleMultiplier = window.innerWidth / this.game.width,
-			    		yScaleMultiplier = window.innerHeight / this.game.height;
-				    this.width  = Math.round(this.game.width * xScaleMultiplier);
-				    this.height = Math.round(this.game.height * yScaleMultiplier);
-	            }
+				game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 			    game.scale.refresh();
 			}
 
