@@ -9,6 +9,8 @@ http://stackoverflow.com/questions/5384152/event-for-resize-stopped  -->  On res
 
 Known cut features:
 Dealing with locations
+Affects like stone, darkness, poison, etc...
+
 
 User table metadata: create table user ( ID int NOT NULL AUTO_INCREMENT, email VARCHAR(100), salt VARCHAR(12), password VARCHAR(32), created DATETIME, PRIMARY KEY (ID) )
 
@@ -19,7 +21,9 @@ explanation:
 Should check the map for proper locations
 
 Item 
-id(int) location(varchar(50)) name(varchar(50)) sell(int) cost(int) use(bool) affect(int) attributes(SEE FROM HOME) level(int)
+id(int) location(varchar(50)) name(varchar(50)) sell(int) cost(int) use(bool) all(bool) temporary(bool) requiredLevel(int) changeStatus(varchar(10))
+		hitPoints, maxHitPoints, magicPoints, maxMagicPoints, strength, agility, intelligence, stamina, luck, attack, defense, accuracy, evasion (int)
+		//imageLocation(varchar(255)) //loads from local hosted file
 
 explanation:
 location -> id from the table Locations
@@ -27,25 +31,24 @@ location -> id from the table Locations
 use true  -> usable item => dont look for attributes
 use false -> equiptment  => dont look for affect
 
-affect  11 -> cure poison
-		12 -> cure stone
-		13 -> HP+
-		14 -> HP++
-		15 -> HP+++ MP+
-		
-		23 -> HP+, all party
-		24 -> HP++, all party
-		25 -> HP+++ MP+, all party
-		
-Spell
-id(int) creatureId(int) location(varchar(50)) name(varchar(50)) sell(int) cost(int) white(bool) level(int) type(varchar(10)) all(bool) applyOn(bool) 
-		//affect(HP1, HP2, HP+++, DMG+, DMG++, Stone, Life, Defense, )
-		hp(int) -> For example hp(30) means give 30 hp to charecter, but hp(-100) means make 100 dmg do character. If the spell dosn't do anything with
-		the hp of the character then it should be hp(0) coz in the game logic I will sum every property with the character properties.
-		stone(int) -> if the spell is Stone it will be stone(1) and every other property (hp, atk, def ... ) will be 0.
-		Continue like this from HOME.
+all true -> affects whole party
+else ...
 
-creatureId means tha creature that can use this spell
+temporary true -> this attribute addition will be removed after battle
+
+changeStatus { normal, darkness, poison, stone, KO }
+
+
+Spell
+id(int) location(varchar(50)) name(varchar(50)) sell(int) cost(int) white(bool) requiredLevel(int) type(varchar(10)) all(bool) applyOn(bool) changeStatus(varchar(10))
+		hitPoints, strength, agility, intelligence, stamina, luck, attack, defense, accuracy, evasion (int)
+		//hp(int) -> For example hp(30) means give 30 hp to charecter, but hp(-100) means make 100 dmg do character. If the spell dosn't do anything with
+		//the hp of the character then it should be hp(0) coz in the game logic I will sum every property with the character properties.
+		
+		1, 'Cornelia', 'Cure', 50, 100, TRUE, 1, 'neutral', FALSE, TRUE, 'normal', 30, 0, 0, 0, 0, 0, 0, 0, 0 ,0
+		2, 'Cornelia', 'Harm', 50, 100, TRUE, 1, 'holy', FALSE, FALSE, 'normal', -50, 0, 0, 0, 0, 0, 0, 0, 0 ,0
+		
+		
 
 level { 1, 2, ... 8 }
 
@@ -53,7 +56,7 @@ applyOn 0 -> enemy
 applyOn 1 -> self
 
 
-type { earth, fire, water, wind, holy, dark }
+type { neutral, earth, fire, water, wind, holy, dark }
 
 if(white) -> white magic
 else	  -> black magic
@@ -69,8 +72,13 @@ Connection Tables
 	User Spell
 	userId(int) spellId(int)
 	
+	Creature Spells
+	creatureId(int) spellId(int)
+	
 Creature
-id(int) location(varchar(50)) name(varchar(50)) type(varchar(10)) attributes: dmg, atk, def, ... They all should level as the players level
+id(int) location(varchar(50)) name(varchar(50)) type(varchar(10)) experienceEarn(int)
+hitPoints, maxHitPoints, magicPoints, maxMagicPoints, strength, agility, intelligence, stamina, luck, attack, defense, accuracy, evasion (int)
+imageX(int), imageY(int) imageWidth(int), imageHeight(int)// load from big local sprite
 
 
 

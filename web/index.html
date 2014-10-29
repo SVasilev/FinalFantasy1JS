@@ -30,14 +30,6 @@
 			    
 				//Scaling
 				this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
-				//Redefinition of game.scale.setShowAll
-	            /*game.scale.setShowAll = function () {
-	            	var xScaleMultiplier = window.innerWidth / this.game.width,
-			    		yScaleMultiplier = window.innerHeight / this.game.height;
-				    this.width  = Math.round(this.game.width * xScaleMultiplier);
-				    this.height = Math.round(this.game.height * yScaleMultiplier);
-	            }*/
-	            //game.sclae.setShowAll();
 			    game.scale.refresh();
 			}
 
