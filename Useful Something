@@ -36,17 +36,26 @@ else ...
 
 temporary true -> this attribute addition will be removed after battle
 
-changeStatus { normal, darkness, poison, stone, KO }
+changeStatus { normal, darkness, poison, stone, silence, KO }
 
 
 Spell
-id(int) location(varchar(50)) name(varchar(50)) sell(int) cost(int) white(bool) requiredLevel(int) type(varchar(10)) all(bool) applyOn(bool) changeStatus(varchar(10))
+id(int) location(varchar(50)) name(varchar(50)) description(varchar(100)) sell(int) cost(int) white(bool) requiredLevel(int) type(varchar(10)) all(bool) applyOn(bool) changeStatus(varchar(10))
 		hitPoints, strength, agility, intelligence, stamina, luck, attack, defense, accuracy, evasion (int)
 		//hp(int) -> For example hp(30) means give 30 hp to charecter, but hp(-100) means make 100 dmg do character. If the spell dosn't do anything with
 		//the hp of the character then it should be hp(0) coz in the game logic I will sum every property with the character properties.
 		
-		1, 'Cornelia', 'Cure', 50, 100, TRUE, 1, 'neutral', FALSE, TRUE, 'normal', 30, 0, 0, 0, 0, 0, 0, 0, 0 ,0
-		2, 'Cornelia', 'Harm', 50, 100, TRUE, 1, 'holy', FALSE, FALSE, 'normal', -50, 0, 0, 0, 0, 0, 0, 0, 0 ,0
+		ID  LOCATION    NAME  DESCRIPTION SELL COST WHITE REQLVL   TYPE      ALL    APPLYON  STATUSCH   HP STR AGIL INT STAM LUCK ATK DEF ACCU EVAS
+		1, 'Cornelia', 'Cure',      1,     50, 100, TRUE,     1, 'neutral', FALSE,   TRUE,   'normal',  30,  0,  0,   0,   0,   0,  0,  0,   0,   0
+		2, 'Cornelia', 'Harm',      2,     50, 100, TRUE,     1, 'holy',    FALSE,   FALSE,  'normal', -50,  0,  0,   0,   0,   0,  0,  0,   0,   0
+		3, 'Cornelia', 'Fog' ,      3,     50, 100, TRUE,     1, 'neutral', FALSE,   TRUE,   'normal',   0,  0,  0,   0,   0,   0,  0,  8,   0,   0
+		4, 'Cornelia', 'Ruse',      4,     50, 100, TRUE,     1, 'neutral', FALSE,   TRUE,   'normal',   0,  0,  0,   0,   0,   0,  0,  0,   0,  80
+		
+		5, 'Pravoka',  'Lamp',      5,    150, 400, TRUE,     2, 'neutral', FALSE,   TRUE,   'darkness', 0,  0,  0,   0,   0,   0,  0,  0,   0,   0
+		6, 'Pravoka',  'Mute',      6,    150, 400, TRUE,     2, 'neutral', FALSE,   FALSE,  'silence',  0,  0,  0,   0,   0,   0,  0,  0,   0,   0
+		7, 'Pravoka',  'Invis',     7,    150, 400, TRUE,     2, 'neutral', FALSE,   TRUE,   'normal',   0,  0,  0,   0,   0,   0,  0,  0,   0, 120
+		
+		8, 'ElfLand',  'Cura',      8,    800,1500, TRUE,     3, 'neutral', FALSE,   TRUE,   'normal',  70,  0,  0,   0,   0,   0,  0,  0,   0,   0
 		
 		
 
