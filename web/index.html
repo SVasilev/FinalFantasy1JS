@@ -8,43 +8,37 @@
 		<script type="text/javascript" src="/lib/utils/presentation.js"></script>
 		<script type="text/javascript" src="/lib/jquery/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript">
-			var game = new Phaser.Game(1280, 720, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
-
-			function preload() {
-			    game.load.image('nanoha', 'assets/img/game/ff1Logo.jpg');
-
-			}
-
-			function create() {
-			    var sprite = game.add.sprite(game.world.centerX, game.world.centerY, 'nanoha');
-			    sprite.anchor.set(0.5);
-
-			    game.stage.backgroundColor = '#4d4d4d';
-			    
-			    var shape = game.add.graphics(0, 0);  //init rect
-				shape.lineStyle(2, 0x0000FF, 1); // width, color (0x0000FF), alpha (0 -> 1) // required settings
-				shape.beginFill(0xFFFF0B, 1) // color (0xFFFF0B), alpha (0 -> 1) // required settings
-				shape.drawRect(1280 - 100, 720 - 100, 100, 100); // (x, y, w, h) 
-				shape.endFill();
-			    	
-			    
-				//Scaling
-				this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
-			    game.scale.refresh();
-			}
-
-
-			function update() {
-				
-			}
-
-			function render () {
-			    game.debug.inputInfo(32, 32);
-			}
+		var game = new Phaser.Game(1280, 720, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+		function preload() {
+		    game.load.image('nanoha', 'assets/img/game/ff1Logo.jpg');
+		}
+		function create() {
+		    var sprite = game.add.sprite(game.world.centerX, game.world.centerY, 'nanoha');
+		    sprite.anchor.set(0.5);
+		    game.stage.backgroundColor = '#4d4d4d';
+		    
+		    var shape = game.add.graphics(0, 0);  //init rect
+			shape.lineStyle(2, 0x0000FF, 1); // width, color (0x0000FF), alpha (0 -> 1) // required settings
+			shape.beginFill(0xFFFF0B, 1) // color (0xFFFF0B), alpha (0 -> 1) // required settings
+			shape.drawRect(1280 - 100, 720 - 100, 100, 100); // (x, y, w, h) 
+			shape.endFill();
+		    	
+		    
+			//Scaling
+			this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+		    game.scale.refresh();
+		}
+		function update() {
+			
+		}
+		function render () {
+		    game.debug.inputInfo(32, 32);
+		}
 			
 		</script>
 	</head>
 	<body>
+		<!-- 
 	    <div id="login" style="position: absolute; left: 40%; top: 50%;">
 	    	<div style="position: relative; left: -33%; top: -23vh;">
 				<div class="container">
@@ -60,5 +54,6 @@
 				</div>
 			</div>
 	    </div>
+	     -->
 	</body>
 </html>
