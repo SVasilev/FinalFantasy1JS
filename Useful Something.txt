@@ -88,11 +88,3 @@ Creature
 id(int) location(varchar(50)) name(varchar(50)) type(varchar(10)) experienceEarn(int)
 hitPoints, maxHitPoints, magicPoints, maxMagicPoints, strength, agility, intelligence, stamina, luck, attack, defense, accuracy, evasion (int)
 imageX(int), imageY(int) imageWidth(int), imageHeight(int)// load from big local sprite
-
-
-
-
-
-
-
-
