@@ -97,4 +97,5 @@ imageX(int), imageY(int) imageWidth(int), imageHeight(int)// load from big local
 03 = forest
 04 = mountain
 05 = river
-06 = desert
+06 = shipyard
+07 = desert

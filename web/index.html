@@ -36,7 +36,7 @@
 		}*/
 
 
-
+		/*
 		var game = new Phaser.Game(1280, 720, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 		function preload() {
@@ -96,12 +96,13 @@
 		function render () {
 		    game.debug.inputInfo(32, 32);
 		}
-		/*
+		*/
+		
 		var game = new Phaser.Game(1280, 720, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 		function preload() {
 
-		    game.load.tilemap('map', '../tilemap.json', null, Phaser.Tilemap.TILED_JSON);
+		    game.load.tilemap('map', '../smth.json', null, Phaser.Tilemap.TILED_JSON);
 		    game.load.image('tileset', 'super_mario.png');
 		    //game.load.image('walls_1x2', 'assets/tilemaps/tiles/walls_1x2.png');
 		    //game.load.image('tiles2', 'assets/tilemaps/tiles/tiles2.png');
@@ -132,7 +133,7 @@
 
 		    //  Set the tiles for collision.
 		    //  Do this BEFORE generating the p2 bodies below.
-		    map.setCollisionBetween(40, 41);
+		    map.setCollisionBetween(0, 41);
 		    
 		    map
 
@@ -189,7 +190,8 @@
 
 		function render() {
 			game.debug.inputInfo(32, 32);
-		}*/
+		}
+		
 			
 		</script>
 	</head>
