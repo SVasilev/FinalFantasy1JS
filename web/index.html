@@ -97,13 +97,13 @@
 		    game.debug.inputInfo(32, 32);
 		}
 		*/
-		/*
+		
 		var game = new Phaser.Game(1280, 720, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 		function preload() {
 
 		    game.load.tilemap('map', '../smth.json', null, Phaser.Tilemap.TILED_JSON);
-		    game.load.image('tileset', 'super_mario.png');
+		    game.load.image('tileset', 'tileset1.png');
 		    //game.load.image('walls_1x2', 'assets/tilemaps/tiles/walls_1x2.png');
 		    //game.load.image('tiles2', 'assets/tilemaps/tiles/tiles2.png');
 		    game.load.image('ship', '../lib/phaser/examples/assets/sprites/thrust_ship2.png');
@@ -133,7 +133,7 @@
 
 		    //  Set the tiles for collision.
 		    //  Do this BEFORE generating the p2 bodies below.
-		    map.setCollisionBetween(0, 41);
+		    map.setCollisionBetween(3, 41);
 		    
 		    map
 
@@ -143,7 +143,7 @@
 		    game.physics.p2.convertTilemap(map, layer);
 
 		    ship = game.add.sprite(200, 200, 'ship');
-		    ship.colideWith(platform)
+		    //ship.colideWith(platform)
 		    game.physics.p2.enable(ship);
 
 		    game.camera.follow(ship);
@@ -160,6 +160,9 @@
 		    // ship.body.collideWorldBounds = false;
 
 		    cursors = game.input.keyboard.createCursorKeys();
+		    
+		    this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+		    game.scale.refresh();
 
 		}
 
@@ -191,8 +194,8 @@
 
 		function render() {
 			game.debug.inputInfo(32, 32);
-		}*/
-
+		}
+		/*
 		var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create });
 
 		function preload() {
@@ -226,12 +229,12 @@
 		    //  true means it will loop when it finishes
 		    mummy.animations.play('walk', 20, true);
 
-		}
+		}*/
 			
 		</script>
 	</head>
 	<body>
-		<!-- 
+		
 	    <div id="login" style="position: absolute; left: 40%; top: 50%;">
 	    	<div style="position: relative; left: -33%; top: -23vh;">
 				<div class="container">
@@ -247,7 +250,7 @@
 				</div>
 			</div>
 	    </div>
-	     -->
+	    <!--  -->
 	</body>
 </html>
 
