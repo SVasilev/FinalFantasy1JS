@@ -19,20 +19,38 @@
 		var player;
 		var cursors;
 		var text;
+		var text1;
 		
+		//In order to get this to work you should add some invalid element on the 0th index of every array in the big array from te worldData
+		//For example arr[0][0] = 1, arr[1][0] = 1, ... arr[240][0] = 1
 		function calculatePlayerCooordinates(spriteX, spriteY) {
-			//1888, 1410 -> 157, 157
+			//This numbers will be gotten from worldMap class which should be passed as parameter
+			var worldmapHeight = 3840,
+				worldmapWidth  = 4240,
+			 	heightOffset   = 5,
+				widthOffset    = 10,
+				mapArrayHeight = 240,
+				mapArrayWidth  = 265,
+				tileSize       = 16;
+			//Recalculate Phaser bullshit with tileSprites
+			if(spriteY < 0) spriteY = worldmapHeight - Math.abs(spriteY);
+			if(spriteX < 0) spriteX = worldmapWidth - Math.abs(spriteX);
+			var currentY = Math.ceil((worldmapHeight - spriteY) / tileSize) + heightOffset,
+				currentX = Math.ceil((worldmapWidth  - spriteX) / tileSize) + widthOffset;
+			if(spriteY <= 79) currentY = heightOffset - Math.floor(spriteY / tileSize);
+			if(spriteX <= 158) currentX = widthOffset - Math.floor(spriteX / tileSize);
+			
 			return {
-				x: Math.floor(4240 - Math.abs(spriteX)) / 16 + 10, 
-				y: Math.floor(3840 - Math.abs(spriteY)) / 16 + 5
+				y: currentY > mapArrayHeight ? mapArrayHeight : currentY,
+				x: currentX > mapArrayWidth ? mapArrayWidth : currentX
 			};
 		}
-
+		
 		function create() {
 		    sprite = game.add.tileSprite(0, 0, 1280, 720, 'worldmap');
 		    sprite.scale.setTo(4, 4);
-		    sprite.tilePosition.x = 1888;
-		    sprite.tilePosition.y = 1408;
+		    sprite.tilePosition.x = 4238;//1888;
+		    sprite.tilePosition.y = 3828;//1408;
 		    
 		    player = game.add.sprite(game.width / 2, game.height / 2 - 35, 'player');
 		    player.scale.setTo(3, 3);
@@ -41,25 +59,26 @@
 		    game.scale.refresh();
 
 		    cursors = game.input.keyboard.createCursorKeys();
-		    text = game.add.text(300, 32, '', { fill: '#ffffff' });
+		    text  = game.add.text(300, 32, '', { fill: '#ffffff' });
+		    text1 = game.add.text(600, 32, '', { fill: '#ffffff' });
 		}
 
 		function update() {
 		    if (cursors.left.isDown)
 		    {
-		        sprite.tilePosition.x += 1.5;
+		        sprite.tilePosition.x += 0.5;//1.5;
 		    }
 		    else if (cursors.right.isDown)
 		    {
-		        sprite.tilePosition.x -= 1.5;
+		        sprite.tilePosition.x -= 10;//1.5;
 		    }
 		    if (cursors.up.isDown)
 		    {
-		        sprite.tilePosition.y += 1;
+		        sprite.tilePosition.y += 0.5;
 		    }
 		    else if (cursors.down.isDown)
 		    {
-		        sprite.tilePosition.y -= 1;
+		        sprite.tilePosition.y -= 10;
 		    }
 		}
 	
@@ -68,6 +87,10 @@
 		    var coords = calculatePlayerCooordinates(sprite.tilePosition.x, sprite.tilePosition.y);
 		    text.text = "PositionX: " + coords.x +
 		    			"\nPositionY: " + coords.y;
+		    
+		    text1.text = "PositionX: " + sprite.tilePosition.x +
+						 "\nPositionY: " + sprite.tilePosition.y;
+		    
 		}
 		</script>
 	</head>
