@@ -7,89 +7,53 @@
 		<script type="text/javascript" src="/lib/phaser/phaser.min.js"></script>
 		<script type="text/javascript" src="/lib/utils/presentation.js"></script>
 		<script type="text/javascript" src="/lib/jquery/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="/lib/game/World.js"></script>
+		<script type="text/javascript" src="/lib/game/Party.js"></script>
 		<script type="text/javascript">
-		var game = new Phaser.Game(1280, 720, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+		var game = new Phaser.Game(1280, 720, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update,render: render });
 
 		function preload() {
 		    game.load.image('worldmap', '../assets/img/world/worldMap.png');
 		    game.load.spritesheet('player', '../assets/img/game/worldmapMovement.png', 20, 20);
 		}
 
-		var sprite;
 		var player;
-		var cursors;
 		var text;
 		var text1;
-		
-		//In order to get this to work you should add some invalid element on the 0th index of every array in the big array from te worldData
-		//For example arr[0][0] = 1, arr[1][0] = 1, ... arr[240][0] = 1
-		function calculatePlayerCooordinates(spriteX, spriteY) {
-			//This numbers will be gotten from worldMap class which should be passed as parameter
-			var worldmapHeight = 3840,
-				worldmapWidth  = 4240,
-			 	heightOffset   = 5,
-				widthOffset    = 10,
-				mapArrayHeight = 240,
-				mapArrayWidth  = 265,
-				tileSize       = 16;
-			//Recalculate Phaser bullshit with tileSprites
-			if(spriteY < 0) spriteY = worldmapHeight - Math.abs(spriteY);
-			if(spriteX < 0) spriteX = worldmapWidth - Math.abs(spriteX);
-			var currentY = Math.ceil((worldmapHeight - spriteY) / tileSize) + heightOffset,
-				currentX = Math.ceil((worldmapWidth  - spriteX) / tileSize) + widthOffset;
-			if(spriteY <= 79) currentY = heightOffset - Math.floor(spriteY / tileSize);
-			if(spriteX <= 158) currentX = widthOffset - Math.floor(spriteX / tileSize);
-			
-			return {
-				y: currentY > mapArrayHeight ? mapArrayHeight : currentY,
-				x: currentX > mapArrayWidth ? mapArrayWidth : currentX
-			};
-		}
+		var world;
 		
 		function create() {
-		    sprite = game.add.tileSprite(0, 0, 1280, 720, 'worldmap');
-		    sprite.scale.setTo(4, 4);
-		    sprite.tilePosition.x = 4238;//1888;
-		    sprite.tilePosition.y = 3828;//1408;
+		    var worldSprite = game.add.tileSprite(0, 0, 1280, 720, 'worldmap');
+		    worldSprite.scale.setTo(4, 4);
+		    worldSprite.tilePosition.x = 4238;//1888;
+		    worldSprite.tilePosition.y = 3828;//1408;
+		    world = new World(worldSprite);
 		    
-		    player = game.add.sprite(game.width / 2, game.height / 2 - 35, 'player');
-		    player.scale.setTo(3, 3);
-		    
+		    var playerSprite = game.add.sprite(game.width / 2, game.height / 2 - 35, 'player');
+		    playerSprite.scale.setTo(3, 3);
+		    var cursors = game.input.keyboard.createCursorKeys();
+			player = new Party(playerSprite, cursors);		    
+
 			this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 		    game.scale.refresh();
 
-		    cursors = game.input.keyboard.createCursorKeys();
 		    text  = game.add.text(300, 32, '', { fill: '#ffffff' });
 		    text1 = game.add.text(600, 32, '', { fill: '#ffffff' });
 		}
 
 		function update() {
-		    if (cursors.left.isDown)
-		    {
-		        sprite.tilePosition.x += 0.5;//1.5;
-		    }
-		    else if (cursors.right.isDown)
-		    {
-		        sprite.tilePosition.x -= 10;//1.5;
-		    }
-		    if (cursors.up.isDown)
-		    {
-		        sprite.tilePosition.y += 0.5;
-		    }
-		    else if (cursors.down.isDown)
-		    {
-		        sprite.tilePosition.y -= 10;
-		    }
+		    player.move(1.5, world.sprite);
 		}
 	
 		function render () {
 		    game.debug.inputInfo(32, 32);
-		    var coords = calculatePlayerCooordinates(sprite.tilePosition.x, sprite.tilePosition.y);
+		    var coords = world.calculatePlayerCooordinates();
 		    text.text = "PositionX: " + coords.x +
-		    			"\nPositionY: " + coords.y;
+		    			"\nPositionY: " + coords.y +
+		    			"\nTileType: " + world.elements[world.tiles[coords.y][coords.x]];
 		    
-		    text1.text = "PositionX: " + sprite.tilePosition.x +
-						 "\nPositionY: " + sprite.tilePosition.y;
+		    text1.text = "PositionX: " + world.sprite.tilePosition.x +
+						 "\nPositionY: " + world.sprite.tilePosition.y;
 		    
 		}
 		</script>
