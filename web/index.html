@@ -14,46 +14,45 @@
 
 		function preload() {
 		    game.load.image('worldmap', '../assets/img/world/worldMap.png');
-		    game.load.spritesheet('player', '../assets/img/game/worldmapMovement.png', 20, 20);
+		    game.load.spritesheet('party', '../assets/img/game/worldmapMovement.png', 20, 20);
 		}
-
-		var player;
-		var text;
-		var text1;
-		var world;
 		
 		function create() {
 		    var worldSprite = game.add.tileSprite(0, 0, 1280, 720, 'worldmap');
 		    worldSprite.scale.setTo(4, 4);
-		    worldSprite.tilePosition.x = 4238;//1888;
-		    worldSprite.tilePosition.y = 3828;//1408;
-		    world = new World(worldSprite);
+		    worldSprite.tilePosition.x = 3990;//1888;
+		    worldSprite.tilePosition.y = 3763;//1408;
+		    this.world = new World(worldSprite);
 		    
-		    var playerSprite = game.add.sprite(game.width / 2, game.height / 2 - 35, 'player');
-		    playerSprite.scale.setTo(3, 3);
+		    var partySprite = game.add.sprite(game.width / 2, game.height / 2 - 35, 'party');
+		    partySprite.scale.setTo(3, 3);
 		    var cursors = game.input.keyboard.createCursorKeys();
-			player = new Party(playerSprite, cursors);		    
+			this.party = new Party(partySprite, cursors, this.world);
 
-			this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+			game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
 		    game.scale.refresh();
 
-		    text  = game.add.text(300, 32, '', { fill: '#ffffff' });
-		    text1 = game.add.text(600, 32, '', { fill: '#ffffff' });
+		    this.text  = game.add.text(300, 32, '', { fill: '#ffffff' });
+		    this.text1 = game.add.text(600, 32, '', { fill: '#ffffff' });
 		}
 
 		function update() {
-		    player.move(1.5, world.sprite);
+		    this.party.move(1.5);
 		}
 	
 		function render () {
 		    game.debug.inputInfo(32, 32);
-		    var coords = world.calculatePlayerCooordinates();
-		    text.text = "PositionX: " + coords.x +
+		    var coords = this.world.calculatePlayerCooordinates();
+		    this.text.text = "PositionX: " + coords.x +
 		    			"\nPositionY: " + coords.y +
-		    			"\nTileType: " + world.elements[world.tiles[coords.y][coords.x]];
+		    			"\nTileType: " + this.world.next("current") +
+		    			"\nRightType: " + this.world.next("right") +
+		    			"\nLeftType: " + this.world.next("left") +
+		    			"\nTopType: " + this.world.next("top") +
+		    			"\nDownType: " + this.world.next("down");
 		    
-		    text1.text = "PositionX: " + world.sprite.tilePosition.x +
-						 "\nPositionY: " + world.sprite.tilePosition.y;
+		    this.text1.text = "PositionX: " + this.world.sprite.tilePosition.x +
+						 "\nPositionY: " + this.world.sprite.tilePosition.y;
 		    
 		}
 		</script>
