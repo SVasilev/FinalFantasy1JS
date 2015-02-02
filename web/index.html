@@ -14,14 +14,14 @@
 
 		function preload() {
 		    game.load.image('worldmap', '../assets/img/world/worldMap.png');
-		    game.load.spritesheet('party', '../assets/img/game/worldmapMovement.png', 20, 20);
+		    game.load.spritesheet('party', '../assets/img/game/worldmapMovement.gif', 20, 20);
 		}
 		
 		function create() {
 		    var worldSprite = game.add.tileSprite(0, 0, 1280, 720, 'worldmap');
 		    worldSprite.scale.setTo(4, 4);
-		    worldSprite.tilePosition.x = 3990;//1888;
-		    worldSprite.tilePosition.y = 3763;//1408;
+		    worldSprite.tilePosition.x = 1888;//3990;//1888;
+		    worldSprite.tilePosition.y = 1408;//3763;//1408;
 		    this.world = new World(worldSprite);
 		    
 		    var partySprite = game.add.sprite(game.width / 2, game.height / 2 - 35, 'party');
