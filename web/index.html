@@ -1,80 +1,86 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+    <meta charset="UTF-8">
 		<title>Final Fantasy I In Browser</title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css" />
-		<script type="text/javascript" src="/lib/phaser/phaser.min.js"></script>
-		<script type="text/javascript" src="/lib/utils/presentation.js"></script>
-		<script type="text/javascript" src="/lib/jquery/jquery-1.11.1.min.js"></script>
-		<script type="text/javascript" src="/lib/game/World.js"></script>
-		<script type="text/javascript" src="/lib/game/Party.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/phaser/2.1.3/phaser.min.js"></script>
+		<script type="text/javascript" src="./ui/loginUtils.js"></script>
 		<script type="text/javascript">
-		var game = new Phaser.Game(1280, 720, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update,render: render });
+
+    // Load our utils
+    $.ajaxSetup({ async: false });
+    $.getScript('../lib/game/utils.js', function(utils) { eval(utils); });
+    $.ajaxSetup({ async: true });
+
+    utils.require('../lib/game/world/World.js');
+    utils.require('../lib/game/Party.js');
+
+		var game = new Phaser.Game(1280, 720, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 		function preload() {
-		    game.load.image('worldmap', '../assets/img/world/worldMap.png');
-		    game.load.spritesheet('party', '../assets/img/game/worldmapMovement.gif', 20, 20);
+			game.load.image('worldmap', './assets/img/world/worldMap.png');
+			game.load.spritesheet('party', './assets/img/game/worldmapMovement.gif', 20, 20);
 		}
-		
+
 		function create() {
-		    var worldSprite = game.add.tileSprite(0, 0, 1280, 720, 'worldmap');
-		    worldSprite.scale.setTo(4, 4);
-		    worldSprite.tilePosition.x = 1888;//3990;//1888;
-		    worldSprite.tilePosition.y = 1408;//3763;//1408;
-		    this.world = new World(worldSprite);
-		    
-		    var partySprite = game.add.sprite(game.width / 2, game.height / 2 - 35, 'party');
-		    partySprite.scale.setTo(3, 3);
-		    var cursors = game.input.keyboard.createCursorKeys();
+			var worldSprite = game.add.tileSprite(0, 0, 1280, 720, 'worldmap');
+			worldSprite.scale.setTo(4, 4);
+			worldSprite.tilePosition.x = 1888;//3990;//1888;
+			worldSprite.tilePosition.y = 1408;//3763;//1408;
+
+      var tileData = utils.loadJSON('../lib/game/world/tileData.json');
+			this.world = new World(worldSprite, tileData);
+
+			var partySprite = game.add.sprite(game.width / 2, game.height / 2 - 35, 'party');
+			partySprite.scale.setTo(3, 3);
+			var cursors = game.input.keyboard.createCursorKeys();
 			this.party = new Party(partySprite, cursors, this.world);
 
 			game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
-		    game.scale.refresh();
+			game.scale.refresh();
 
-		    this.text  = game.add.text(300, 32, '', { fill: '#ffffff' });
-		    this.text1 = game.add.text(600, 32, '', { fill: '#ffffff' });
+			this.text  = game.add.text(300, 32, '', { fill: '#ffffff' });
+			this.text1 = game.add.text(600, 32, '', { fill: '#ffffff' });
 		}
 
 		function update() {
-		    this.party.move(1.5);
+			this.party.move(1.5);
 		}
-	
+
 		function render () {
-		    game.debug.inputInfo(32, 32);
-		    var coords = this.world.calculatePlayerCooordinates();
-		    this.text.text = "PositionX: " + coords.x +
-		    			"\nPositionY: " + coords.y +
-		    			"\nTileType: " + this.world.next("current") +
-		    			"\nRightType: " + this.world.next("right") +
-		    			"\nLeftType: " + this.world.next("left") +
-		    			"\nTopType: " + this.world.next("top") +
-		    			"\nDownType: " + this.world.next("down");
-		    
-		    this.text1.text = "PositionX: " + this.world.sprite.tilePosition.x +
-						 "\nPositionY: " + this.world.sprite.tilePosition.y;
-		    
+			game.debug.inputInfo(32, 32);
+			var coords = this.world.calculatePlayerCooordinates();
+			this.text.text = 'PositionX: ' + coords.x +
+						'\nPositionY: ' + coords.y +
+						'\nTileType: ' + this.world.next('current') +
+						'\nRightType: ' + this.world.next('right') +
+						'\nLeftType: ' + this.world.next('left') +
+						'\nTopType: ' + this.world.next('top') +
+						'\nDownType: ' + this.world.next('down');
+
+			this.text1.text = 'PositionX: ' + this.world.sprite.tilePosition.x +
+						'\nPositionY: ' + this.world.sprite.tilePosition.y;
+
 		}
 		</script>
 	</head>
 	<body>
-		<!--
-	    <div id="login" style="position: absolute; left: 40%; top: 50%;">
-	    	<div style="position: relative; left: -33%; top: -23vh;">
-				<div class="container">
-					<section id="content">
-						<form action="#">
-							<h1>Login or Register</h1>
-							<div> <input type="email" placeholder="E-mail" required id="email" autocomplete="off" /> </div> 
-							<div> <input type="password" placeholder="Password" required id="password" /> </div>
-							<div> <p id="exceptionText"> &nbsp; </p> </div>
-							<div> <button type="button" onclick="presentationUtils.registerUser()" > Continue </button> </div>
-						</form>
-					</section>
-				</div>
-			</div>
-	    </div>
-	      -->
-	</body>
+    <!--<div id="login" style="position: absolute; left: 40%; top: 50%;">
+      <div style="position: relative; left: -33%; top: -23vh;">
+      <div class="container">
+        <section id="content">
+          <form action="#">
+            <h1>Login or Register</h1>
+            <div> <input type="email" placeholder="E-mail" required id="email" autocomplete="off" /> </div>
+            <div> <input type="password" placeholder="Password" required id="password" /> </div>
+            <div> <p id="exceptionText"> &nbsp; </p> </div>
+            <div> <button type="button" onclick="loginUtils.loginOrRegister()" > Continue </button> </div>
+          </form>
+        </section>
+      </div>
+      </div>
+    </div>-->
+</body>
 </html>
-

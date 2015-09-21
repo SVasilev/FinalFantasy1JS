@@ -1,0 +1,37 @@
+{
+  "name": "FinalFantasy1JS",
+  "version": "1.0.0",
+  "description": "Recreation of the famous Final Fantasy 1 game in javascript.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint lib/**",
+    "test": "mocha ./test --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SVasilev/FinalFantasy1JS.git"
+  },
+  "keywords": [
+    "final",
+    "fantasy",
+    "final fantasy 1",
+    "javascript",
+    "game",
+    "phaser",
+    "university"
+  ],
+  "author": "Stefan Vasilev <sopata63@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SVasilev/FinalFantasy1JS/issues"
+  },
+  "homepage": "https://github.com/SVasilev/FinalFantasy1JS",
+  "devDependencies": {
+    "express": "^4.13.3",
+    "mysql": "^2.9.0",
+    "should": ">= 0.0.1",
+    "eslint": "^1.4.1"
+  },
+  "dependencies": {
+  }
+}
