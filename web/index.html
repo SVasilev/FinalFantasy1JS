@@ -20,7 +20,7 @@
 		var game = new Phaser.Game(1280, 720, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 		function preload() {
-			game.load.image('worldmap', './assets/img/world/worldMap.png');
+			game.load.image('worldmap', './assets/img/game/world/tiledCopyOfWorldMapWithLocations.png');
 			game.load.spritesheet('party', './assets/img/game/worldmapMovement.gif', 20, 20);
 		}
 
@@ -54,11 +54,11 @@
 			var coords = this.world.calculatePlayerCooordinates();
 			this.text.text = 'PositionX: ' + coords.x +
 						'\nPositionY: ' + coords.y +
-						'\nTileType: ' + this.world.next('current') +
-						'\nRightType: ' + this.world.next('right') +
-						'\nLeftType: ' + this.world.next('left') +
-						'\nTopType: ' + this.world.next('top') +
-						'\nDownType: ' + this.world.next('down');
+						'\nTileType: ' + this.party.currentTile() +
+						'\nRightType: ' + this.party.nextTile('right') +
+						'\nLeftType: ' + this.party.nextTile('left') +
+						'\nUpType: ' + this.party.nextTile('up') +
+						'\nDownType: ' + this.party.nextTile('down');
 
 			this.text1.text = 'PositionX: ' + this.world.sprite.tilePosition.x +
 						'\nPositionY: ' + this.world.sprite.tilePosition.y;
