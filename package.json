@@ -4,8 +4,8 @@
   "description": "Recreation of the famous Final Fantasy 1 game in javascript.",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint lib/**",
-    "test": "mocha ./test --recursive"
+    "lint": "./node_modules/.bin/eslint lib/** ./web/ui/**",
+    "test": "./node_modules/.bin/mocha ./test --recursive"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
   "devDependencies": {
     "express": "^4.13.3",
     "mysql": "^2.9.0",
+    "mocha": "^2.3.3",
     "should": ">= 0.0.1",
     "eslint": "^1.4.1"
   },

@@ -31,7 +31,7 @@
 			worldSprite.tilePosition.y = 1408;//3763;//1408;
 
       var tileData = utils.loadJSON('../lib/game/world/tileData.json');
-			this.world = new World(worldSprite, tileData);
+			this.world = new World(worldSprite, tileData.tiles);
 
 			var partySprite = game.add.sprite(game.width / 2, game.height / 2 - 35, 'party');
 			partySprite.scale.setTo(3, 3);
