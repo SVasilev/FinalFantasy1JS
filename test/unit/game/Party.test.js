@@ -41,17 +41,29 @@ function createParty(world) {
   return new Party(spriteStub, cursorsStub, world);
 }
 
+var TILE_SIZE = 16; // This is the unit.
 function movePartyExplicitly(party, leftSteps, rightSteps, upSteps, downSteps) {
-  var TILE_SIZE = 16; // This is the unit.
   party.world.sprite.tilePosition.x += leftSteps * TILE_SIZE - rightSteps * TILE_SIZE;
   party.world.sprite.tilePosition.y += upSteps * TILE_SIZE - downSteps * TILE_SIZE;
 }
 
+function movePartyImplicitly(party, direction, steps) {
+  party.cursors[direction].isDown = true;
+  party.move(TILE_SIZE * steps);
+  party.cursors[direction].isDown = false;
+}
+
 describe('Party class', function() {
+  var world, party;
+
+  beforeEach(function() {
+    // Restart the party position and world.
+    world = createWorld(1888, 1408);
+    party = createParty(world);
+  });
+
   describe('currentTile method', function() {
     it('should return the current tile type correctly', function() {
-      var world = createWorld(1888, 1408);
-      var party = createParty(world);
       party.currentTile().should.equal('grass');
 
       // One step to the right, three steps up
@@ -69,6 +81,44 @@ describe('Party class', function() {
 
       movePartyExplicitly(party, 0, 0, 9, 0);
       assert.equal(party.currentTile(), undefined);
+    });
+  });
+
+  describe('undoMoveIfItWasInvalid', function() {
+    it('should not do anything if the move was valid', function() {
+      movePartyExplicitly(party, 1, 0, 0, 0);
+      party.undoMoveIfItWasInvalid('left', 16);
+      assert.equal(world.sprite.tilePosition.x, 1904);
+    });
+
+    it('should undo move if it was invalid', function() {
+      movePartyExplicitly(party, 0, 0, 0, 2);
+      party.undoMoveIfItWasInvalid('down', 16);
+      assert.equal(world.sprite.tilePosition.y, 1392);
+
+      movePartyExplicitly(party, 0, 1, 0, 2);
+      party.currentVehicle = 'boat';
+      party.undoMoveIfItWasInvalid('right', 16);
+      assert.equal(world.sprite.tilePosition.y, 1360);
+    });
+
+    // This test cannot be fully completed right now because the following features are not implemented:
+    // switching from boots to boat, from boat to canue, canue to boots, boots to canue, etc
+    // entering locations (caves, towns)
+    // maybe something else i forget
+    it('should move correctly through the world map', function() {
+      movePartyImplicitly(party, 'left', 2);
+      movePartyImplicitly(party, 'up', 2);
+      assert.equal(world.sprite.tilePosition.x, 1920);
+      assert.equal(world.sprite.tilePosition.y, 1440);
+      movePartyImplicitly(party, 'up', 1);
+      assert.equal(world.sprite.tilePosition.y, 1440);
+      movePartyImplicitly(party, 'left', 2);
+      assert.equal(party.currentTile(), 'forest');
+      movePartyImplicitly(party, 'left', 5);
+      assert.equal(world.sprite.tilePosition.x, 2032);
+      movePartyImplicitly(party, 'left', 1);
+      assert.equal(world.sprite.tilePosition.x, 2032);
     });
   });
 });

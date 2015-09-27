@@ -4,7 +4,7 @@
   "description": "Recreation of the famous Final Fantasy 1 game in javascript.",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint lib/** ./web/ui/**",
+    "lint": "./node_modules/.bin/eslint lib/**",
     "test": "./node_modules/.bin/mocha ./test --recursive"
   },
   "repository": {
@@ -12,6 +12,7 @@
     "url": "https://github.com/SVasilev/FinalFantasy1JS.git"
   },
   "keywords": [
+    "quest",
     "final",
     "fantasy",
     "final fantasy 1",

@@ -1,5 +1,4 @@
 var fs = require('fs');
-var should = require('should');
 // Require World.js
 eval(fs.readFileSync(__dirname + '/../../../lib/game/world/World.js').toString());
 
@@ -14,8 +13,6 @@ function createWorld(x, y) {
   };
   return new World(spriteStub, tileData.tiles);
 }
-
-console.log(__dirname + '../../../../lib/game/world/tileData.json');
 
 describe('World class', function() {
   describe('calculatePlayerCooordinates method', function() {
