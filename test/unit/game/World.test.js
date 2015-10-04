@@ -1,8 +1,8 @@
 var fs = require('fs');
 // Require World.js
-eval(fs.readFileSync(__dirname + '/../../../lib/game/world/World.js').toString());
+eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/World.js').toString());
 
-var tileData = JSON.parse(fs.readFileSync(__dirname + '/../../../lib/game/world/tileData.json', 'utf8'));
+var tileData = JSON.parse(fs.readFileSync(__dirname + '/../../../lib/game/config/world/tileData.json', 'utf8'));
 
 function createWorld(x, y) {
   var spriteStub = {

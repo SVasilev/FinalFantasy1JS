@@ -1,0 +1,30 @@
+{
+  "walk": {
+    "location": "./assets/img/game/movement/walkSpritesheet.gif",
+    "frameWidth": 20,
+    "frameHeight": 20,
+    "scale": {
+      "x": 3,
+      "y": 3
+    },
+    "animation": {
+      "walkUp": [4, 5],
+      "walkDown": [0, 1],
+      "walkSideways": [2, 3]
+    }
+  },
+  "boat": {
+    "location": "./assets/img/game/movement/boatSpritesheet.gif",
+    "frameWidth": 62,
+    "frameHeight": 78,
+    "scale": {
+      "x": 1,
+      "y": 1
+    },
+    "animation": {
+      "boatUp": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "boatDown": [18, 19, 20, 21, 22, 23, 24, 25, 26],
+      "boatSideways": [9, 10, 11, 12, 13, 14, 15, 16, 17]
+    }
+  }
+}

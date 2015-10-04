@@ -2,10 +2,10 @@ var fs = require('fs');
 var assert = require('assert');
 var should = require('should');
 // Require World.js and Party.js
-eval(fs.readFileSync(__dirname + '/../../../lib/game/world/World.js').toString());
-eval(fs.readFileSync(__dirname + '/../../../lib/game/Party.js').toString());
+eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/World.js').toString());
+eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/Party.js').toString());
 
-var tileData = JSON.parse(fs.readFileSync(__dirname + '/../../../lib/game/world/tileData.json', 'utf8'));
+var tileData = JSON.parse(fs.readFileSync(__dirname + '/../../../lib/game/config/world/tileData.json', 'utf8'));
 
 function createWorld(x, y) {
   var spriteStub = {
@@ -18,17 +18,30 @@ function createWorld(x, y) {
 }
 
 function createParty(world) {
-  var spriteStub = {
-    animations: {
-      add: function() { /* dummy */ },
-      play: function() { /* dummy */ }
-    },
-    anchor: {
-      setTo: function() { /* dummy */ }
-    },
-    scale: {
-      x: 0,
-      y: 0
+  var spritesStub = {
+    walk: {
+      animations: {
+        add: function() { /* dummy */ },
+        play: function() { /* dummy */ }
+      },
+      anchor: {
+        setTo: function() { /* dummy */ }
+      },
+      scale: {
+        x: 0,
+        y: 0
+      },
+      config: {
+        scale: {
+          x: 0,
+          y: 0
+        },
+        animation: {
+          walkUp: [4, 5],
+          walkDown: [0, 1],
+          walkSideways: [2, 3]
+        }
+      }
     }
   };
   var cursorsStub = {
@@ -38,7 +51,7 @@ function createParty(world) {
     down: { isDown: false }
   };
 
-  return new Party(spriteStub, cursorsStub, world);
+  return new Party(spritesStub, cursorsStub, world);
 }
 
 var TILE_SIZE = 16; // This is the unit.
