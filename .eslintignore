@@ -1,2 +1,1 @@
-./lib/game/world/excellarrays
-./lib/game/world/tileData.json
+./lib/game/config/*

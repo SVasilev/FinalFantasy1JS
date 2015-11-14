@@ -50,7 +50,7 @@ describe('login service', function() {
   before(function(done) {
     connection = mysql.createConnection({
       host     : 'localhost',
-      user     : 'Sopata',
+      user     : 'root',
       password : 'goshko',
       database : 'ff1'
     });
