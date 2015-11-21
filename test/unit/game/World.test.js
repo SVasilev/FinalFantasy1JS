@@ -1,4 +1,6 @@
 var fs = require('fs');
+var should = require('should');
+var assert = require('assert');
 // Require World.js
 eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/World.js').toString());
 
@@ -42,6 +44,15 @@ describe('World class', function() {
       var coordinates = world.calculatePlayerCooordinates();
       coordinates.x.should.equal(12);
       coordinates.y.should.equal(16);
+    });
+  });
+
+  describe('generateNextEncounterSteps method', function() {
+    it('should assign nextEncounterSteps to a number between 50 and 255', function() {
+      var world = createWorld(-21, -152);
+      assert(world.nextEncounterSteps >= 50 && world.nextEncounterSteps <= 255);
+      world.generateNextEncounterSteps();
+      assert(world.nextEncounterSteps >= 50 && world.nextEncounterSteps <= 255);
     });
   });
 });

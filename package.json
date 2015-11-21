@@ -32,7 +32,9 @@
     "mysql": "^2.9.0",
     "mocha": "^2.3.3",
     "should": ">= 0.0.1",
-    "eslint": "^1.4.1"
+    "eslint": "^1.4.1",
+    "sinon": "^1.17.2",
+    "underscore": "^1.8.3"
   },
   "dependencies": {
   }
