@@ -4,16 +4,16 @@ var assert = require('assert');
 eval(fs.readFileSync(__dirname + '../../../../lib/ui/loginUtils.js').toString());
 
 var document;
-var result = [''];
+var result = '';
 var $ = {
   ajax: function(options) {
-    result[0] = options.url;
+    result = options.url;
   }
 };
 
 // This function gets overriden because we won't test it.
 loginUtils.fadeOut = function(element, message) {
-  result[0] = message;
+  result = message;
 };
 
 function setEmailAndPassword(email, password) {
@@ -30,8 +30,8 @@ function setEmailAndPassword(email, password) {
 describe('UI loginUtils module', function() {
   describe('executeQuery function', function() {
     it('should calls backend login service with correct url', function() {
-      loginUtils.executeQuery('email=gg@abv.bg&password=1234');
-      assert.equal(result[0], '/services/login?email=gg@abv.bg&password=1234');
+      loginUtils.executeQuery('/services/login?email=gg@abv.bg&password=1234');
+      assert.equal(result, '/services/login?email=gg@abv.bg&password=1234');
     });
   });
 
@@ -49,25 +49,25 @@ describe('UI loginUtils module', function() {
     it('It warns to fill all the fields if user or password field is empty', function() {
       setEmailAndPassword(undefined, '123456');
       loginUtils.loginOrRegister();
-      assert.equal(result[0], 'Please fill the fields.');
+      assert.equal(result, 'Please fill the fields.');
       setEmailAndPassword('asd@abv.bg', undefined);
       loginUtils.loginOrRegister();
-      assert.equal(result[0], 'Please fill the fields.');
+      assert.equal(result, 'Please fill the fields.');
       setEmailAndPassword(undefined, undefined);
       loginUtils.loginOrRegister();
-      assert.equal(result[0], 'Please fill the fields.');
+      assert.equal(result, 'Please fill the fields.');
     });
 
     it('It warns if provided email is invalid', function() {
       setEmailAndPassword('asd.d@m', '123456');
       loginUtils.loginOrRegister();
-      assert.equal(result[0], 'Invalid email.');
+      assert.equal(result, 'Invalid email.');
     });
 
     it('It calls the backend if the input is OK', function() {
       setEmailAndPassword('asd@dsa.bg', '123456');
       loginUtils.loginOrRegister();
-      assert.equal(result[0], '/services/login?email=asd@dsa.bg&password=123456');
+      assert.equal(result, '/services/login?email=asd@dsa.bg&password=123456');
     });
   });
 });
