@@ -12,22 +12,24 @@ Known cut features:
 Dealing with locations
 Affects like stone, darkness, poison, etc...
 
+PLAYER STATS !!! =?> http://www.fforigins.com/ff1/stats.html
+MORE STATS -> http://finalfantasy.wikia.com/wiki/Stats
 
 User table metadata: create table user ( ID int NOT NULL AUTO_INCREMENT, email VARCHAR(100), salt VARCHAR(12), password VARCHAR(32), created DATETIME, PRIMARY KEY (ID) )
 
 Location
-name(varchar(50)) x(int) y(int) width(int) height(int)
+name varchar(50) x int y int width int height int
 
 explanation:
 Should check the map for proper locations
 
 Item
-id(int) location(varchar(50)) name(varchar(50)) sell(int) cost(int) use(bool) all(bool) temporary(bool) requiredLevel(int) changeStatus(varchar(10))
-		hitPoints, maxHitPoints, magicPoints, maxMagicPoints, strength, agility, intelligence, stamina, luck, attack, defense, accuracy, evasion (int)
-		//imageLocation(varchar(255)) //loads from local hosted file
+id int location varchar(50) name varchar(50) sell int cost int use bool all bool temporary bool requiredLevel int changeStatus varchar10)
+		hitPoints, maxHitPoints, magicPoints, maxMagicPoints, strength, agility, intelligence, stamina, luck, attack, defense, accuracy, evasion  int
+		//imageLocation varchar(255) //loads from local hosted file
 
 explanation:
-location -> id from the table Locations
+location -> name from the table Locations
 
 use true  -> usable item => dont look for attributes
 use false -> equiptment  => dont look for affect
