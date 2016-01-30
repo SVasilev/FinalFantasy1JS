@@ -23,6 +23,7 @@ function executeSingleQuery(query, callback) {
 
 function getRequestObjectWithEmailAndPassword(email, password) {
   return {
+    session: {},
     query: {
       email: email,
       password: password
