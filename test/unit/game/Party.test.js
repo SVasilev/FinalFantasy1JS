@@ -6,6 +6,7 @@ var sinon = require('sinon');
 var assert = require('assert');
 var should = require('should');
 // Require World.js and Party.js
+eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/Character.js').toString());
 eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/World.js').toString());
 eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/Party.js').toString());
 // Require the configuration for the sprites
@@ -40,14 +41,14 @@ function createParty(world) {
     },
   };
 
-  var spritesStub = {
+  var worldMapSpritesStub = {
     walk: _.extend({}, phaserSpriteStub),
     boat: _.extend({}, phaserSpriteStub)
   };
   for (var spriteName in spritesConfiguration) {
-    spritesStub[spriteName].config = spritesConfiguration[spriteName];
+    worldMapSpritesStub[spriteName].config = spritesConfiguration[spriteName];
   }
-  spritesStub.walk.visible = true;
+  worldMapSpritesStub.walk.visible = true;
 
   var cursorsStub = {
     left: { isDown: false },
@@ -56,7 +57,8 @@ function createParty(world) {
     down: { isDown: false }
   };
 
-  return new Party(spritesStub, cursorsStub, world);
+  var inBattlePartySprites = { 'warior': {}, 'thief': {}, 'whiteMage': {}, 'blackMage': {} };
+  return new Party({ worldMap: worldMapSpritesStub, inBattle: inBattlePartySprites }, cursorsStub, world);
 }
 
 var TILE_SIZE = 16; // This is the worldmap unit.
@@ -122,8 +124,8 @@ describe('Party class', function() {
     it('should change the vehicle to the one passed as argument if the party has it', function() {
       party.currentVehicle.should.equal('walk');
       party.changeVehicle('boat');
-      party.sprites['walk'].visible.should.equal(false);
-      party.sprites['boat'].visible.should.equal(true);
+      party.worldMapSprites['walk'].visible.should.equal(false);
+      party.worldMapSprites['boat'].visible.should.equal(true);
       party.currentVehicle.should.equal('boat');
     });
   });
@@ -254,7 +256,7 @@ describe('Party class', function() {
     });
 
     it('should change the anchor and scale of the sprite if we move sideways', function() {
-      var sprite = party.sprites['walk'];
+      var sprite = party.worldMapSprites['walk'];
       var spy = sinon.spy(sprite.anchor, 'setTo');
 
       sprite.scale.x.should.equal(0);
@@ -270,7 +272,7 @@ describe('Party class', function() {
     });
 
     it('should not change the anchor and scale of the sprite if we move vertically', function() {
-      var sprite = party.sprites['walk'];
+      var sprite = party.worldMapSprites['walk'];
       var spy = sinon.spy(sprite.anchor, 'setTo');
 
       sprite.scale.x.should.equal(0);
@@ -285,7 +287,7 @@ describe('Party class', function() {
     });
 
     it('should play the right animation', function() {
-      var sprite = party.sprites['walk'];
+      var sprite = party.worldMapSprites['walk'];
       var spy = sinon.spy(sprite.animations, 'play');
 
       party.currentVehicle.should.equal('walk');

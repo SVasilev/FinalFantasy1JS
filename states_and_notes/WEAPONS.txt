@@ -1,0 +1,49 @@
+CREATE TABLE weapon(
+  name VARCHAR(100) NOT NULL,
+  damage INT(5) NOT NULL,
+  hitrate INT(5) NOT NULL,
+  sell INT(6),
+  location VARCHAR(100) NOT NULL,
+  PRIMARY KEY(name)
+);
+
+INSERT INTO WEAPON VALUES('Bane Sword', 22, 20, NULL, 'Sky Castle L1');
+INSERT INTO WEAPON VALUES('Catclaw', 22, 35, 65000, 'Gaia');
+INSERT INTO WEAPON VALUES('Coral Sword', 19, 15, NULL, 'Earth Cave');
+INSERT INTO WEAPON VALUES('Defense', 30, 35, NULL, 'Waterfall');
+INSERT INTO WEAPON VALUES('Dragon Sword', 19, 15, NULL, 'Dwarf Cave');
+INSERT INTO WEAPON VALUES('Falchon', 15, 10, 450, 'Melmond, Northwest Castle');
+INSERT INTO WEAPON VALUES('Flame Sword', 26, 20, NULL, 'Ice Cave L2B');
+INSERT INTO WEAPON VALUES('Giant Sword', 21, 20, NULL, 'Gurgu Volcano L2');
+INSERT INTO WEAPON VALUES('Great Axe', 22, 5, NULL, 'Titan\'s Tunnel');
+INSERT INTO WEAPON VALUES('Hand Axe', 16, 5, 550, 'Pravoka');
+INSERT INTO WEAPON VALUES('Heal Staff', 6, 0, NULL, 'Castle of Ordeals L3');
+INSERT INTO WEAPON VALUES('Ice Sword', 29, 25, NULL, 'Castle of Ordeals L3, Gurgu Volcano L4B');
+INSERT INTO WEAPON VALUES('Iron Hammer', 9, 0, 10, 'Coneria, Pravoka');
+INSERT INTO WEAPON VALUES('Iron Nunchuck', 16, 0, 200, 'ElfLand');
+INSERT INTO WEAPON VALUES('Iron Staff', 14, 0, 200, 'ElfLand, Melmond, Castle Coneria');
+INSERT INTO WEAPON VALUES('Katana', 33, 35, NULL, 'Sky Castle L3, ToF Fire Floor');
+INSERT INTO WEAPON VALUES('Large Dagger', 7, 10, 175, 'ElfLand, Marsh Cave L2A');
+INSERT INTO WEAPON VALUES('Light Axe', 28, 15, NULL, 'Sea Shrine L2B, Sea Shrine L4A');
+INSERT INTO WEAPON VALUES('Long Sword', 20, 10, 1500, 'Melmond');
+INSERT INTO WEAPON VALUES('Mage Staff', 12, 10, NULL, 'Sea Shrine L4A');
+INSERT INTO WEAPON VALUES('Masmune', 56, 50, NULL, 'ToF Air Floor');
+INSERT INTO WEAPON VALUES('Power Staff', 12, 0, NULL, 'Northwest Castle');
+INSERT INTO WEAPON VALUES('Rapier', 9, 5, 10, 'Coneria');
+INSERT INTO WEAPON VALUES('Rune Sword', 18, 15, NULL, 'Temple of Fiends');
+INSERT INTO WEAPON VALUES('Sabre', 13, 5, 450, 'ElfLand, Melmond, Castle Coneria');
+INSERT INTO WEAPON VALUES('Scimitar', 10, 10, 200, 'Pravoka');
+INSERT INTO WEAPON VALUES('Short Sword', 15, 10, 550, 'Pravoka, Marsh Cave L2A');
+INSERT INTO WEAPON VALUES('Silver Axe', 25, 10, 4500, 'Crescent Lake, Gurgu Volcano L2');
+INSERT INTO WEAPON VALUES('Silver Hammer', 12, 5, 2500, 'Crescent Lake, Elf Castle');
+INSERT INTO WEAPON VALUES('Silver Dagger', 10, 15, 800, 'Crescent Lake, Marsh Cave L3');
+INSERT INTO WEAPON VALUES('Silver Sword', 23, 15, 4000, 'ElfLand, Crescent Lake');
+INSERT INTO WEAPON VALUES('Small Dagger', 5, 10, 5, 'Coneria');
+INSERT INTO WEAPON VALUES('Sun Sword', 32, 30, NULL, 'Mirage Tower L2');
+INSERT INTO WEAPON VALUES('Thor\'s Hammer', 18, 15, NULL, 'Mirage Tower L2');
+INSERT INTO WEAPON VALUES('Vorpal', 24, 25, NULL, 'Mirage Tower L1');
+INSERT INTO WEAPON VALUES('Were Sword', 18, 15, NULL, 'Temple of Fiends');
+INSERT INTO WEAPON VALUES('Wizard Staff', 15, 15, NULL, 'Waterfall');
+INSERT INTO WEAPON VALUES('Wooden Nunchuck', 12, 0, 10, 'Coneria');
+INSERT INTO WEAPON VALUES('Wooden Staff', 6, 0, 5, 'Coneria, Earth Cave L4, Gurgu Volcano L4B');
+INSERT INTO WEAPON VALUES('Xcalber', 45, 35, NULL, 'Dwarf Cave');
