@@ -1,0 +1,68 @@
+{
+  "warrior": {
+    "location": "./assets/img/game/battle/warrior.gif",
+    "frameWidth": 23,
+    "frameHeight": 27,
+    "scale": {
+      "x": 4,
+      "y": 4
+    },
+    "animation": {
+      "walk": [0, 1, 2, 3, 4, 5],
+      "block": [6],
+      "exhaust": [7],
+      "win": [0, 8],
+      "dead": [9]
+    }
+  },
+  "thief": {
+    "location": "./assets/img/game/battle/thief.gif",
+    "frameWidth": 23,
+    "frameHeight": 27,
+    "scale": {
+      "x": 4,
+      "y": 4
+    },
+    "animation": {
+      "walk": [0, 1, 2, 3, 4, 5],
+      "block": [6],
+      "exhaust": [7],
+      "win": [0, 8],
+      "dead": [9]
+    }
+  },
+  "whiteMage": {
+    "location": "./assets/img/game/battle/whiteMage.gif",
+    "frameWidth": 25,
+    "frameHeight": 27,
+    "scale": {
+      "x": 4,
+      "y": 4
+    },
+    "animation": {
+      "walk": [0, 1, 2, 3, 4, 5],
+      "block": [6],
+      "exhaust": [7],
+      "win": [0, 8],
+      "dead": [9],
+      "cast": [10, 11]
+    }
+  },
+  "blackMage": {
+    "location": "./assets/img/game/battle/blackMage.gif",
+    "frameWidth": 25,
+    "frameHeight": 27,
+    "scale": {
+      "x": 4,
+      "y": 4
+    },
+    "animation": {
+      "walk": [0, 1, 2, 3, 4, 5],
+      "block": [6],
+      "exhaust": [7],
+      "win": [0, 8],
+      "dead": [9],
+      "cast": [10, 11]
+    }
+  }
+}
