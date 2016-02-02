@@ -10,7 +10,7 @@ eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/Character.js').toSt
 eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/World.js').toString());
 eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/Party.js').toString());
 // Require the configuration for the sprites
-var spritesConfiguration = require('../../../lib/game/config/party/spriteData');
+var spritesConfiguration = require('../../../lib/game/config/party/worldMapPartySpritesData.json');
 
 var world, party;
 var tileData = JSON.parse(fs.readFileSync(__dirname + '/../../../lib/game/config/world/tileData.json', 'utf8'));
