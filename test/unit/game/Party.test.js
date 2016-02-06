@@ -38,7 +38,7 @@ function createParty(world) {
     scale: {
       x: 0,
       y: 0
-    },
+    }
   };
 
   var worldMapSpritesStub = {
