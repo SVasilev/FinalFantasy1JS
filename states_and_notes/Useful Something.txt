@@ -93,17 +93,6 @@ hitPoints, maxHitPoints, magicPoints, maxMagicPoints, strength, agility, intelli
 imageX(int), imageY(int) imageWidth(int), imageHeight(int)// load from big local sprite
 
 
-
-
-01 = sea
-02 = grass
-03 = forest
-04 = mountain
-05 = river
-06 = shipyard
-07 = desert
-08 = cold
-
 11.1: Conralia Town
 11.2: Cornalia Castle
   12: Temple of Fiends
@@ -141,7 +130,8 @@ imageX(int), imageY(int) imageWidth(int), imageHeight(int)// load from big local
 Wtf Misc Cave
 40: Cave 1
 
+BUGS:
+1. BattleUnits class can end up in a state where there are alive enemies but you cant set the cursor to them.
 
-Okay, so I have this little game here:
-https://github.com/SVasilev/FinalFantasy1JS
-It's still in development so the code is kind of messy. Anyway you can start the game by clonning it from github, run ```npm install```, then run ```node server.js ``` in the root directory (you need to install Nodejs) and then go into your browser on localhost:8080. If you start to move north on the map it is great and smooth. Okay so now go to index.html and change phaser version from 2.1.3 to 2.2.0 and reload the page. Move north and around for 20-30 seconds, then the game starts to lag. It is tested on latest Chrome.
+REFACTORING:
+1. In the game classes it is a real mess which properties or methods should start with underscore.
