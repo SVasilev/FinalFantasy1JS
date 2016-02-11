@@ -42,6 +42,30 @@ INSERT INTO `armor` VALUES ('Aegis Shield','Mirage Tower L1',16,NULL),('Black Sh
 UNLOCK TABLES;
 
 --
+-- Table structure for table `battlebackgrounds`
+--
+
+DROP TABLE IF EXISTS `battlebackgrounds`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `battlebackgrounds` (
+  `tile` varchar(30) NOT NULL,
+  `spritecoords` varchar(40) NOT NULL,
+  PRIMARY KEY (`tile`,`spritecoords`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `battlebackgrounds`
+--
+
+LOCK TABLES `battlebackgrounds` WRITE;
+/*!40000 ALTER TABLE `battlebackgrounds` DISABLE KEYS */;
+INSERT INTO `battlebackgrounds` VALUES ('forest','495, 5, 240, 128'),('grass','5, 5, 240, 128');
+/*!40000 ALTER TABLE `battlebackgrounds` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `item`
 --
 
@@ -229,4 +253,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-11  0:50:14
+-- Dump completed on 2016-02-12  0:21:23
