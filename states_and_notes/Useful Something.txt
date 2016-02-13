@@ -92,6 +92,8 @@ id(int) location(varchar(50)) name(varchar(50)) type(varchar(10)) experienceEarn
 hitPoints, maxHitPoints, magicPoints, maxMagicPoints, strength, agility, intelligence, stamina, luck, attack, defense, accuracy, evasion (int)
 imageX(int), imageY(int) imageWidth(int), imageHeight(int)// load from big local sprite
 
+MySQL
+mysqldump -u root --password ff1 > ff1.sql
 
 11.1: Conralia Town
 11.2: Cornalia Castle
