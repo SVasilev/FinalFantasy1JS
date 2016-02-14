@@ -15,6 +15,9 @@ Affects like stone, darkness, poison, etc...
 PLAYER STATS !!! =?> http://www.fforigins.com/ff1/stats.html
 MORE STATS -> http://finalfantasy.wikia.com/wiki/Stats
 
+NEW SPRITES -> http://ffclassic.com/
+INTERESTING PROJECT -> https://github.com/nhydock/FF1-Battle-System
+
 User table metadata: create table user ( ID int NOT NULL AUTO_INCREMENT, email VARCHAR(100), salt VARCHAR(12), password VARCHAR(32), created DATETIME, PRIMARY KEY (ID) )
 
 Location
@@ -93,7 +96,8 @@ hitPoints, maxHitPoints, magicPoints, maxMagicPoints, strength, agility, intelli
 imageX(int), imageY(int) imageWidth(int), imageHeight(int)// load from big local sprite
 
 MySQL
-mysqldump -u root --password ff1 > ff1.sql
+EXPORT:
+  mysqldump -u root --password ff1 > ff1.sql
 
 11.1: Conralia Town
 11.2: Cornalia Castle
