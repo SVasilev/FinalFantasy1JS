@@ -1,7 +1,7 @@
 {
   "warrior": {
     "location": "./assets/img/game/battle/warrior.gif",
-    "frameWidth": 23,
+    "frameWidth": 22.5,
     "frameHeight": 27,
     "scale": {
       "x": 4,
@@ -11,13 +11,13 @@
       "walk": [0, 1, 2, 3, 4, 5],
       "block": [6],
       "exhaust": [7],
-      "win": [0, 8],
-      "dead": [9]
+      "win": [0, 9],
+      "dead": [8]
     }
   },
   "thief": {
     "location": "./assets/img/game/battle/thief.gif",
-    "frameWidth": 23,
+    "frameWidth": 22.5,
     "frameHeight": 27,
     "scale": {
       "x": 4,
@@ -27,8 +27,8 @@
       "walk": [0, 1, 2, 3, 4, 5],
       "block": [6],
       "exhaust": [7],
-      "win": [0, 8],
-      "dead": [9]
+      "win": [0, 9],
+      "dead": [8]
     }
   },
   "whiteMage": {
@@ -43,8 +43,8 @@
       "walk": [0, 1, 2, 3, 4, 5],
       "block": [6],
       "exhaust": [7],
-      "win": [0, 8],
-      "dead": [9],
+      "win": [0, 9],
+      "dead": [8],
       "cast": [10, 11]
     }
   },
@@ -60,8 +60,8 @@
       "walk": [0, 1, 2, 3, 4, 5],
       "block": [6],
       "exhaust": [7],
-      "win": [0, 8],
-      "dead": [9],
+      "win": [0, 9],
+      "dead": [8],
       "cast": [10, 11]
     }
   }
