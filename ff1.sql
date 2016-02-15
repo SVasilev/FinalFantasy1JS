@@ -61,7 +61,7 @@ CREATE TABLE `battlebackgrounds` (
 
 LOCK TABLES `battlebackgrounds` WRITE;
 /*!40000 ALTER TABLE `battlebackgrounds` DISABLE KEYS */;
-INSERT INTO `battlebackgrounds` VALUES ('forest','495, 5, 240, 128'),('grass','5, 5, 240, 128');
+INSERT INTO `battlebackgrounds` VALUES ('forest','495, 5, 240, 128'),('grass','5, 5, 240, 128'),('sea','495, 138, 240, 128');
 /*!40000 ALTER TABLE `battlebackgrounds` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,4 +255,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-15  0:49:49
+-- Dump completed on 2016-02-16  1:20:19
