@@ -99,6 +99,9 @@ MySQL
 EXPORT:
   mysqldump -u root --password ff1 > ff1.sql
 
+IMPORT:
+  mysql -u root --password ff1 < ff1.sql
+
 11.1: Conralia Town
 11.2: Cornalia Castle
   12: Temple of Fiends
