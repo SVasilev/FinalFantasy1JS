@@ -4,6 +4,7 @@ var app = express();
 var port = process.env.PORT || 8080;
 
 var loginService = require('./lib/services/login/login');
+var saveLoadService = require('./lib/services/saveload/saveload');
 var dbPersistService = require('./lib/services/persist/queries');
 
 app.use(express.static(__dirname + '/web'));
@@ -17,6 +18,8 @@ app.use(session({
 }));
 
 app.get('/services/login', loginService);
+app.get('/services/game/save', saveLoadService.save);
+app.get('/services/game/load', saveLoadService.load);
 app.get('/services/persist', dbPersistService);
 
 app.use(function continueIfUserIsRegistered(req, res, next) {
