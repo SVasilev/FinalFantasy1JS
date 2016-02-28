@@ -144,7 +144,7 @@ BUGS:
 2. GameMenu cannot be instantiated with empty options list.
 3. Login form is still somehow opened after you log and have session. You can actually click on some of the input fields.
 4. Monster kill function shoud have a callback as argument for when the sprite is completely destroyed after the animation.
-5. The project can not be used completely offline.
+5. The project cannot be used completely offline.
 
 REFACTORING:
 1. In the game classes it is a real mess which properties or methods should start with underscore, and which properties should be private at all.
