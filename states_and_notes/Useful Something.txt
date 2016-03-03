@@ -149,3 +149,5 @@ BUGS:
 REFACTORING:
 1. In the game classes it is a real mess which properties or methods should start with underscore, and which properties should be private at all.
 2. There are still many hard-coded things around the internal stuff of the classes.
+3. All image paths and sprite objects should be moved as global constants.
+4. GameMenu should not take a function for each option.
