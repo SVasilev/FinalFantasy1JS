@@ -29,9 +29,9 @@ app.use(function continueIfUserIsRegistered(req, res, next) {
   res.send('');
 });
 
-app.get('/session/info', function(req, res, next) {
+app.get('/session/info', function(req, res) {
   res.json(req.session);
 });
 
 app.listen(port);
-console.log('Magic happens on port ' + port);
+console.log('Magic happens on port ' + port); // eslint-disable-line no-console

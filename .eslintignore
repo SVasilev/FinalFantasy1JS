@@ -1,1 +1,2 @@
 ./lib/game/config/*
+./test/unit/.*

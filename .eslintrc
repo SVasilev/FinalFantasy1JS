@@ -17,7 +17,7 @@
       "always"
     ],
     "eqeqeq": 2,
-    "no-console": 0
+    "no-console": 2
   },
   "env": {
       "node": true
