@@ -151,3 +151,4 @@ REFACTORING:
 2. There are still many hard-coded things around the internal stuff of the classes.
 3. All image paths and sprite objects should be moved as global constants.
 4. GameMenu should not take a function for each option.
+5. Make GameConstants's stats names compatible for character and for the monsters. Maybe get the character stats from the DB as well. Maybe change the DB column names for the stats.
