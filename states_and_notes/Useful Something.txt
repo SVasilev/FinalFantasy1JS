@@ -142,14 +142,12 @@ Wtf Misc Cave
 BUGS:
 1. BattleUnits class can end up in a state where there are alive enemies but you cant set the cursor to them.
 2. GameMenu cannot be instantiated with empty options list.
-3. Login form is still somehow opened after you log and have session. Refresh the browser. You can actually click on some of the input fields.
-4. Monster kill function shoud have a callback as argument for when the sprite is completely destroyed after the animation.
-5. The project cannot be used completely offline.
-6. Make the tests running.
+3. Monster kill function shoud have a callback as argument for when the sprite is completely destroyed after the animation.
+4. The project cannot be used completely offline.
 
 REFACTORING:
-1. In the game classes it is a real mess which properties or methods should start with underscore, and which properties should be private at all.
-2. There are still many hard-coded things around the internal stuff of the classes.
-3. All image paths and sprite objects should be moved as global constants.
-4. GameMenu should not take a function for each option.
-5. Make GameConstants's stats names compatible for character and for the monsters. Maybe get the character stats from the DB as well. Maybe change the DB column names for the stats.
+1. There are still many hard-coded things around the internal stuff of the classes.
+2. All image paths and sprite objects should be moved as global constants.
+3. Make GameConstants's stats names compatible for character and for the monsters. Maybe get the character stats from the DB as well. Maybe change the DB column names for the stats.
+4. Add more tests in Party.js
+5. Add tests for all stable classes.

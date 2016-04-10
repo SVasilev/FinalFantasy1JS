@@ -1,93 +1,20 @@
-/* global describe, it, beforeEach, __dirname, World */
+/* global describe, it, beforeEach, __dirname, Party */
 
-var _ = require('underscore');
 var fs = require('fs');
 var sinon = require('sinon');
 var assert = require('assert');
-var should = require('should');
-// Require World.js and Party.js
+var should = require('should'); // eslint-disable-line no-unused-vars
+var stubs = require('../../test-utils/stubs');
+// Require client side classes
+eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/GameConstants.js').toString());
 eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/CharacterData.js').toString());
+eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/Common.js').toString());
 eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/World.js').toString());
 eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/Party.js').toString());
 // Require the configuration for the sprites
 var spritesConfiguration = require('../../../lib/game/config/party/worldMapPartySpritesData.json');
 
 var world, party;
-var tileData = JSON.parse(fs.readFileSync(__dirname + '/../../../lib/game/config/world/tileData.json', 'utf8'));
-
-var Common = {
-  createSpriteFromConfig: function() {
-    return createSpritesStub();
-  }
-};
-
-function createWorld(x, y) {
-  var spriteStub = {
-    scale: {
-      setTo: function() {}
-    },
-    tilePosition: {
-      x: x,
-      y: y
-    }
-  };
-
-  var phaserGameStub = {
-    add: {
-      tileSprite: function() {
-        return spriteStub;
-      }
-    },
-    cache: {
-      getJSON: function(fileName) {
-        return JSON.parse(fs.readFileSync(fileName, 'utf8'));
-      }
-    }
-  };
-
-  return new World('worldmap', __dirname + '/../../../lib/game/config/world/tileData.json', phaserGameStub);
-}
-
-function createSpritesStub() {
-  var phaserSpriteStub = {
-    visible: false,
-    animations: {
-      add: function() { /* dummy */ },
-      play: function() { /* dummy */ }
-    },
-    anchor: {
-      setTo: function() { /* dummy */ }
-    },
-    scale: {
-      x: 0,
-      y: 0
-    }
-  };
-
-  var worldMapSpritesStub = {
-    walk: _.extend({}, phaserSpriteStub),
-    boat: _.extend({}, phaserSpriteStub)
-  };
-
-  for (var spriteName in spritesConfiguration) {
-    worldMapSpritesStub[spriteName].config = spritesConfiguration[spriteName];
-  }
-  worldMapSpritesStub.walk.visible = true;
-  return worldMapSpritesStub;
-}
-
-function createParty(world) {
-
-  var cursorsStub = {
-    left: { isDown: false },
-    right: { isDown: false },
-    up: { isDown: false },
-    down: { isDown: false }
-  };
-
-  var inBattlePartySprites = { 'warior': {}, 'thief': {}, 'whiteMage': {}, 'blackMage': {} };
-  return new Party(worldMapSpritesStub, cursorsStub, world);
-}
 
 var TILE_SIZE = 16; // This is the worldmap unit.
 function movePartyExplicitly(leftSteps, rightSteps, upSteps, downSteps) {
@@ -96,16 +23,14 @@ function movePartyExplicitly(leftSteps, rightSteps, upSteps, downSteps) {
 }
 
 function movePartyImplicitly(direction, steps) {
-  party.cursors[direction].isDown = true;
-  party.move(TILE_SIZE * steps);
-  party.cursors[direction].isDown = false;
+  party.move(direction, TILE_SIZE * steps, function() {});
 }
 
 describe('Party class', function() {
   beforeEach(function() {
     // Restart the party position and world.
-    world = createWorld(1888, 1408);
-    party = createParty(world);
+    world = stubs.getWorldStub(1888, 1408);
+    party = new Party(spritesConfiguration, world, stubs.getPhaserGameStub());
   });
 
   describe('_previousTile method', function() {
@@ -152,8 +77,8 @@ describe('Party class', function() {
     it('should change the vehicle to the one passed as argument if the party has it', function() {
       party.currentVehicle.should.equal('walk');
       party._changeVehicle('boat');
-      party.worldMapSprites['walk'].visible.should.equal(false);
-      party.worldMapSprites['boat'].visible.should.equal(true);
+      party.sprites['walk'].visible.should.equal(false);
+      party.sprites['boat'].visible.should.equal(true);
       party.currentVehicle.should.equal('boat');
     });
   });
@@ -215,7 +140,7 @@ describe('Party class', function() {
 
     it('resets the encounter steps when entering a battle', function() {
       world.nextEncounterSteps = 1;
-      party._decreaseEncounterSteps(TILE_SIZE);
+      party._decreaseEncounterSteps(TILE_SIZE, function() {});
       assert(world.nextEncounterSteps >= 50);
     });
   });
@@ -225,6 +150,16 @@ describe('Party class', function() {
       movePartyExplicitly(1, 0, 0, 0);
       party._adjustScene('left', 16);
       world.sprite.tilePosition.x.should.equal(1904);
+    });
+
+    it('should not undo if the last move was valid', function() {
+      world.sprite.tilePosition.y.should.equal(1408);
+      movePartyExplicitly(0, 1, 0, 0);
+      world.sprite.tilePosition.x.should.equal(1872);
+      movePartyExplicitly(0, 0, 2, 0);
+      world.sprite.tilePosition.y.should.equal(1440);
+      party._adjustScene('up', TILE_SIZE);
+      world.sprite.tilePosition.y.should.equal(1440);
     });
 
     it('should undo move if it was invalid and we are not switching vehicles', function() {
@@ -253,46 +188,38 @@ describe('Party class', function() {
     });
   });
 
-  describe('moveScene method', function() {
-    it('should move the party if the move is valid', function() {
+  describe('_moveWorld method', function() {
+    it('should move the party', function() {
       world.sprite.tilePosition.x.should.equal(1888);
-      party.moveScene('right', TILE_SIZE);
+      party._moveWorld('right', TILE_SIZE, function() {});
       world.sprite.tilePosition.x.should.equal(1872);
     });
+  });
 
-    it('should do nothing if the move is invalid', function() {
-      world.sprite.tilePosition.y.should.equal(1408);
-      movePartyImplicitly('right', 1);
-      world.sprite.tilePosition.x.should.equal(1872);
-      movePartyImplicitly('up', 2);
-      world.sprite.tilePosition.y.should.equal(1440);
-      party.moveScene('up', TILE_SIZE);
-      world.sprite.tilePosition.y.should.equal(1440);
-    });
-
+  describe('move method', function() {
     it('should change to boat if the party has boat and it steps on a shipyard', function() {
       party.currentVehicle.should.equal('walk');
-      party.moveScene('down', TILE_SIZE);
+      movePartyImplicitly('down', 1);
       party.currentVehicle.should.equal('boat');
     });
 
     it('should not change to boat if the party does not have boat and it steps on a shipyard', function() {
       party.currentVehicle.should.equal('walk');
       party.vehicles = ['walk'];
-      party.moveScene('down', TILE_SIZE);
+      movePartyImplicitly('down', 1);
       party.currentVehicle.should.equal('walk');
     });
 
     it('should change the anchor and scale of the sprite if we move sideways', function() {
-      var sprite = party.worldMapSprites['walk'];
+      var sprite = party.sprites['walk'];
       var spy = sinon.spy(sprite.anchor, 'setTo');
 
       sprite.scale.x.should.equal(0);
       party.currentVehicle.should.equal('walk');
-      party.moveScene('left', TILE_SIZE);
+      movePartyImplicitly('left', 1);
       sprite.scale.x.should.equal(3);
       spy.calledWith(0, 0).should.equal(true);
-      party.moveScene('right', TILE_SIZE);
+      movePartyImplicitly('right', 1);
       spy.calledWith(1, 0).should.equal(true);
       sprite.scale.x.should.equal(-3);
 
@@ -300,38 +227,40 @@ describe('Party class', function() {
     });
 
     it('should not change the anchor and scale of the sprite if we move vertically', function() {
-      var sprite = party.worldMapSprites['walk'];
+      var sprite = party.sprites['walk'];
       var spy = sinon.spy(sprite.anchor, 'setTo');
 
       sprite.scale.x.should.equal(0);
       party.currentVehicle.should.equal('walk');
-      party.moveScene('left', TILE_SIZE);
+      movePartyImplicitly('left', 1);
       sprite.scale.x.should.equal(3);
       spy.calledWith(0, 0).should.equal(true);
-      party.moveScene('up', TILE_SIZE);
+      movePartyImplicitly('up', 1);
       spy.calledOnce.should.equal(true);
 
       sprite.anchor.setTo.restore();
     });
 
     it('should play the right animation', function() {
-      var sprite = party.worldMapSprites['walk'];
+      var sprite = party.sprites['walk'];
       var spy = sinon.spy(sprite.animations, 'play');
 
       party.currentVehicle.should.equal('walk');
-      party.moveScene('left', TILE_SIZE);
-      spy.calledWith('walkSideways').should.equal(true);
-      party.moveScene('up', TILE_SIZE);
+      movePartyImplicitly('up', 1);
       spy.calledWith('walkUp').should.equal(true);
+      movePartyImplicitly('down', 1);
+      spy.calledWith('walkDown').should.equal(true);
+      movePartyImplicitly('left', 1);
+      spy.calledWith('walkSideways').should.equal(true);
+      movePartyImplicitly('down', 1);
+      spy.calledWith('boatDown').should.equal(true);
       party._changeVehicle('boat');
-      party.moveScene('down', TILE_SIZE);
+      movePartyImplicitly('down', 1);
       spy.calledWith('boatDown').should.equal(true);
 
       sprite.animations.play.restore();
     });
-  });
 
-  describe('move method', function() {
     // This test cannot be fully completed right now because the following features are not implemented:
     // switching from boots to boat, from boat to canue, canue to boots, boots to canue, etc
     // entering locations (caves, towns)
