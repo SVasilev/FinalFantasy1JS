@@ -44,29 +44,6 @@ describe('Party class', function() {
     });
   });
 
-  // Finish this test after the current tile returns locations !!!
-  describe('currentTile method', function() {
-    it('should return the current tile type correctly', function() {
-      party.currentTile().should.equal('grass');
-
-      // One step to the right, three steps up
-      movePartyExplicitly(0, 1, 3, 0);
-      party.currentTile().should.equal('mountain');
-
-      movePartyExplicitly(0, 2, 0, 0);
-      party.currentTile().should.equal('forest');
-
-      movePartyExplicitly(0, 5, 0, 0);
-      party.currentTile().should.equal('sea');
-
-      movePartyExplicitly(8, 0, 0, 4);
-      party.currentTile().should.equal('shipyard');
-
-      movePartyExplicitly(0, 0, 9, 0);
-      assert.equal(party.currentTile(), undefined);
-    });
-  });
-
   describe('_changeVehicle method', function() {
     it('should not do anything if the party hasn\'t got the vehicle passed as argument', function() {
       party.currentVehicle.should.equal('walk');
@@ -106,42 +83,6 @@ describe('Party class', function() {
       var oneStepDecrease = stepsToRemoveWhenWalking / (TILE_SIZE / stepPixels);
       var expectedSteps = currentStepsToNextEncounter - (moveTimes * oneStepDecrease);
       world.nextEncounterSteps.should.equal(expectedSteps);
-    });
-  });
-
-  describe('_decreaseEncounterSteps method', function() {
-    it('behaves correctly for different current vehicles', function() {
-      var stepPixels = 1.5;
-      var currentStepsToNextEncounter = world.nextEncounterSteps;
-      var vehicleToStepsMapping = { 'walk': 6, 'boat': 2, 'canue': 2, 'ship': 0 };
-
-      party.currentVehicle = 'walk';
-      party._decreaseEncounterSteps(stepPixels);
-      var expectedSteps = currentStepsToNextEncounter - vehicleToStepsMapping['walk'] / (TILE_SIZE / stepPixels);
-      world.nextEncounterSteps.should.equal(expectedSteps);
-
-      party.currentVehicle = 'boat';
-      party._decreaseEncounterSteps(TILE_SIZE);
-      expectedSteps -= vehicleToStepsMapping['boat'];
-      world.nextEncounterSteps.should.equal(expectedSteps);
-
-      party.currentVehicle = 'canue';
-      party._decreaseEncounterSteps(TILE_SIZE / 2);
-      expectedSteps -= vehicleToStepsMapping['canue'] / 2;
-      world.nextEncounterSteps.should.equal(expectedSteps);
-
-      party.currentVehicle = 'ship';
-      party._decreaseEncounterSteps(stepPixels);
-      party._decreaseEncounterSteps(stepPixels);
-      party._decreaseEncounterSteps(stepPixels);
-      party._decreaseEncounterSteps(stepPixels);
-      world.nextEncounterSteps.should.equal(expectedSteps);
-    });
-
-    it('resets the encounter steps when entering a battle', function() {
-      world.nextEncounterSteps = 1;
-      party._decreaseEncounterSteps(TILE_SIZE, function() {});
-      assert(world.nextEncounterSteps >= 50);
     });
   });
 
@@ -188,11 +129,62 @@ describe('Party class', function() {
     });
   });
 
-  describe('_moveWorld method', function() {
-    it('should move the party', function() {
-      world.sprite.tilePosition.x.should.equal(1888);
-      party._moveWorld('right', TILE_SIZE, function() {});
-      world.sprite.tilePosition.x.should.equal(1872);
+  describe('_decreaseEncounterSteps method', function() {
+    it('behaves correctly for different current vehicles', function() {
+      var stepPixels = 1.5;
+      var currentStepsToNextEncounter = world.nextEncounterSteps;
+      var vehicleToStepsMapping = { 'walk': 6, 'boat': 2, 'canue': 2, 'ship': 0 };
+
+      party.currentVehicle = 'walk';
+      party._decreaseEncounterSteps(stepPixels);
+      var expectedSteps = currentStepsToNextEncounter - vehicleToStepsMapping['walk'] / (TILE_SIZE / stepPixels);
+      world.nextEncounterSteps.should.equal(expectedSteps);
+
+      party.currentVehicle = 'boat';
+      party._decreaseEncounterSteps(TILE_SIZE);
+      expectedSteps -= vehicleToStepsMapping['boat'];
+      world.nextEncounterSteps.should.equal(expectedSteps);
+
+      party.currentVehicle = 'canue';
+      party._decreaseEncounterSteps(TILE_SIZE / 2);
+      expectedSteps -= vehicleToStepsMapping['canue'] / 2;
+      world.nextEncounterSteps.should.equal(expectedSteps);
+
+      party.currentVehicle = 'ship';
+      party._decreaseEncounterSteps(stepPixels);
+      party._decreaseEncounterSteps(stepPixels);
+      party._decreaseEncounterSteps(stepPixels);
+      party._decreaseEncounterSteps(stepPixels);
+      world.nextEncounterSteps.should.equal(expectedSteps);
+    });
+
+    it('resets the encounter steps when entering a battle', function() {
+      world.nextEncounterSteps = 1;
+      party._decreaseEncounterSteps(TILE_SIZE, function() {});
+      assert(world.nextEncounterSteps >= 50);
+    });
+  });
+
+  // Finish this test after the current tile returns locations !!!
+  describe('currentTile method', function() {
+    it('should return the current tile type correctly', function() {
+      party.currentTile().should.equal('grass');
+
+      // One step to the right, three steps up
+      movePartyExplicitly(0, 1, 3, 0);
+      party.currentTile().should.equal('mountain');
+
+      movePartyExplicitly(0, 2, 0, 0);
+      party.currentTile().should.equal('forest');
+
+      movePartyExplicitly(0, 5, 0, 0);
+      party.currentTile().should.equal('sea');
+
+      movePartyExplicitly(8, 0, 0, 4);
+      party.currentTile().should.equal('shipyard');
+
+      movePartyExplicitly(0, 0, 9, 0);
+      assert.equal(party.currentTile(), undefined);
     });
   });
 
