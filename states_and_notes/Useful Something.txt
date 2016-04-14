@@ -150,3 +150,4 @@ REFACTORING:
 2. All image paths and sprite objects should be moved as global constants.
 3. Make GameConstants's stats names compatible for character and for the monsters. Maybe get the character stats from the DB as well. Maybe change the DB column names for the stats.
 4. Add tests for all stable classes.
+5. Use Phaser.Loader.script to load the scripts instead of loading them in index.html.
