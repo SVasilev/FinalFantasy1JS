@@ -140,7 +140,7 @@ Wtf Misc Cave
 40: Cave 1
 
 FEATURES:
-1. Add loading screen.
+1. Allow party member to die.
 
 BUGS:
 1. BattleUnits class can end up in a state where there are alive enemies but you cant set the cursor to them.
