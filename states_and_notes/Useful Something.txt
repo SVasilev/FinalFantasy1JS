@@ -142,6 +142,7 @@ Wtf Misc Cave
 FEATURES:
 1. Allow party member to die.
 2. Add support for mobile. (arrow keys, etc.)
+3. Add percentage while game is loading (http://phaser.io/examples/v2/loader/load-events)
 
 BUGS:
 1. BattleUnits class can end up in a state where there are alive enemies but you cant set the cursor to them.

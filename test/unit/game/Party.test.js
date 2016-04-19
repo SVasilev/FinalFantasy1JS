@@ -33,6 +33,26 @@ describe('Party class', function() {
     party = new Party(spritesConfiguration, world, stubs.getPhaserGameStub());
   });
 
+  describe('_currentTileIsValid method', function() {
+    it('should return true if the party is currently standing on valid tile', function() {
+      party._currentTileIsValid().should.equal(true);
+
+      // Go to the sea.
+      party._changeVehicle('boat');
+      movePartyExplicitly(0, 0, 0, 5);
+      party._currentTileIsValid().should.equal(true);
+    });
+
+    it('should return false if the party is currently standing on invalid tile', function() {
+      // Go to the sea.
+      party._changeVehicle('boat');
+      party._currentTileIsValid().should.equal(false);
+      party._changeVehicle('walk');
+      movePartyExplicitly(0, 0, 0, 5);
+      party._currentTileIsValid().should.equal(false);
+    });
+  });
+
   describe('_previousTile method', function() {
     it('should return the previous tile tile type correctly', function() {
       party._previousTile('up', TILE_SIZE).should.equal('shipyard');
@@ -63,16 +83,16 @@ describe('Party class', function() {
   describe('_moveWorld method', function() {
     it('moves the world correctly', function() {
       party._moveWorld('right', TILE_SIZE);
-      world.sprite.tilePosition.x.should.equal(1872);
+      party.world.sprite.tilePosition.x.should.equal(1872);
       party._moveWorld('right', TILE_SIZE);
       party._moveWorld('right', TILE_SIZE);
       party._moveWorld('down', TILE_SIZE);
-      world.sprite.tilePosition.x.should.equal(1840);
-      world.sprite.tilePosition.y.should.equal(1392);
+      party.world.sprite.tilePosition.x.should.equal(1840);
+      party.world.sprite.tilePosition.y.should.equal(1392);
       party.currentTile().should.equal('sea');
     });
 
-    it('recalculates world.nextEncounterSteps', function() {
+    it('recalculates party.world.nextEncounterSteps', function() {
       var moveTimes = 20;
       var stepPixels = 1.5;
       var stepsToRemoveWhenWalking = 6;
@@ -82,7 +102,7 @@ describe('Party class', function() {
       }
       var oneStepDecrease = stepsToRemoveWhenWalking / (TILE_SIZE / stepPixels);
       var expectedSteps = currentStepsToNextEncounter - (moveTimes * oneStepDecrease);
-      world.nextEncounterSteps.should.equal(expectedSteps);
+      party.world.nextEncounterSteps.should.equal(expectedSteps);
     });
   });
 
@@ -90,28 +110,28 @@ describe('Party class', function() {
     it('should not do anything if the move was valid', function() {
       movePartyExplicitly(1, 0, 0, 0);
       party._adjustScene('left', 16);
-      world.sprite.tilePosition.x.should.equal(1904);
+      party.world.sprite.tilePosition.x.should.equal(1904);
     });
 
     it('should not undo if the last move was valid', function() {
-      world.sprite.tilePosition.y.should.equal(1408);
+      party.world.sprite.tilePosition.y.should.equal(1408);
       movePartyExplicitly(0, 1, 0, 0);
-      world.sprite.tilePosition.x.should.equal(1872);
+      party.world.sprite.tilePosition.x.should.equal(1872);
       movePartyExplicitly(0, 0, 2, 0);
-      world.sprite.tilePosition.y.should.equal(1440);
+      party.world.sprite.tilePosition.y.should.equal(1440);
       party._adjustScene('up', TILE_SIZE);
-      world.sprite.tilePosition.y.should.equal(1440);
+      party.world.sprite.tilePosition.y.should.equal(1440);
     });
 
     it('should undo move if it was invalid and we are not switching vehicles', function() {
       movePartyExplicitly(0, 0, 0, 2);
       party._adjustScene('down', 16);
-      world.sprite.tilePosition.y.should.equal(1392);
+      party.world.sprite.tilePosition.y.should.equal(1392);
 
       movePartyExplicitly(0, 1, 0, 2);
       party.currentVehicle = 'boat';
       party._adjustScene('right', 16);
-      world.sprite.tilePosition.y.should.equal(1360);
+      party.world.sprite.tilePosition.y.should.equal(1360);
     });
 
     it('should change from boat to walk correctly', function() {
@@ -119,11 +139,11 @@ describe('Party class', function() {
       party.currentVehicle = 'boat'; // WHAT IF WE DONT HAVE BOAT? THEREFORE THE VEHICLES SHOULD ALSO BE READ FROM SPRITES.JSON
       movePartyImplicitly('up', 2);
       movePartyImplicitly('left', 1);
-      world.sprite.tilePosition.x.should.equal(1904);
-      world.sprite.tilePosition.y.should.equal(1360);
+      party.world.sprite.tilePosition.x.should.equal(1904);
+      party.world.sprite.tilePosition.y.should.equal(1360);
       party._moveWorld('left', TILE_SIZE);
       party._adjustScene('left', TILE_SIZE);
-      world.sprite.tilePosition.x.should.equal(1920);
+      party.world.sprite.tilePosition.x.should.equal(1920);
       party.currentTile().should.equal('grass');
       party.currentVehicle.should.equal('walk');
     });
@@ -132,36 +152,36 @@ describe('Party class', function() {
   describe('_decreaseEncounterSteps method', function() {
     it('behaves correctly for different current vehicles', function() {
       var stepPixels = 1.5;
-      var currentStepsToNextEncounter = world.nextEncounterSteps;
+      var currentStepsToNextEncounter = party.world.nextEncounterSteps;
       var vehicleToStepsMapping = { 'walk': 6, 'boat': 2, 'canue': 2, 'ship': 0 };
 
       party.currentVehicle = 'walk';
       party._decreaseEncounterSteps(stepPixels);
       var expectedSteps = currentStepsToNextEncounter - vehicleToStepsMapping['walk'] / (TILE_SIZE / stepPixels);
-      world.nextEncounterSteps.should.equal(expectedSteps);
+      party.world.nextEncounterSteps.should.equal(expectedSteps);
 
       party.currentVehicle = 'boat';
       party._decreaseEncounterSteps(TILE_SIZE);
       expectedSteps -= vehicleToStepsMapping['boat'];
-      world.nextEncounterSteps.should.equal(expectedSteps);
+      party.world.nextEncounterSteps.should.equal(expectedSteps);
 
       party.currentVehicle = 'canue';
       party._decreaseEncounterSteps(TILE_SIZE / 2);
       expectedSteps -= vehicleToStepsMapping['canue'] / 2;
-      world.nextEncounterSteps.should.equal(expectedSteps);
+      party.world.nextEncounterSteps.should.equal(expectedSteps);
 
       party.currentVehicle = 'ship';
       party._decreaseEncounterSteps(stepPixels);
       party._decreaseEncounterSteps(stepPixels);
       party._decreaseEncounterSteps(stepPixels);
       party._decreaseEncounterSteps(stepPixels);
-      world.nextEncounterSteps.should.equal(expectedSteps);
+      party.world.nextEncounterSteps.should.equal(expectedSteps);
     });
 
     it('resets the encounter steps when entering a battle', function() {
-      world.nextEncounterSteps = 1;
+      party.world.nextEncounterSteps = 1;
       party._decreaseEncounterSteps(TILE_SIZE, function() {});
-      assert(world.nextEncounterSteps >= 50);
+      assert(party.world.nextEncounterSteps >= 50);
     });
   });
 
@@ -233,6 +253,43 @@ describe('Party class', function() {
       sprite.anchor.setTo.restore();
     });
 
+    it('should decrease encounter steps if we are trying to move in invalid direction', function() {
+      var encounterStepsAtStart = party.world.nextEncounterSteps;
+      var movedSteps = 2, DECREASE_BY = 6;
+
+      movePartyImplicitly('left', movedSteps);
+      party.world.nextEncounterSteps.should.equal(encounterStepsAtStart - movedSteps * DECREASE_BY);
+    });
+
+    it('should not decrease encounter steps if we are trying to move in invalid direction', function() {
+      var encounterStepsAtStart = party.world.nextEncounterSteps;
+      var movedSteps = 7, DECREASE_BY = 6;
+      movePartyImplicitly('left', movedSteps);
+      party.world.nextEncounterSteps.should.equal(encounterStepsAtStart - movedSteps * DECREASE_BY);
+
+      // Make one more correct step.
+      movedSteps++;
+      movePartyImplicitly('left', 1);
+      var encounterStepsAtLastValidMove = encounterStepsAtStart - movedSteps * DECREASE_BY;
+      party.world.nextEncounterSteps.should.equal(encounterStepsAtLastValidMove);
+
+      // Make one invalid step.
+      movePartyImplicitly('left', 1);
+      party.world.nextEncounterSteps.should.equal(encounterStepsAtLastValidMove);
+    });
+
+    it('should not let encounters occur when stepping on invalid tiles', function() {
+      var movedSteps = 8;
+
+      party.world.nextEncounterSteps = 200; // Make sure no battle occurs within the next 8 steps.
+      movePartyImplicitly('left', movedSteps);
+      party.world.nextEncounterSteps = 1; // Make sure that the next VALID step, a battle will occur.
+
+      var callback = sinon.spy();
+      party.move('left', TILE_SIZE, callback);
+      callback.called.should.equal(false);
+    });
+
     it('should play the right animation', function() {
       var sprite = party.sprites['walk'];
       var spy = sinon.spy(sprite.animations, 'play');
@@ -260,16 +317,16 @@ describe('Party class', function() {
     it('should move correctly through the world map', function() {
       movePartyImplicitly('left', 2);
       movePartyImplicitly('up', 2);
-      world.sprite.tilePosition.x.should.equal(1920);
-      world.sprite.tilePosition.y.should.equal(1440);
+      party.world.sprite.tilePosition.x.should.equal(1920);
+      party.world.sprite.tilePosition.y.should.equal(1440);
       movePartyImplicitly('up', 1);
-      world.sprite.tilePosition.y.should.equal(1440);
+      party.world.sprite.tilePosition.y.should.equal(1440);
       movePartyImplicitly('left', 2);
       party.currentTile().should.equal('forest');
       movePartyImplicitly('left', 5);
-      world.sprite.tilePosition.x.should.equal(2032);
+      party.world.sprite.tilePosition.x.should.equal(2032);
       movePartyImplicitly('left', 1);
-      world.sprite.tilePosition.x.should.equal(2032);
+      party.world.sprite.tilePosition.x.should.equal(2032);
     });
   });
 });
