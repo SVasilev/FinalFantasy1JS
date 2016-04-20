@@ -140,19 +140,20 @@ Wtf Misc Cave
 40: Cave 1
 
 FEATURES:
-1. Allow party member to die.
-2. Add support for mobile. (arrow keys, etc.)
-3. Add percentage while game is loading (http://phaser.io/examples/v2/loader/load-events)
+Allow party member to die.
+Add support for mobile. (arrow keys, etc.)
+Add percentage while game is loading (http://phaser.io/examples/v2/loader/load-events)
 
 BUGS:
-1. BattleUnits class can end up in a state where there are alive enemies but you cant set the cursor to them.
-2. GameMenu cannot be instantiated with empty options list.
-3. Monster kill function shoud have a callback as argument for when the sprite is completely destroyed after the animation.
-4. The project cannot be used completely offline.
-5. Worldmap texture is too big so it does not load correctly on my Samsung Galaxy J5 with Chrome and default Browser.
+BattleUnits class can end up in a state where there are alive enemies but you cant set the cursor to them.
+Monster kill function shoud have a callback as argument for when the sprite is completely destroyed after the animation.
+The project cannot be used completely offline.
+Worldmap texture is too big so it does not load correctly on my Samsung Galaxy J5 with Chrome and default Browser.
+While enemy units attack, you can change the cursor.
+Thextures for the party are wrong when celebrating a win.
 
 REFACTORING:
-1. There are still many hard-coded things around the internal stuff of the classes.
-2. All image paths and sprite objects should be moved as global constants.
-3. Make GameConstants's stats names compatible for character and for the monsters. Maybe get the character stats from the DB as well. Maybe change the DB column names for the stats.
-4. Add tests for all stable classes.
+There are still many hard-coded things around the internal stuff of the classes.
+All image paths and sprite objects should be moved as global constants.
+Make GameConstants's stats names compatible for character and for the monsters. Maybe get the character stats from the DB as well. Maybe change the DB column names for the stats.
+Add tests for all stable classes.
