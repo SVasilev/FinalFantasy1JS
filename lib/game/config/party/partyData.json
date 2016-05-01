@@ -1,0 +1,15 @@
+{
+  "gil": 500,
+  "startingLocation": "Cornelia",
+  "startingVehicle": "walk",
+  "charactersCount": 4,
+  "characterRoles": ["warrior", "thief", "whiteMage", "blackMage"],
+  "startingItems": {
+    "Armor": [],
+    "Weapon": []
+  },
+  "startingSpells": {
+    "white": [],
+    "black": []
+  }
+}

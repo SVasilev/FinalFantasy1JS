@@ -1,12 +1,17 @@
-/* global World */
+/* global World, GameConstants */
 var fs = require('fs');
 
-// Require World.js
+// Require World.js and GameConstants.js
 eval(fs.readFileSync(__dirname + '/../../lib/game/classes/World.js').toString());
+eval(fs.readFileSync(__dirname + '/../../lib/game/classes/GameConstants.js').toString());
 
 module.exports = {
   getPhaserSpriteStub: function() {
     return {
+      texture: { // Dimensions for the worldmap image
+        width: 4240,
+        height: 3840
+      },
       animations: {
         add: function() { /* dummy */ },
         play: function() { /* dummy */ }
@@ -34,14 +39,21 @@ module.exports = {
       },
       cache: {
         getJSON: function(fileName) {
-          return JSON.parse(fs.readFileSync(fileName, 'utf8'));
+          switch (fileName) {
+            case GameConstants.ASSETS_KEYS.WORLDMAP_TILE_DATA:
+              return require('../../lib/game/config/world/worldmapData.json');
+            case GameConstants.ASSETS_KEYS.WORLDMAP_PARTY_SPRITES_DATA:
+              return require('../../lib/game/config/party/worldMapPartySpritesData.json');
+            case GameConstants.ASSETS_KEYS.PARTY_DATA:
+              return require('../../lib/game/config/party/partyData.json');
+          }
         }
       }
     };
   },
 
   getWorldStub: function(x, y) {
-    var world = new World('worldmap', __dirname + '/../../lib/game/config/world/tileData.json', module.exports.getPhaserGameStub());
+    var world = new World(module.exports.getPhaserGameStub());
     world.sprite.tilePosition = { x: x, y: y };
     return world;
   }

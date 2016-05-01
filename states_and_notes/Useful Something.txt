@@ -150,10 +150,9 @@ Monster kill function shoud have a callback as argument for when the sprite is c
 The project cannot be used completely offline.
 Worldmap texture is too big so it does not load correctly on my Samsung Galaxy J5 with Chrome and default Browser.
 While enemy units attack, you can change the cursor.
-Thextures for the party are wrong when celebrating a win.
+Textures for the party are wrong when celebrating a win.
+The party is not exactly centered in the world.
 
 REFACTORING:
-There are still many hard-coded things around the internal stuff of the classes.
-All image paths and sprite objects should be moved as global constants.
 Make GameConstants's stats names compatible for character and for the monsters. Maybe get the character stats from the DB as well. Maybe change the DB column names for the stats.
 Add tests for all stable classes.
