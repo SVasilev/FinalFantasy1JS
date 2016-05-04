@@ -141,10 +141,12 @@ Wtf Misc Cave
 
 FEATURES:
 Allow party member to die.
-Add support for mobile. (arrow keys, etc.)
-Add percentage while game is loading (http://phaser.io/examples/v2/loader/load-events)
-Allow player to cancel his choice in battle (e.g. when he chooses to attack, add a way to cancel this action and choose other action)
-Update the README.md
+Add support for mobile. (arrow keys, etc.).
+Add percentage while game is loading (http://phaser.io/examples/v2/loader/load-events).
+Allow player to cancel his choice in battle (e.g. when he chooses to attack, add a way to cancel this action and choose other action).
+Upload GameMenu on github. Well documented example: https://github.com/bmarwane/phaser.healthbar
+Add eye candy for the battle. Use camera flash before the battle, use sounds, etc.
+Update the README.md.
 
 BUGS:
 The project cannot be used completely offline, the tests cannot run offline because of Node.js bug.
@@ -154,4 +156,5 @@ The party is not exactly centered in the world.
 
 REFACTORING:
 Make GameConstants's stats names compatible for character and for the monsters. Maybe get the character stats from the DB as well. Maybe change the DB column names for the stats.
+All the things around Spells are kinda messy. Think of an appropriate approach for spells.
 Add tests for all stable classes.
