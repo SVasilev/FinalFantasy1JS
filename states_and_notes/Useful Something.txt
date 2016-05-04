@@ -153,7 +153,6 @@ Worldmap texture is too big so it does not load correctly on my Samsung Galaxy J
 While enemy units attack, you can change the cursor.
 Textures for the party are wrong when celebrating a win.
 The party is not exactly centered in the world.
-There is an option for a player to double attack (hitting enter twice) :(
 
 REFACTORING:
 Make GameConstants's stats names compatible for character and for the monsters. Maybe get the character stats from the DB as well. Maybe change the DB column names for the stats.
