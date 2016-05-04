@@ -150,7 +150,6 @@ BUGS:
 BattleUnits class can end up in a state where there are alive enemies but you cant set the cursor to them.
 The project cannot be used completely offline, the tests cannot run offline because of Node.js bug.
 Worldmap texture is too big so it does not load correctly on my Samsung Galaxy J5 with Chrome and default Browser.
-While enemy units attack, you can change the cursor.
 Textures for the party are wrong when celebrating a win.
 The party is not exactly centered in the world.
 
