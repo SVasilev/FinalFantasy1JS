@@ -1,7 +1,7 @@
 {
   "warrior": {
     "path": "./assets/img/game/battle/warrior.gif",
-    "frameWidth": 22.5,
+    "frameWidth": 24,
     "frameHeight": 27,
     "scale": {
       "x": 4,
@@ -17,7 +17,7 @@
   },
   "thief": {
     "path": "./assets/img/game/battle/thief.gif",
-    "frameWidth": 22.5,
+    "frameWidth": 23,
     "frameHeight": 27,
     "scale": {
       "x": 4,
