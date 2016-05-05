@@ -146,6 +146,7 @@ Add percentage while game is loading (http://phaser.io/examples/v2/loader/load-e
 Allow player to cancel his choice in battle (e.g. when he chooses to attack, add a way to cancel this action and choose other action).
 Upload GameMenu on github. Well documented example: https://github.com/bmarwane/phaser.healthbar
 Add eye candy for the battle. Use camera flash before the battle, use sounds, etc.
+Add GameOver logic.
 Update the README.md.
 
 BUGS:
