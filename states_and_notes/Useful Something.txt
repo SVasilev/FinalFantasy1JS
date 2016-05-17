@@ -150,6 +150,8 @@ Add GameOver logic.
 Make Defend option in battle actually do something.
 Research camera angle property in Phaser to make the worldmap look more like in the actual game.
 Update the README.md.
+Fix the login form like: http://bootsnipp.com/tags/registration and add the first screen of the game like the conceptArt.png.
+Consider adding Phaser.Camera.shake effect in the battle (on Attack and Spell).
 
 BUGS:
 The project cannot be used completely offline, the tests cannot run offline because of Node.js bug.
@@ -160,4 +162,6 @@ REFACTORING:
 Make GameConstants's stats names compatible for character and for the monsters. Maybe get the character stats from the DB as well. Maybe change the DB column names for the stats.
 All the things around Spells are kinda messy. Think of an appropriate approach for spells. Enable casting a spell animations.
 Consider using EventEmmiter when waiting the battle animations to finish.
+Consider storing only users and savegames in the database and remove the game artefacts (Items, Magic and stuff) from the DB.
+Consider having a savegame files rather than storing the data in the DB.
 Add tests for all stable classes.
