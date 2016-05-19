@@ -1,0 +1,8 @@
+[
+  { "name": "House",               "location": "Elflnad, CresLake, Gaia, Onrac",   "cost": 3000, "effect": "+++HP, +MP",     "target": "Many" },
+  { "name": "Pure Potion",         "location": "Everywhere",                       "cost": 75,   "effect": "Removes poison", "target": "One" },
+  { "name": "Sleeping Bag (Tent)", "location": "Coneria, Pravoka",                 "cost": 75,   "effect": "+HP",            "target": "Many" },
+  { "name": "Soft Potion",         "location": "Elfland, Onrac, Caravan",          "cost": 800,  "effect": "Removes Stone",  "target": "One" },
+  { "name": "Tent (Cabin)",        "location": "Pravoka, Elfland, CresLake, Gaia", "cost": 250,  "effect": "++HP",           "target": "Many" },
+  { "name": "Tonic (Heal Potion)", "location": "Everywhere",                       "cost": 60,   "effect": "+HP",            "target": "One" }
+]
