@@ -10,6 +10,7 @@ eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/GameConstants.js').
 eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/CharacterData.js').toString());
 eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/Common.js').toString());
 eval(fs.readFileSync(__dirname + '/../../../lib/game/classes/Party.js').toString());
+Party.prototype._createInBattleUnitsGroup = function() {};
 
 var world, party;
 var TILE_SIZE; // This is the worldmap unit.

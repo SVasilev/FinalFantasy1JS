@@ -1,6 +1,6 @@
 /* global describe, it */
 
-var should = require('should'); // eslint-disable-line
+var should = require('should'); // eslint-disable-line no-unused-vars
 var assert = require('assert');
 var stubs = require('../../test-utils/stubs');
 

@@ -9,6 +9,7 @@
     },
     "animation": {
       "walk": [0, 1, 2, 3, 4, 5],
+      "neutral": [0],
       "block": [6],
       "exhaust": [7],
       "win": [0, 9],
@@ -25,6 +26,7 @@
     },
     "animation": {
       "walk": [0, 1, 2, 3, 4, 5],
+      "neutral": [0],
       "block": [6],
       "exhaust": [7],
       "win": [0, 9],
@@ -41,6 +43,7 @@
     },
     "animation": {
       "walk": [0, 1, 2, 3, 4, 5],
+      "neutral": [0],
       "block": [6],
       "exhaust": [7],
       "win": [0, 9],
@@ -58,6 +61,7 @@
     },
     "animation": {
       "walk": [0, 1, 2, 3, 4, 5],
+      "neutral": [0],
       "block": [6],
       "exhaust": [7],
       "win": [0, 9],

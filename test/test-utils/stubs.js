@@ -4,6 +4,7 @@ var fs = require('fs');
 // Require World.js and GameConstants.js
 eval(fs.readFileSync(__dirname + '/../../lib/game/classes/World.js').toString());
 eval(fs.readFileSync(__dirname + '/../../lib/game/classes/GameConstants.js').toString());
+var SYS_CONFIG = {}; // eslint-disable-line no-unused-vars
 
 module.exports = {
   getPhaserSpriteStub: function() {
