@@ -89,7 +89,6 @@ BattleScene.prototype._updateMonsterList = function() {
   }, this);
 
   this._monsterList = new GameMenu(this._menuAssetsKeys, monsterList, menuConfig, this.phaserGame);
-  this._monsterList.grayOutOptions();
   this._monsterList.enabled = false;
 };
 
@@ -199,7 +198,6 @@ BattleScene.prototype._updateCharacterList = function() {
   }, this);
 
   this._characterList = new GameMenu(this._menuAssetsKeys, characterList, menuConfig, this.phaserGame);
-  this._characterList.grayOutOptions();
   this._characterList.enabled = false;
 };
 

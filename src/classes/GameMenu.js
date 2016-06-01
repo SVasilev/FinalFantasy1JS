@@ -47,12 +47,12 @@ GameMenu.prototype._init = function() {
     if (typeof optionItem === 'object') {
       optionText = Object.keys(optionItem)[0];
     }
-    var child = this.phaserGame.add.text(0, index * 50, optionText, {
+    var phaserText = this.phaserGame.add.text(0, index * 50, optionText, {
       font: 'bold 20pt Courier New',
-      fill: 'rgb(150, 150, 100)'
+      fill: 'rgb(200, 200, 200)'
     });
-    child.width = Math.min(child.width, maxTextWidth);
-    optionsGroup.add(child);
+    phaserText.width = Math.min(phaserText.width, maxTextWidth);
+    optionsGroup.add(phaserText);
   }, this);
 
   optionsGroup.height = (menuHeight - this._margin * 2);
@@ -60,17 +60,17 @@ GameMenu.prototype._init = function() {
   !this.config.noCursor && this._highlightOption(this._currentOptionIndex);
 };
 
-GameMenu.prototype._highlightOption = function(childIndex) {
+GameMenu.prototype._highlightOption = function(optionIndex) {
   var optionsGroup = this._menuItems.options;
   var backgroundSprite = this._menuItems.background;
-  var child = optionsGroup.children[childIndex];
-  var childrenCount = optionsGroup.children.length - 1 || 1; // Don't divide by 0.
-  var childrenBoxHeight = backgroundSprite.height - 2 * this._margin - child.height;
-  var childY = optionsGroup.y + childIndex * childrenBoxHeight / childrenCount;
+  var phaserText = optionsGroup.getChildAt(optionIndex);
+  var childrenCount = optionsGroup.length - 1 || 1; // Don't divide by 0.
+  var childrenBoxHeight = backgroundSprite.height - 2 * this._margin - phaserText.height;
+  var childY = optionsGroup.y + optionIndex * childrenBoxHeight / childrenCount;
 
   this._menuItems.cursor.y = childY;
   this.grayOutOptions();
-  child.addColor('rgb(255, 255, 255)', 0);
+  phaserText.alpha = 1;
 };
 
 GameMenu.prototype._moveCursor = function(direction) {
@@ -172,10 +172,7 @@ GameMenu.prototype.hideCursor = function(action) {
 };
 
 GameMenu.prototype.grayOutOptions = function() {
-  this._menuItems.options.children.forEach(function (child) {
-    child.clearColors();
-    child.addColor('rgb(150, 150, 100)');
-  });
+  this._menuItems.options.setAll('alpha', 0.35);
 };
 
 GameMenu.prototype.destroy = function() {
