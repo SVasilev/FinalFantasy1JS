@@ -78,7 +78,7 @@ BattleScene.prototype._updateMonsterList = function() {
 
   var monsterCount = {};
   this._battleGround.getMonsterUnits().getUnitsGroup().forEachAlive(function(monster) {
-    var monsterName = monster.stats.name;
+    var monsterName = monster.name;
     monsterCount[monsterName] = monsterCount[monsterName] ? ++monsterCount[monsterName] : 1;
   });
 

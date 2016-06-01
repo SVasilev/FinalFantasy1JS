@@ -5,6 +5,7 @@ Monster.prototype = _.extend(Object.create(Phaser.TileSprite.prototype), UnitAct
 Monster.prototype.constructor = Monster;
 function Monster(phaserGame, x, y, width, height, spriteKey, monsterData) {
   Phaser.TileSprite.call(this, phaserGame, x, y, width, height, spriteKey);
+  this.name = monsterData.name;
   this.stats = monsterData.stats;
   this.health = this.stats.HP;
   this.maxHealth = this.stats.maxHP;

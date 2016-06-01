@@ -1,4 +1,4 @@
-/* global GameConstants, BattleUnits, Character, Common */
+/* global GameConstants, BattleUnits, Character, Common, _ */
 
 function Party(world, phaserGame) {
   var spritesDataKey = GameConstants.ASSETS_KEYS.WORLDMAP_PARTY_SPRITES_DATA;
@@ -41,7 +41,8 @@ Party.prototype._createInBattleUnitsGroup = function(phaserGame) {
   };
 
   this.inBattleUnitGroup = new BattleUnits(partyUnitsConfig, phaserGame);
-  Object.keys(GameConstants.CHARACTER_NAMES).forEach(function(characterRole) {
+  var charactersData = phaserGame.cache.getJSON(GameConstants.ASSETS_KEYS.CHARACTERS_DATA);
+  _.pluck(charactersData, 'role').forEach(function(characterRole) {
     this.inBattleUnitGroup.addUnit(new Character(phaserGame, 0, 0, characterRole));
   }, this);
   this.inBattleUnitGroup.getUnitsGroup().setAll('visible', false);

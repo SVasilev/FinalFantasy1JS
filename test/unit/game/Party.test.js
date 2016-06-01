@@ -6,7 +6,7 @@ var assert = require('assert');
 var should = require('should'); // eslint-disable-line no-unused-vars
 var stubs = require('../../test-utils/stubs');
 // Require client side classes
-eval(fs.readFileSync(__dirname + '/../../../src/classes/GameConstants.js').toString());
+var GameConstants = require(__dirname + '/../../../src/config/GameConstants');
 eval(fs.readFileSync(__dirname + '/../../../src/classes/Common.js').toString());
 eval(fs.readFileSync(__dirname + '/../../../src/classes/Party.js').toString());
 Party.prototype._createInBattleUnitsGroup = function() {};

@@ -3,7 +3,8 @@ var fs = require('fs');
 
 // Require World.js and GameConstants.js
 eval(fs.readFileSync(__dirname + '/../../src/classes/World.js').toString());
-eval(fs.readFileSync(__dirname + '/../../src/classes/GameConstants.js').toString());
+// fs.readFileSync(__dirname + '/../../src/config/GameConstants.json', 'utf8')
+var GameConstants = require('../../src/config/GameConstants');
 var SYS_CONFIG = {}; // eslint-disable-line no-unused-vars
 
 module.exports = {

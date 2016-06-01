@@ -1,0 +1,48 @@
+Initial characters:
+Arus: warrior
+Wedge: thief
+Jenica: whiteMage
+Topapa: blackMage
+
+Character stats:
+agi: This effects your evade rate.
+atk: This effects how much damage you deal.
+def: Armor This is your defense against physical attacks.
+str: This effects your damage rating.
+vit: This effects how much HP is gained at level up.
+int: This doesnt seem to do anything.
+lvl: This is what level youre on. As your levels go up, so do your stats.
+hitRate: % Hit Rate Accuracy, and it effects how many hits you do.
+luck: Luck Effects the ability to run. Doesnt work right on NES version.
+exp: This is your current # of experience points.
+expToNxtLvl: This is how many experience points you need to reach the next level.
+HP: This is your current HP.
+maxMP: This is your maximum MP.
+MP: This is your current MP.
+EVAS: % Evade Rate.
+
+Monster stats:
+agi: Ability to avoid hits.
+atk: This effects how much damage is dealt.
+def: Physical Defense.
+str: Effects damage monster can do.
+int: This doesnt seem to do anything.
+hitRate: % Hit Rate Accuracy, and it effects how many hits can be done.
+luck: Luck Effects the ability to run. Doesnt work right on NES version.
+exp: Amount of experience gained by winning.
+HP: Monster's current HP.
+maxHP: Monster's Max HP.
+MP: This is your current MP.
+maxMP: This is your maximum MP.
+EVAS: % Evade Rate.
+gil: Amount of gold gained by winning.
+
+Interesting stats in the future:
+spells: Spells and abilities a unit can cast.
+courage:  Likelihood of monster running.
+criticalChance: Likelihood of unit scoring Critical Hit.
+attackStatusEffect: Status Effect caused by attack.
+statusChangeChance: Likelihood of monster causing effect.
+category: Type of creature.
+weakness: Elements unit is weak to.
+resistance: Elements with little or no effect.

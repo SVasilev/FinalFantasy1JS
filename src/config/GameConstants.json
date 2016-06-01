@@ -1,0 +1,20 @@
+{
+  "ASSETS_KEYS": {
+    "FF1_LOGO": "ff1logo",
+    "PROGRESS_BAR": "progressbar",
+    "WORLDMAP": "worldmap",
+    "WORLDMAP_TILE_DATA": "worldmapData",
+    "WORLDMAP_PARTY_SPRITES_DATA": "worldMapPartySpritesData",
+    "IN_BATTLE_PARTY_SPRITES_DATA": "inBattlePartySpritesData",
+    "PARTY_DATA": "partyData",
+    "MENU_BACKGROUND": "menuBackground",
+    "MENU_CURSOR": "menuCursor",
+    "BATTLE_BACKGROUNDS": "battleBackgrounds",
+    "MONSTERS_SHEET": "monstersSheet",
+    "CHARACTERS_DATA": "characters",
+    "BATTLE_BACKGROUNDS_JSON": "battlebackgrounds",
+    "MONSTERS_DATA_JSON": "monsters"
+  },
+
+  "MAX_ENEMIES_IN_BATTLE": 9
+}

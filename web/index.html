@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
 		<title>Final Fantasy I In Browser</title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css" />
-    <script>var SYS_CONFIG = { DEBUG: true, BATTLE_DEBUG: true };</script>
+    <!-- Load third party libraries and global variables -->
     <script type="text/javascript" src="./js/vendor/underscore-min.js"></script>   <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>-->
 		<script type="text/javascript" src="./js/vendor/jquery-2.2.0.min.js"></script> <!--<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.0.min.js"></script>-->
     <script type="text/javascript" src="./js/vendor/phaser2.4.7.js"></script>      <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.4.4/phaser.js"></script>-->
+    <script>var SYS_CONFIG = { DEBUG: true, BATTLE_DEBUG: true };</script>
+    <script>var GameConstants; $.getJSON( "../src/config/GameConstants.json", function(data) { GameConstants = data; });</script>
+    <!-- Initialize UI components and start the first game state. -->
 		<script type="text/javascript" src="./js/ui/attachEvents.js"></script>
     <script type="text/javascript" src="./js/ui/loginUtils.js"></script>
 		<script type="text/javascript" src="../src/states/BootState.js"></script>
