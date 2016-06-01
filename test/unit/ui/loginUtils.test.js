@@ -1,7 +1,7 @@
 var fs = require('fs');
 var assert = require('assert');
 // Require loginUtils.
-eval(fs.readFileSync(__dirname + '../../../../lib/ui/loginUtils.js').toString());
+eval(fs.readFileSync(__dirname + '../../../../web/js/ui/loginUtils.js').toString());
 
 var document;
 var result = '';

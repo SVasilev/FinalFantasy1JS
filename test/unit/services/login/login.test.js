@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 var assert = require('assert');
-var loginUtils = require('../../../../lib/services/login/utils');
-var loginService = require('../../../../lib/services/login/login');
+var loginUtils = require('../../../../services/login/utils');
+var loginService = require('../../../../services/login/login');
 
 var connection;
 var response = [];

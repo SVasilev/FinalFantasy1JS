@@ -1,5 +1,5 @@
 var assert = require('assert');
-var loginUtils = require('../../../../lib/services/login/utils');
+var loginUtils = require('../../../../services/login/utils');
 
 describe('loginUtils module', function() {
   describe('findUserWithProperty function', function() {

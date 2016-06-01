@@ -10,16 +10,16 @@ LoadingState.prototype = {
     ];
 
     FF1_CLASSES.forEach(function(className) {
-      this.load.script(className, '../lib/game/classes/' + className + '.js');
+      this.load.script(className, '../src/classes/' + className + '.js');
     }, this);
-    this.load.script('MainState', '../lib/game/MainState.js');
+    this.load.script('MainState', '../src/states/MainState.js');
   },
 
   loadConfiguration: function() {
-    this.load.json('worldmapData', '../lib/game/config/world/worldmapData.json');
-    this.load.json('partyData', '../lib/game/config/party/partyData.json');
-    this.load.json('worldMapPartySpritesData', '../lib/game/config/party/worldMapPartySpritesData.json');
-    this.load.json('inBattlePartySpritesData', '../lib/game/config/party/inBattlePartySpritesData.json');
+    this.load.json('worldmapData', '../src/config/world/worldmapData.json');
+    this.load.json('partyData', '../src/config/party/partyData.json');
+    this.load.json('worldMapPartySpritesData', '../src/config/party/worldMapPartySpritesData.json');
+    this.load.json('inBattlePartySpritesData', '../src/config/party/inBattlePartySpritesData.json');
   },
 
   loadImages: function() {

@@ -1,0 +1,22 @@
+Useful links:
+http://www.uffsite.net/ff1/classes.php
+https://github.com/rynq/final-fantasy-1-clone
+https://github.com/thansber/final-fantasy-1/tree/master/images
+http://pacoup.com/2011/06/12/list-of-true-169-resolutions/
+http://designscrazed.org/css-html-login-form-templates/
+http://finalfantasy.wikia.com/wiki/Cornelia_%28Final_Fantasy%29 --> Cornelia Enemies
+
+http://stackoverflow.com/questions/5384152/event-for-resize-stopped  -->  On resize stoppage.
+
+PLAYER STATS !!! =?> http://www.fforigins.com/ff1/stats.html
+MORE STATS -> http://finalfantasy.wikia.com/wiki/Stats
+
+NEW SPRITES -> http://ffclassic.com/
+INTERESTING PROJECT -> https://github.com/nhydock/FF1-Battle-System
+
+MySQL
+EXPORT:
+  mysqldump -u root --password ff1 > ff1.sql
+
+IMPORT:
+  mysql -u root --password ff1 < ff1.sql

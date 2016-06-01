@@ -2,8 +2,8 @@
 var fs = require('fs');
 
 // Require World.js and GameConstants.js
-eval(fs.readFileSync(__dirname + '/../../lib/game/classes/World.js').toString());
-eval(fs.readFileSync(__dirname + '/../../lib/game/classes/GameConstants.js').toString());
+eval(fs.readFileSync(__dirname + '/../../src/classes/World.js').toString());
+eval(fs.readFileSync(__dirname + '/../../src/classes/GameConstants.js').toString());
 var SYS_CONFIG = {}; // eslint-disable-line no-unused-vars
 
 module.exports = {
@@ -42,11 +42,11 @@ module.exports = {
         getJSON: function(fileName) {
           switch (fileName) {
             case GameConstants.ASSETS_KEYS.WORLDMAP_TILE_DATA:
-              return require('../../lib/game/config/world/worldmapData.json');
+              return require('../../src/config/world/worldmapData.json');
             case GameConstants.ASSETS_KEYS.WORLDMAP_PARTY_SPRITES_DATA:
-              return require('../../lib/game/config/party/worldMapPartySpritesData.json');
+              return require('../../src/config/party/worldMapPartySpritesData.json');
             case GameConstants.ASSETS_KEYS.PARTY_DATA:
-              return require('../../lib/game/config/party/partyData.json');
+              return require('../../src/config/party/partyData.json');
           }
         }
       }

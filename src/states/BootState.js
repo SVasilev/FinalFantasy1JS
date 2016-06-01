@@ -12,8 +12,8 @@ BootState.prototype = {
 
     this.load.image('ff1logo', './assets/img/game/loading/ff-logo.png');
     this.load.image('progressbar', './assets/img/game/loading/progress-bar.gif');
-    this.load.script('GameConstants', '../lib/game/classes/GameConstants.js');
-    this.load.script('loadingstate', '../lib/game/LoadingState.js');
+    this.load.script('GameConstants', '../src/classes/GameConstants.js');
+    this.load.script('loadingstate', '../src/states/LoadingState.js');
   },
 
   create: function() {

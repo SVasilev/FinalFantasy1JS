@@ -3,12 +3,12 @@ var express = require('express');
 var app = express();
 var port = process.env.PORT || 8080;
 
-var loginService = require('./lib/services/login/login');
-var saveLoadService = require('./lib/services/saveload/saveload');
-var dbPersistService = require('./lib/services/persist/queries');
+var loginService = require('./services/login/login');
+var saveLoadService = require('./services/saveload');
+var dbPersistService = require('./services/queries');
 
-app.use(express.static(__dirname + '/web'));
-app.use(express.static(__dirname + '/'));
+app.use('/', express.static(__dirname + '/web', { 'index': ['index.html'] }));
+app.use('/src', express.static(__dirname + '/src'));
 
 app.use(session({
   secret: 'keyboard cat',
