@@ -63,13 +63,13 @@ BattleGround.prototype._addParty = function() {
   var partyGroup = this._partyUnits.getUnitsGroup();
 
   // Fix sprites orientation if party member escaped the battle last time.
-  var lastEscapedCharacter = partyGroup.filter(function(child) {
-    return child.scale.x < 0;
-  }, true).first || partyGroup.getFirstAlive();
-  lastEscapedCharacter.scale.x = lastEscapedCharacter.scale.y;
+  partyGroup.forEach(function(character) {
+    character.scale.x = character.scale.y;
+  });
 
   partyGroup.setAll('visible', true);
   this.phaserGame.world.bringToTop(partyGroup);
+  this.phaserGame.world.bringToTop(this._partyUnits.getCursorSprite());
 };
 
 BattleGround.prototype._init = function() {

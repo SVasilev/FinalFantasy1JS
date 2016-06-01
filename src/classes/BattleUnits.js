@@ -114,6 +114,10 @@ BattleUnits.prototype.getUnitsGroup = function() {
   return this._unitsGroup;
 };
 
+BattleUnits.prototype.getCursorSprite = function() {
+  return this._cursorSprite;
+};
+
 BattleUnits.prototype.getFirstAlive = function() {
   return this._unitsGroup.getFirstAlive();
 };
