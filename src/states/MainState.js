@@ -1,4 +1,4 @@
-/* global SYS_CONFIG, GameConstants, Phaser, World, Party, GameMenu, BattleScene, DbData, _, loginUtils */
+/* global SYS_CONFIG, GameConstants, Phaser, World, Party, GameMenu, BattleScene, _, loginUtils */
 
 function MainState() {}
 
@@ -78,7 +78,7 @@ MainState.prototype = {
     this.game.camera.fade(0xffffff, FADE_TIME);
     setTimeout(function() {
       this.game.camera.resetFX();
-      new BattleScene(this.party, this.dbData, onBattleEndCallback, this.game);
+      new BattleScene(this.party, onBattleEndCallback, this.game);
     }.bind(this), FADE_TIME * 2); // To make the white screen stay longer.
   },
 
@@ -96,7 +96,6 @@ MainState.prototype = {
   },
 
   create: function() {
-    this.dbData = new DbData(); // Load data from tha database.
     this.world = new World(this.game);
     this.party = new Party(this.world, this.game);
 

@@ -1,5 +1,5 @@
 [
-  { "tile": "forest", "coordinates": [495, 5, 240, 128] },
-  { "tile": "grass",  "coordinates": [5, 5, 240, 128] },
-  { "tile": "sea",    "coordinates": [495, 138, 240, 128] }
+  { "tile": "forest", "spritecoords": [495, 5, 240, 128] },
+  { "tile": "grass",  "spritecoords": [5, 5, 240, 128] },
+  { "tile": "sea",    "spritecoords": [495, 138, 240, 128] }
 ]

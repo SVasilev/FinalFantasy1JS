@@ -5,7 +5,6 @@ var port = process.env.PORT || 8080;
 
 var loginService = require('./services/login/login');
 var saveLoadService = require('./services/saveload');
-var dbPersistService = require('./services/queries');
 
 app.use('/', express.static(__dirname + '/web', { 'index': ['index.html'] }));
 app.use('/src', express.static(__dirname + '/src'));
@@ -20,7 +19,6 @@ app.use(session({
 app.get('/services/login', loginService);
 app.get('/services/game/save', saveLoadService.save);
 app.get('/services/game/load', saveLoadService.load);
-app.get('/services/persist', dbPersistService);
 
 app.use(function continueIfUserIsRegistered(req, res, next) {
   if (req.session.userID) {

@@ -1,9 +1,8 @@
 /* global _, Monster, GameConstants, BattleUnits */
 
-function BattleGround(party, randomizedMonsters, dbData, phaserGame) {
+function BattleGround(party, randomizedMonsters, phaserGame) {
   this.party = party;
   this.randomizedMonsters = randomizedMonsters;
-  this.dbData = dbData;
   this.phaserGame = phaserGame;
 
   this._groundSprite = null;
@@ -12,17 +11,15 @@ function BattleGround(party, randomizedMonsters, dbData, phaserGame) {
   this._init();
 }
 
-// Gets 'Int, Int, Int, Int' and returns { x: Int, y: Int, width: Int, height: Int }
+// Gets [Int, Int, Int, Int] and returns { x: Int, y: Int, width: Int, height: Int }
 BattleGround.prototype._getContourFromText = function(text) {
-  var coordinatesArray = text.split(',').map(function(value) {
-    return parseInt(value);
-  });
-  return _.object(['x', 'y', 'width', 'height'], coordinatesArray);
+  return _.object(['x', 'y', 'width', 'height'], text);
 };
 
 // Set battle background according to the tile on which the party is.
 BattleGround.prototype._setBattleBackground = function() {
-  var battleGroundsObj = _.indexBy(this.dbData.battlebackgrounds, 'tile');
+  var backgroundsData = this.phaserGame.cache.getJSON(GameConstants.ASSETS_KEYS.BATTLE_BACKGROUNDS_JSON);
+  var battleGroundsObj = _.indexBy(backgroundsData, 'tile');
   var contour = this._getContourFromText(battleGroundsObj[this.party.currentTile()].spritecoords);
   this._groundSprite = this.phaserGame.add.tileSprite(
     0, 0, contour.width, contour.height, GameConstants.ASSETS_KEYS.BATTLE_BACKGROUNDS
@@ -45,13 +42,13 @@ BattleGround.prototype._addMonsters = function() {
 
   this._monsterUnits = new BattleUnits(monsterUnitsConfig, this.phaserGame);
   Object.keys(this.randomizedMonsters).forEach(function(monsterName) {
-    var monster = this.randomizedMonsters[monsterName].monster;
+    var monsterData = this.randomizedMonsters[monsterName].monster;
     var monsterCountFromType = this.randomizedMonsters[monsterName].count;
-    var contour = this._getContourFromText(monster.spritecoords);
+    var contour = this._getContourFromText(monsterData.spritecoords);
     for (var i = 0; i < monsterCountFromType; i++) {
       var monsterSprite = new Monster(
         this.phaserGame, 0, 0, contour.width, contour.height,
-        GameConstants.ASSETS_KEYS.MONSTERS_SHEET, monster
+        GameConstants.ASSETS_KEYS.MONSTERS_SHEET, monsterData
       );
       monsterSprite.tilePosition.x = 0 - contour.x;
       monsterSprite.tilePosition.y = 0 - contour.y;

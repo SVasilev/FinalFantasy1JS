@@ -3,19 +3,29 @@
 function LoadingState() {}
 
 LoadingState.prototype = {
+  loadResources: function(resourceList, path, resourceType, extension) {
+    resourceList.forEach(function(resourceName) {
+      this.load[resourceType](resourceName, path + resourceName + '.' + extension);
+    }, this);
+  },
+
   loadScripts: function() {
     var FF1_CLASSES = [
-      'Common', 'DbData', 'GameMenu', 'UnitActions', 'Monster', 'BattleUnits',
-      'BattleGround', 'BattleScene', 'World', 'CharacterData', 'Character', 'Party'
+      'Common', 'GameMenu', 'UnitActions', 'Monster', 'BattleUnits',
+      'BattleGround', 'BattleScene', 'World', 'Character', 'Party'
     ];
 
-    FF1_CLASSES.forEach(function(className) {
-      this.load.script(className, '../src/classes/' + className + '.js');
-    }, this);
+    this.loadResources(FF1_CLASSES, '../src/classes/', 'script', 'js');
     this.load.script('MainState', '../src/states/MainState.js');
   },
 
   loadConfiguration: function() {
+    var FF1_ARTEFACTS = [
+      'armor', 'battlebackgrounds', 'characters', 'items',
+      'monsters', 'questitems', 'spells', 'weapons'
+    ];
+
+    this.loadResources(FF1_ARTEFACTS, '../src/config/artefacts/', 'json', 'json');
     this.load.json('worldmapData', '../src/config/world/worldmapData.json');
     this.load.json('partyData', '../src/config/party/partyData.json');
     this.load.json('worldMapPartySpritesData', '../src/config/party/worldMapPartySpritesData.json');
@@ -30,7 +40,7 @@ LoadingState.prototype = {
     this.load.image('thief', './assets/img/game/battle/thief.gif');
     this.load.image('whiteMage', './assets/img/game/battle/whiteMage.gif');
     this.load.image('blackMage', './assets/img/game/battle/blackMage.gif');
-    this.load.image('monsters', './assets/img/game/battle/monsters.gif');
+    this.load.image('monstersSheet', './assets/img/game/battle/monsters.gif');
 
     var worldMapImageName = SYS_CONFIG.DEBUG ? 'tiledCopyOfWorldMapWithLocations' : 'worldMap';
     this.load.image('worldmap', './assets/img/game/world/' + worldMapImageName + '.png');

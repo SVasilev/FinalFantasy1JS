@@ -68,7 +68,7 @@ UnitActions.prototype._attack = function(targetUnit, onAnimationComplete) {
   var attack = this.game.add.tween(targetUnit).to({ alpha: 0.2 }, 150, 'Quart.easeOut', false, 0, 0, true);
   attack.chain(goBackToPosition);
   attack.onComplete.add(function() {
-    var damage = Math.max(123, this.stats.atk - targetUnit.stats.def);
+    var damage = Math.max(0, this.stats.atk - targetUnit.stats.def);
     this._changeHealth(targetUnit, -damage);
 
     this.scale.x = this.scale.y * -1;
@@ -102,8 +102,8 @@ UnitActions.prototype._castSpell = function(magicName, targetUnit, onAnimationCo
   spellCastTween.onComplete.add(function() {
     fireBall.animations.add('fire');
     fireBall.animations.play('fire', 10, true);
-    this.stats.magicPoints -= magicDamage[magicName];
-    this.stats.magicPoints = Math.max(0, this.stats.magicPoints);
+    this.stats.MP -= magicDamage[magicName];
+    this.stats.MP = Math.max(0, this.stats.MP);
     this._changeHealth(targetUnit, -magicDamage[magicName]);
   }, this);
   spellCastTween.chain(waitFireExplosion);

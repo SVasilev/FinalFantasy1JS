@@ -19,8 +19,8 @@ The party is not exactly centered in the world.
 
 REFACTORING:
 All the things around Spells are kinda messy. Think of an appropriate approach for spells. Enable casting a spell animations.
+Consider using EventEmmiter for battle start and battle end.
 Consider using EventEmmiter when waiting the battle animations to finish.
-Consider storing only users and savegames in the database and remove the game artefacts (Items, Magic and stuff) from the DB.
 Consider having a savegame files rather than storing the data in the DB.
 GameConstants should be JSON.
 Add tests for all stable classes.

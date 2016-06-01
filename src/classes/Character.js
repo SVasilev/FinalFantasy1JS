@@ -1,15 +1,15 @@
-/* global Phaser, Common, UnitActions, GameConstants, CharacterData, _ */
+/* global Phaser, Common, UnitActions, GameConstants, _ */
 
 // Extends Phaser.Sprite, Mixin UnitActions.
 Character.prototype = _.extend(Object.create(Phaser.Sprite.prototype), UnitActions.prototype);
 Character.prototype.constructor = Character;
 function Character(phaserGame, x, y, spriteKey) {
   Phaser.Sprite.call(this, phaserGame, x, y, spriteKey);
-  this.characterData = new CharacterData(spriteKey);
-  this.stats = this.characterData.stats;
-  this.health = this.stats.hitPoints;
-  this.maxHealth = this.stats.maxHitPoints;
 
+  var charactersData = phaserGame.cache.getJSON(GameConstants.ASSETS_KEYS.CHARACTERS_DATA);
+  _.extendOwn(this, _.findWhere(charactersData, { role: spriteKey }));
+  this.health = this.stats.HP;
+  this.maxHealth = this.stats.maxHP;
   this._attachAnimations(phaserGame, spriteKey);
   phaserGame.add.existing(this);
 }

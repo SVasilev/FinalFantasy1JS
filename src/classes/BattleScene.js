@@ -1,8 +1,7 @@
 /* global alert, SYS_CONFIG, Phaser, GameConstants, GameMenu, BattleGround, _ */
 
-function BattleScene(party, dbData, onBattleEndCallback, phaserGame) {
+function BattleScene(party, onBattleEndCallback, phaserGame) {
   this.party = party;
-  this.dbData = dbData;
   this.onBattleEndCallback = onBattleEndCallback;
   this.phaserGame = phaserGame;
 
@@ -11,7 +10,7 @@ function BattleScene(party, dbData, onBattleEndCallback, phaserGame) {
     cursor: GameConstants.ASSETS_KEYS.MENU_CURSOR
   };
   this._randomizedMonsters = this._randomizeMonsters();
-  this._battleGround = new BattleGround(party, this._randomizedMonsters, dbData, phaserGame);
+  this._battleGround = new BattleGround(party, this._randomizedMonsters, phaserGame);
   // this._turn = ['ai', 'player'][Math.round(Math.random())];
   this._turn = 'player';
   this._currentUnitOnTurn = this._battleUnitsOnTurn().getUnitsGroup().getFirstAlive();
@@ -30,7 +29,8 @@ BattleScene.prototype._randomizeMonsterCountForGivenRange = function(range) {
 
 BattleScene.prototype._randomizeMonsters = function() {
   var possibleMonsterTypes = [];
-  this.dbData.monsters.forEach(function(monsterType) {
+  var monstersData = this.phaserGame.cache.getJSON(GameConstants.ASSETS_KEYS.MONSTERS_DATA_JSON);
+  monstersData.forEach(function(monsterType) {
     if (monsterType.location === this.party.location) {
       possibleMonsterTypes.push(monsterType);
     }
@@ -129,7 +129,7 @@ BattleScene.prototype._initBattleMenu = function() {
       case 'MagicFire':
       case 'MagicFira':
       case 'MagicFera':
-        var currentUnitRole = self._currentUnitOnTurn.characterData.role; // HERE WILL LIE A BUG IF IT IS THE AI TURN.
+        var currentUnitRole = self._currentUnitOnTurn.role; // HERE WILL LIE A BUG IF IT IS THE AI TURN.
         menu.enabled = true;
         self.phaserGame.input.keyboard.onUpCallback({ keyIdentifier: escapeKey });
         if (currentUnitRole === 'warrior' || currentUnitRole === 'thief') {
@@ -191,11 +191,10 @@ BattleScene.prototype._updateCharacterList = function() {
 
   var characterList = [];
   this._battleGround.getPartyUnits().getUnitsGroup().children.forEach(function(character) {
-    var characterData = character.characterData;
-    var indent = characterData.role === 'warrior' ? '            ' : '          ';
-    var text = characterData.name +
+    var indent = character.role === 'warrior' ? '            ' : '          ';
+    var text = character.name +
         indent + 'HP: ' + character.health + '/' + character.maxHealth +
-        indent + 'MP: ' + characterData.stats.magicPoints + '/' + characterData.stats.maxMagicPoints;
+        indent + 'MP: ' + character.stats.MP + '/' + character.stats.maxMP;
     characterList.push(text);
   }, this);
 
@@ -237,6 +236,7 @@ BattleScene.prototype._endUnitTurn = function() {
   }
 
   this._currentUnitOnTurn = this._battleUnitsOnTurn().getAliveUnit('next');
+  this._battleUnitsOnTurn().getUnitsGroup().cursorIndex++;
   if (!this._currentUnitOnTurn) {
     this._negateTurn();
     this._battleUnitsOnTurn()._resetCursor();

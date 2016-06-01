@@ -69,7 +69,10 @@ var GameConstants = { // eslint-disable-line no-unused-vars
     'MENU_BACKGROUND': 'menuBackground',
     'MENU_CURSOR': 'menuCursor',
     'BATTLE_BACKGROUNDS': 'battleBackgrounds',
-    'MONSTERS_SHEET': 'monsters'
+    'MONSTERS_SHEET': 'monstersSheet',
+    'CHARACTERS_DATA': 'characters',
+    'BATTLE_BACKGROUNDS_JSON': 'battlebackgrounds',
+    'MONSTERS_DATA_JSON': 'monsters'
   },
 
   MAX_ENEMIES_IN_BATTLE: 9
