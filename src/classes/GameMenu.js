@@ -25,7 +25,7 @@ GameMenu.prototype._init = function() {
   );
   backgroundSprite.width = this.config.width;
   backgroundSprite.height = menuHeight;
-  this._menuItems['background'] = backgroundSprite;
+  this._menuItems.background = backgroundSprite;
 
   var cursorBoxWidth = 0;
   if (!this.config.noCursor) {
@@ -33,7 +33,7 @@ GameMenu.prototype._init = function() {
       this.config.x + this._margin, this.config.y + this._margin, this.spriteKeys.cursor
     );
     cursorSprite.width = this.config.cursorWidth;
-    this._menuItems['cursor'] = cursorSprite;
+    this._menuItems.cursor = cursorSprite;
     cursorBoxWidth = cursorSprite.width + this.config.cursorDistanceFromText;
   }
 
@@ -56,26 +56,26 @@ GameMenu.prototype._init = function() {
   }, this);
 
   optionsGroup.height = (menuHeight - this._margin * 2);
-  this._menuItems['options'] = optionsGroup;
+  this._menuItems.options = optionsGroup;
   !this.config.noCursor && this._highlightOption(this._currentOptionIndex);
 };
 
 GameMenu.prototype._highlightOption = function(childIndex) {
-  var optionsGroup = this._menuItems['options'];
-  var backgroundSprite = this._menuItems['background'];
+  var optionsGroup = this._menuItems.options;
+  var backgroundSprite = this._menuItems.background;
   var child = optionsGroup.children[childIndex];
   var childrenCount = optionsGroup.children.length - 1 || 1; // Don't divide by 0.
   var childrenBoxHeight = backgroundSprite.height - 2 * this._margin - child.height;
   var childY = optionsGroup.y + childIndex * childrenBoxHeight / childrenCount;
 
-  this._menuItems['cursor'].y = childY;
+  this._menuItems.cursor.y = childY;
   this.grayOutOptions();
   child.addColor('rgb(255, 255, 255)', 0);
 };
 
 GameMenu.prototype._moveCursor = function(direction) {
   var addend = { 'up': -1, 'down': 1 };
-  var optionsArray = this._menuItems['options'].children;
+  var optionsArray = this._menuItems.options.children;
 
   this._currentOptionIndex += addend[direction];
   this._currentOptionIndex = Math.max(0, this._currentOptionIndex);
@@ -103,7 +103,7 @@ GameMenu.prototype._attachKeyPressEvents = function() {
         this._moveCursor(pressedKey);
         break;
       case 'enter':
-        var optionText = this._menuItems['options'].children[this._currentOptionIndex].text;
+        var optionText = this._menuItems.options.children[this._currentOptionIndex].text;
         var optionItem = _.find(this.options, function(item) {
           var submenuTextMatches = typeof item === 'object' && Object.keys(item)[0] === optionText;
           return item === optionText || submenuTextMatches;
@@ -113,13 +113,15 @@ GameMenu.prototype._attachKeyPressEvents = function() {
         }
         else { // Open submenu
           this.enabled = false;
+          this._menuItems.cursor.alpha /= 3;
           var subMenuConfig = _.extend(_.clone(this.config), {
             _parent: (this.config._parent || '') + optionText,
-            x: this.config.x + this.config.width,
+            x: this._menuItems.options.x + this._menuItems.options.width,
             y: this.config.y - 50,
             canBeClosed: true,
             onExit: function() {
               this.enabled = true;
+              this._menuItems.cursor.alpha *= 3;
               this._attachKeyPressEvents();
             }.bind(this)
           });
@@ -155,13 +157,13 @@ GameMenu.prototype.visible = function(action, skipOne) {
 };
 
 GameMenu.prototype.activate = function(action) {
-  this._menuItems['cursor'].visible = action;
+  this._menuItems.cursor.visible = action;
   action && this._attachKeyPressEvents();
 };
 
 GameMenu.prototype.hideCursor = function(action) {
   if (action) {
-    this._menuItems['cursor'].visible = false;
+    this._menuItems.cursor.visible = false;
     this.grayOutOptions();
   }
   else {
@@ -170,7 +172,7 @@ GameMenu.prototype.hideCursor = function(action) {
 };
 
 GameMenu.prototype.grayOutOptions = function() {
-  this._menuItems['options'].children.forEach(function (child) {
+  this._menuItems.options.children.forEach(function (child) {
     child.clearColors();
     child.addColor('rgb(150, 150, 100)');
   });
