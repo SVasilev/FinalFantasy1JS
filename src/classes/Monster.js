@@ -1,10 +1,10 @@
 /* global Phaser, UnitActions, _ */
 
-// Extends Phaser.TileSprite, Mixin UnitActions.
-Monster.prototype = _.extend(Object.create(Phaser.TileSprite.prototype), UnitActions.prototype);
+// Extends Phaser.Sprite, Mixin UnitActions.
+Monster.prototype = _.extend(Object.create(Phaser.Sprite.prototype), UnitActions.prototype);
 Monster.prototype.constructor = Monster;
 function Monster(phaserGame, x, y, width, height, spriteKey, monsterData) {
-  Phaser.TileSprite.call(this, phaserGame, x, y, width, height, spriteKey);
+  Phaser.Sprite.call(this, phaserGame, x, y, spriteKey, monsterData.name);
   this.name = monsterData.name;
   this.stats = monsterData.stats;
   this.health = this.stats.HP;
@@ -18,7 +18,7 @@ Monster.prototype.kill = function() {
   var dieTween = this.game.add.tween(this);
   dieTween.to({ alpha: 0 }, 1200, 'Quart.easeOut');
   dieTween.onComplete.add(function() {
-    Phaser.TileSprite.prototype.kill.call(self);
+    Phaser.Sprite.prototype.kill.call(self);
   });
   dieTween.start();
 };

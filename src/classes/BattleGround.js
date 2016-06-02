@@ -48,10 +48,8 @@ BattleGround.prototype._addMonsters = function() {
     for (var i = 0; i < monsterCountFromType; i++) {
       var monsterSprite = new Monster(
         this.phaserGame, 0, 0, contour.width, contour.height,
-        GameConstants.ASSETS_KEYS.MONSTERS_SHEET, monsterData
+        GameConstants.ASSETS_KEYS.MONSTERS_ATLAS, monsterData
       );
-      monsterSprite.tilePosition.x = 0 - contour.x;
-      monsterSprite.tilePosition.y = 0 - contour.y;
       monsterSprite.scale.setTo(3, 3);
       this._monsterUnits.addUnit(monsterSprite);
     }

@@ -27,20 +27,18 @@ LoadingState.prototype = {
 
     this.loadResources(FF1_ARTEFACTS, '../src/config/artefacts/', 'json', 'json');
     this.load.json('worldmapData', '../src/config/world/worldmapData.json');
-    this.load.json('partyData', '../src/config/party/partyData.json');
-    this.load.json('worldMapPartySpritesData', '../src/config/party/worldMapPartySpritesData.json');
-    this.load.json('inBattlePartySpritesData', '../src/config/party/inBattlePartySpritesData.json');
+
+    this.loadResources(['partyData', 'worldMapPartySpritesData', 'inBattlePartySpritesData'], '../src/config/party/', 'json', 'json');
   },
 
   loadImages: function() {
     this.load.image('menuBackground', './assets/img/game/common/menuBackground.png');
     this.load.image('menuCursor', './assets/img/game/common/menuCursor.png');
     this.load.image('battleBackgrounds', './assets/img/game/battle/backgrounds.png');
-    this.load.image('warrior', './assets/img/game/battle/warrior.gif');
-    this.load.image('thief', './assets/img/game/battle/thief.gif');
-    this.load.image('whiteMage', './assets/img/game/battle/whiteMage.gif');
-    this.load.image('blackMage', './assets/img/game/battle/blackMage.gif');
-    this.load.image('monstersSheet', './assets/img/game/battle/monsters.gif');
+    this.loadResources(['warrior', 'thief', 'whiteMage', 'blackMage'], './assets/img/game/battle/characters/', 'image', 'gif');
+
+    var monstersAtlasDir = './assets/img/game/battle/monsters/';
+    this.load.atlas('monstersAtlas', monstersAtlasDir + 'atlas.png', monstersAtlasDir + 'atlasData.json');
 
     var worldMapImageName = SYS_CONFIG.DEBUG ? 'tiledCopyOfWorldMapWithLocations' : 'worldMap';
     this.load.image('worldmap', './assets/img/game/world/' + worldMapImageName + '.png');

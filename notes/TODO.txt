@@ -16,6 +16,7 @@ BUGS:
 The project cannot be used completely offline, the tests cannot run offline because of Node.js bug.
 Worldmap texture is too big so it does not load correctly on my Samsung Galaxy J5 with Chrome and default Browser.
 The party is not exactly centered in the world.
+Fix GameMenu font strech.
 
 REFACTORING:
 All the things around Spells are kinda messy. Think of an appropriate approach for spells. Enable casting a spell animations.
@@ -27,3 +28,6 @@ Add tests for all stable classes.
 Right now the inheritance of the Monster and Character from Phaser.Sprite is only made in order to deal with kill method. But I found there is a onKilled event for the spirte so consider not using inheritance.
 Consider BattleUnits not to be a Phaser.Group wrapper but to extend Phaser.Group.
 Function findUserWithProperty in /services/login/utils.js can be achieved using underscore.
+Make UnitActions a base class for Monster and Character.
+Change the way battle backgrounds are loaded.
+Implement function which loads whole folder with configuration files or use filewalker module.

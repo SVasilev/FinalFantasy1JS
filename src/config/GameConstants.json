@@ -10,7 +10,7 @@
     "MENU_BACKGROUND": "menuBackground",
     "MENU_CURSOR": "menuCursor",
     "BATTLE_BACKGROUNDS": "battleBackgrounds",
-    "MONSTERS_SHEET": "monstersSheet",
+    "MONSTERS_ATLAS": "monstersAtlas",
     "CHARACTERS_DATA": "characters",
     "BATTLE_BACKGROUNDS_JSON": "battlebackgrounds",
     "MONSTERS_DATA_JSON": "monsters"
