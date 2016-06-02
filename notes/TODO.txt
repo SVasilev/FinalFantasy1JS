@@ -9,9 +9,8 @@ Make Defend option in battle actually do something.
 Update the README.md.
 Fix the login form like: http://bootsnipp.com/tags/registration and add the first screen of the game like the conceptArt.png.
 Consider adding Phaser.Camera.shake effect in the battle (on Attack and Spell).
-Dealing with locations
-Make color of GameMenu text configurable.
-Add towns and stuff - https://github.com/thansber/final-fantasy-1-old/tree/master/js/data. This guy has almost everything. Or here - http://www.spriters-resource.com/submitter/Karrior+Cyredghymn/ (Not every place is ripped)
+Dealing with locations.
+Add towns and stuff - https://github.com/thansber/final-fantasy-1-old/tree/master/js/data. This guy has almost everything. Or here - http://www.spriters-resource.com/submitter/Karrior+Cyredghymn/ (Not every place is ripped).
 
 BUGS:
 The project cannot be used completely offline, the tests cannot run offline because of Node.js bug.
