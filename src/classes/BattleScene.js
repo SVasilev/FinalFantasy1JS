@@ -37,6 +37,7 @@ BattleScene.prototype._randomizeMonsters = function() {
   }, this);
 
   var debug = SYS_CONFIG.BATTLE_DEBUG;
+  var monsterTypes = 0;
   var monsterCount = 0;
   var randomizedMonsters = {};
   possibleMonsterTypes.forEach(function(monsterType, index) {
@@ -50,14 +51,16 @@ BattleScene.prototype._randomizeMonsters = function() {
       countFromType = randomizedCount;
     }
 
-    // Do not exceed the maximum count of monsters on the ground.
-    var shouldAdd = countFromType && monsterCount + countFromType <= GameConstants.MAX_ENEMIES_IN_BATTLE;
-    if (shouldAdd) {
+    // Add the monsterType if the maximum count of monsters and monster types are not exceeded.
+    var maxTypesNotExceeded = monsterTypes < GameConstants.MAX_ENEMY_TYPES_IN_BATTLE;
+    var maxCountNotExceeded = monsterCount + countFromType <= GameConstants.MAX_ENEMIES_IN_BATTLE;
+    if (countFromType && maxTypesNotExceeded && maxCountNotExceeded) {
       randomizedMonsters[monsterType.name] = {
         monster: monsterType,
         count: countFromType
       };
       monsterCount += countFromType;
+      monsterTypes++;
     }
   }, this);
 
@@ -88,8 +91,39 @@ BattleScene.prototype._updateMonsterList = function() {
     monsterList.push(monsterName + ' (' + monsterCountFromType + ')');
   }, this);
 
+  // Fix the monster name font stretching.
+  // This works but it should be better if an option "stretchToFit" is provided to GameMenu
+  var blankLabelsCount = GameConstants.MAX_ENEMY_TYPES_IN_BATTLE - monsterList.length;
+  _(blankLabelsCount).times(function() { monsterList.push(' '); });
+
   this._monsterList = new GameMenu(this._menuAssetsKeys, monsterList, menuConfig, this.phaserGame);
   this._monsterList.enabled = false;
+};
+
+BattleScene.prototype._updateCharacterList = function() {
+  this._characterList && this._characterList.destroy();
+  var menuConfig = {
+    x: this.phaserGame.width * 6 / 10,
+    y: this.phaserGame.height * 7.5 / 10,
+    width: this.phaserGame.width * 4 / 10,
+    height: this.phaserGame.height * 2.5 / 10,
+    margin: 20,
+    canBeClosed: false,
+    noCursor: true
+  };
+
+  var characterList = [];
+  this._battleGround.getPartyUnits().getUnitsGroup().children.forEach(function(character) {
+    // Use tabulation to align and remove the "stretchToFit" strategy in here.
+    var indent = character.role === 'warrior' ? '            ' : '          ';
+    var text = character.name +
+        indent + 'HP: ' + character.health + '/' + character.maxHealth +
+        indent + 'MP: ' + character.stats.MP + '/' + character.stats.maxMP;
+    characterList.push(text);
+  }, this);
+
+  this._characterList = new GameMenu(this._menuAssetsKeys, characterList, menuConfig, this.phaserGame);
+  this._characterList.enabled = false;
 };
 
 BattleScene.prototype._initBattleMenu = function() {
@@ -174,31 +208,6 @@ BattleScene.prototype._initBattleMenu = function() {
     ['Attack', 'Defend', { 'Magic': ['Fire', 'Fira', 'Fera'] }, { 'Item': ['HP+', 'HP++', 'HP+++'] }, 'Flee'],
     menuConfig, this.phaserGame
   );
-};
-
-BattleScene.prototype._updateCharacterList = function() {
-  this._characterList && this._characterList.destroy();
-  var menuConfig = {
-    x: this.phaserGame.width * 6 / 10,
-    y: this.phaserGame.height * 7.5 / 10,
-    width: this.phaserGame.width * 4 / 10,
-    height: this.phaserGame.height * 2.5 / 10,
-    margin: 20,
-    canBeClosed: false,
-    noCursor: true
-  };
-
-  var characterList = [];
-  this._battleGround.getPartyUnits().getUnitsGroup().children.forEach(function(character) {
-    var indent = character.role === 'warrior' ? '            ' : '          ';
-    var text = character.name +
-        indent + 'HP: ' + character.health + '/' + character.maxHealth +
-        indent + 'MP: ' + character.stats.MP + '/' + character.stats.maxMP;
-    characterList.push(text);
-  }, this);
-
-  this._characterList = new GameMenu(this._menuAssetsKeys, characterList, menuConfig, this.phaserGame);
-  this._characterList.enabled = false;
 };
 
 BattleScene.prototype._repositionCharacters = function() {
