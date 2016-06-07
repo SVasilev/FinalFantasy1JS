@@ -91,11 +91,6 @@ BattleScene.prototype._updateMonsterList = function() {
     monsterList.push(monsterName + ' (' + monsterCountFromType + ')');
   }, this);
 
-  // Fix the monster name font stretching.
-  // This works but it should be better if an option "stretchToFit" is provided to GameMenu
-  var blankLabelsCount = GameConstants.MAX_ENEMY_TYPES_IN_BATTLE - monsterList.length;
-  _(blankLabelsCount).times(function() { monsterList.push(' '); });
-
   this._monsterList = new GameMenu(this._menuAssetsKeys, monsterList, menuConfig, this.phaserGame);
   this._monsterList.enabled = false;
 };
@@ -113,13 +108,8 @@ BattleScene.prototype._updateCharacterList = function() {
   };
 
   var characterList = [];
-  this._battleGround.getPartyUnits().getUnitsGroup().children.forEach(function(character) {
-    // Use tabulation to align and remove the "stretchToFit" strategy in here.
-    var indent = character.role === 'warrior' ? '            ' : '          ';
-    var text = character.name +
-        indent + 'HP: ' + character.health + '/' + character.maxHealth +
-        indent + 'MP: ' + character.stats.MP + '/' + character.stats.maxMP;
-    characterList.push(text);
+  this._battleGround.getPartyUnits().getUnitsGroup().children.forEach(function(c) {
+    characterList.push(c.name + '\tHP: ' + c.health + '/' + c.maxHealth + '\tMP: ' + c.stats.MP + '/' + c.stats.maxMP);
   }, this);
 
   this._characterList = new GameMenu(this._menuAssetsKeys, characterList, menuConfig, this.phaserGame);

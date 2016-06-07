@@ -17,7 +17,8 @@ function GameMenu(spriteKeys, options, config, phaserGame) {
 GameMenu.prototype._init = function() {
   this.config.font = this.config.font || {
     font: 'bold 20pt Courier New',
-    fill: 'rgb(200, 200, 200)'
+    fill: 'rgb(200, 200, 200)',
+    tabs: 195
   };
   this.config.noCursor = this.options.length ? this.config.noCursor : true;
   this.config.canBeClosed = this.config.canBeClosed === undefined ? true : this.config.canBeClosed;
@@ -56,7 +57,7 @@ GameMenu.prototype._init = function() {
     optionsGroup.add(phaserText);
   }, this);
 
-  optionsGroup.height = (menuHeight - this._margin * 2);
+  optionsGroup.height = Math.min(optionsGroup.height, (menuHeight - this._margin * 2));
   this._menuItems.options = optionsGroup;
   !this.config.noCursor && this._highlightOption(this._currentOptionIndex);
 };
