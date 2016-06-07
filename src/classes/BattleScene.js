@@ -6,8 +6,8 @@ function BattleScene(party, onBattleEndCallback, phaserGame) {
   this.phaserGame = phaserGame;
 
   this._menuAssetsKeys = {
-    background: GameConstants.ASSETS_KEYS.MENU_BACKGROUND,
-    cursor: GameConstants.ASSETS_KEYS.MENU_CURSOR
+    background: GameConstants.ASSETS_KEYS.MENU_BACKGROUND_IMG,
+    cursor: GameConstants.ASSETS_KEYS.MENU_CURSOR_IMG
   };
   this._randomizedMonsters = this._randomizeMonsters();
   this._battleGround = new BattleGround(party, this._randomizedMonsters, phaserGame);

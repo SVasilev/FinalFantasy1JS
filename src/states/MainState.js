@@ -56,7 +56,7 @@ MainState.prototype = {
 
     var assetsKeys = GameConstants.ASSETS_KEYS;
     this.menu = new GameMenu(
-      { background: assetsKeys.MENU_BACKGROUND, cursor: assetsKeys.MENU_CURSOR },
+      { background: assetsKeys.MENU_BACKGROUND_IMG, cursor: assetsKeys.MENU_CURSOR_IMG },
       ['Pause Game', 'Save Game', 'Load Game', 'Exit'], menuConfig, this.game
     );
     this.menu.visible(false);
@@ -84,8 +84,8 @@ MainState.prototype = {
 
   preload: function() {
     var partySpriteData = _.extend(
-      this.game.cache.getJSON(GameConstants.ASSETS_KEYS.WORLDMAP_PARTY_SPRITES_DATA),
-      this.game.cache.getJSON(GameConstants.ASSETS_KEYS.IN_BATTLE_PARTY_SPRITES_DATA)
+      this.game.cache.getJSON(GameConstants.ASSETS_KEYS.WORLDMAP_PARTY_SPRITES_DATA_JSON),
+      this.game.cache.getJSON(GameConstants.ASSETS_KEYS.IN_BATTLE_PARTY_SPRITES_DATA_JSON)
     );
     Object.keys(partySpriteData).forEach(function(key) {
       var spriteData = partySpriteData[key];

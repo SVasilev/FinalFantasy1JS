@@ -6,7 +6,7 @@ Character.prototype.constructor = Character;
 function Character(phaserGame, x, y, spriteKey) {
   Phaser.Sprite.call(this, phaserGame, x, y, spriteKey);
 
-  var charactersData = phaserGame.cache.getJSON(GameConstants.ASSETS_KEYS.CHARACTERS_DATA);
+  var charactersData = phaserGame.cache.getJSON(GameConstants.ASSETS_KEYS.CHARACTERS_DATA_JSON);
   _.extendOwn(this, _.findWhere(charactersData, { role: spriteKey }));
   this.health = this.stats.HP;
   this.maxHealth = this.stats.maxHP;
@@ -15,7 +15,7 @@ function Character(phaserGame, x, y, spriteKey) {
 }
 
 Character.prototype._attachAnimations = function(phaserGame, spriteKey) {
-  var spritesJsonKey = GameConstants.ASSETS_KEYS.IN_BATTLE_PARTY_SPRITES_DATA;
+  var spritesJsonKey = GameConstants.ASSETS_KEYS.IN_BATTLE_PARTY_SPRITES_DATA_JSON;
   var charactersConfig = phaserGame.cache.getJSON(spritesJsonKey);
   Common.createSpriteFromConfig(charactersConfig[spriteKey], this, true);
 };

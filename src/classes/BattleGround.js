@@ -22,7 +22,7 @@ BattleGround.prototype._setBattleBackground = function() {
   var battleGroundsObj = _.indexBy(backgroundsData, 'tile');
   var contour = this._getContourFromText(battleGroundsObj[this.party.currentTile()].spritecoords);
   this._groundSprite = this.phaserGame.add.tileSprite(
-    0, 0, contour.width, contour.height, GameConstants.ASSETS_KEYS.BATTLE_BACKGROUNDS
+    0, 0, contour.width, contour.height, GameConstants.ASSETS_KEYS.BATTLE_BACKGROUNDS_IMG
   );
 
   var scaleX = this.phaserGame.width / contour.width;
@@ -37,7 +37,7 @@ BattleGround.prototype._addMonsters = function() {
     x: this.phaserGame.width * 1 / 10,
     y: 50,
     padding: 170,
-    cursorSpriteKey: GameConstants.ASSETS_KEYS.MENU_CURSOR
+    cursorSpriteKey: GameConstants.ASSETS_KEYS.MENU_CURSOR_IMG
   };
 
   this._monsterUnits = new BattleUnits(monsterUnitsConfig, this.phaserGame);

@@ -48,9 +48,9 @@ LoadingState.prototype = {
     var assetsKeys = GameConstants.ASSETS_KEYS;
     var centerX = this.game.world.centerX;
 
-    this.logo = this.add.sprite(centerX, this.game.world.centerY, assetsKeys.FF1_LOGO);
+    this.logo = this.add.sprite(centerX, this.game.world.centerY, assetsKeys.FF1_LOGO_IMG);
     this.logo.anchor.setTo(0.5);
-    this.progressBar = this.add.sprite(centerX, this.logo.y + this.logo.height / 2, assetsKeys.PROGRESS_BAR);
+    this.progressBar = this.add.sprite(centerX, this.logo.y + this.logo.height / 2, assetsKeys.PROGRESS_BAR_IMG);
     this.progressBar.anchor.setTo(0.5);
     this.load.setPreloadSprite(this.progressBar);
 

@@ -1,8 +1,8 @@
 /* global GameConstants, BattleUnits, Character, Common, _ */
 
 function Party(world, phaserGame) {
-  var spritesDataKey = GameConstants.ASSETS_KEYS.WORLDMAP_PARTY_SPRITES_DATA;
-  var partyDataKey = GameConstants.ASSETS_KEYS.PARTY_DATA;
+  var spritesDataKey = GameConstants.ASSETS_KEYS.WORLDMAP_PARTY_SPRITES_DATA_JSON;
+  var partyDataKey = GameConstants.ASSETS_KEYS.PARTY_DATA_JSON;
 
   this.world = world;
   this.worldMapSpritesData = phaserGame.cache.getJSON(spritesDataKey);
@@ -37,11 +37,11 @@ Party.prototype._createInBattleUnitsGroup = function(phaserGame) {
     y: phaserGame.height * 0.5 / 10,
     padding: phaserGame.height * 1.8 / 10,
     isParty: true,
-    cursorSpriteKey: GameConstants.ASSETS_KEYS.MENU_CURSOR
+    cursorSpriteKey: GameConstants.ASSETS_KEYS.MENU_CURSOR_IMG
   };
 
   this.inBattleUnitGroup = new BattleUnits(partyUnitsConfig, phaserGame);
-  var charactersData = phaserGame.cache.getJSON(GameConstants.ASSETS_KEYS.CHARACTERS_DATA);
+  var charactersData = phaserGame.cache.getJSON(GameConstants.ASSETS_KEYS.CHARACTERS_DATA_JSON);
   _.pluck(charactersData, 'role').forEach(function(characterRole) {
     this.inBattleUnitGroup.addUnit(new Character(phaserGame, 0, 0, characterRole));
   }, this);

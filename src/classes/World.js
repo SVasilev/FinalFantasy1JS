@@ -3,9 +3,9 @@
 function World(phaserGame) {
   var assetsKeys = GameConstants.ASSETS_KEYS;
 
-  this.worldmapData = phaserGame.cache.getJSON(assetsKeys.WORLDMAP_TILE_DATA);
+  this.worldmapData = phaserGame.cache.getJSON(assetsKeys.WORLDMAP_TILE_DATA_JSON);
   this.sprite = phaserGame.add.tileSprite(
-    0, 0, phaserGame.width, phaserGame.height, assetsKeys.WORLDMAP
+    0, 0, phaserGame.width, phaserGame.height, assetsKeys.WORLDMAP_IMG
   );
   this.sprite.scale.setTo(this.worldmapData.scale.x, this.worldmapData.scale.y);
   this.sprite.tilePosition.x = this.worldmapData.startPosition.x;//3990;

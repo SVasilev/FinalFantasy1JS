@@ -24,7 +24,6 @@ All the things around Spells are kinda messy. Think of an appropriate approach f
 Consider using EventEmmiter for battle start and battle end.
 Consider using EventEmmiter when waiting the battle animations to finish.
 Consider having a savegame files rather than storing the data in the DB.
-All ASSETS from GameConstants should have suffixes like _JSON, _IMG.
 Add tests for all stable classes.
 Right now the inheritance of the Monster and Character from Phaser.Sprite is only made in order to deal with kill method. But I found there is a onKilled event for the spirte so consider not using inheritance.
 Consider BattleUnits not to be a Phaser.Group wrapper but to extend Phaser.Group.

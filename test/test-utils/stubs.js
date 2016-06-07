@@ -42,11 +42,11 @@ module.exports = {
       cache: {
         getJSON: function(fileName) {
           switch (fileName) {
-            case GameConstants.ASSETS_KEYS.WORLDMAP_TILE_DATA:
+            case GameConstants.ASSETS_KEYS.WORLDMAP_TILE_DATA_JSON:
               return require('../../src/config/world/worldmapData.json');
-            case GameConstants.ASSETS_KEYS.WORLDMAP_PARTY_SPRITES_DATA:
+            case GameConstants.ASSETS_KEYS.WORLDMAP_PARTY_SPRITES_DATA_JSON:
               return require('../../src/config/party/worldMapPartySpritesData.json');
-            case GameConstants.ASSETS_KEYS.PARTY_DATA:
+            case GameConstants.ASSETS_KEYS.PARTY_DATA_JSON:
               return require('../../src/config/party/partyData.json');
           }
         }
