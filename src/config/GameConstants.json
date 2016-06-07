@@ -9,10 +9,9 @@
     "PARTY_DATA_JSON": "partyData",
     "MENU_BACKGROUND_IMG": "menuBackground",
     "MENU_CURSOR_IMG": "menuCursor",
-    "BATTLE_BACKGROUNDS_IMG": "battleBackgrounds",
+    "BATTLE_BACKGROUNDS_ATLAS": "battleBackgrounds",
     "MONSTERS_ATLAS": "monstersAtlas",
     "CHARACTERS_DATA_JSON": "characters",
-    "BATTLE_BACKGROUNDS_JSON": "battlebackgrounds",
     "MONSTERS_DATA_JSON": "monsters"
   },
 

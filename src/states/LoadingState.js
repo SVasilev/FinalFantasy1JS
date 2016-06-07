@@ -21,7 +21,7 @@ LoadingState.prototype = {
 
   loadConfiguration: function() {
     var FF1_ARTEFACTS = [
-      'armor', 'battlebackgrounds', 'characters', 'items',
+      'armor', 'characters', 'items',
       'monsters', 'questitems', 'spells', 'weapons'
     ];
 
@@ -34,9 +34,10 @@ LoadingState.prototype = {
   loadImages: function() {
     this.load.image('menuBackground', './assets/img/game/common/menuBackground.png');
     this.load.image('menuCursor', './assets/img/game/common/menuCursor.png');
-    this.load.image('battleBackgrounds', './assets/img/game/battle/backgrounds.png');
     this.loadResources(['warrior', 'thief', 'whiteMage', 'blackMage'], './assets/img/game/battle/characters/', 'image', 'gif');
 
+    var backgroundsAtlasDir = './assets/img/game/battle/backgrounds/';
+    this.load.atlas('battleBackgrounds', backgroundsAtlasDir + 'atlas.png', backgroundsAtlasDir + 'atlasData.json');
     var monstersAtlasDir = './assets/img/game/battle/monsters/';
     this.load.atlas('monstersAtlas', monstersAtlasDir + 'atlas.png', monstersAtlasDir + 'atlasData.json');
 

@@ -18,17 +18,12 @@ BattleGround.prototype._getContourFromText = function(text) {
 
 // Set battle background according to the tile on which the party is.
 BattleGround.prototype._setBattleBackground = function() {
-  var backgroundsData = this.phaserGame.cache.getJSON(GameConstants.ASSETS_KEYS.BATTLE_BACKGROUNDS_JSON);
-  var battleGroundsObj = _.indexBy(backgroundsData, 'tile');
-  var contour = this._getContourFromText(battleGroundsObj[this.party.currentTile()].spritecoords);
-  this._groundSprite = this.phaserGame.add.tileSprite(
-    0, 0, contour.width, contour.height, GameConstants.ASSETS_KEYS.BATTLE_BACKGROUNDS_IMG
+  this._groundSprite = this.phaserGame.add.sprite(
+    0, 0, GameConstants.ASSETS_KEYS.BATTLE_BACKGROUNDS_ATLAS, this.party.currentTile()
   );
 
-  var scaleX = this.phaserGame.width / contour.width;
-  var scaleY = this.phaserGame.height * 7.5 / 10 / contour.height;
-  this._groundSprite.tilePosition.x = 0 - contour.x;
-  this._groundSprite.tilePosition.y = 0 - contour.y;
+  var scaleX = this.phaserGame.width / this._groundSprite.width;
+  var scaleY = this.phaserGame.height * 7.5 / 10 / this._groundSprite.height;
   this._groundSprite.scale.setTo(scaleX, scaleY);
 };
 

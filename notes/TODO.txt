@@ -29,5 +29,4 @@ Right now the inheritance of the Monster and Character from Phaser.Sprite is onl
 Consider BattleUnits not to be a Phaser.Group wrapper but to extend Phaser.Group.
 Function findUserWithProperty in /services/login/utils.js can be achieved using underscore.
 Make UnitActions a base class for Monster and Character.
-Change the way battle backgrounds are loaded.
 Implement function which loads whole folder with configuration files or use filewalker module.
