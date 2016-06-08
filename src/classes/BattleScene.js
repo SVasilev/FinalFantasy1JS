@@ -228,6 +228,8 @@ BattleScene.prototype._oppositeUnitsOnTurn = function() {
 };
 
 BattleScene.prototype._endUnitTurn = function() {
+  this._updateMonsterList();
+  this._updateCharacterList();
   if (this._oppositeUnitsOnTurn().getUnitsGroup().countLiving() === 0) {
     return this._endBattle(this._turn === 'ai' ? 'lost' : 'won');
   }
@@ -243,8 +245,6 @@ BattleScene.prototype._endUnitTurn = function() {
 
   var aiTurn = this._turn !== 'player';
   // this._setMenuFocus(!aiTurn);
-  this._updateMonsterList();
-  this._updateCharacterList();
 
   this._repositionCharacters();
   // aiTurn && this._aiMove();
