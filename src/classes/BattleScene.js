@@ -233,7 +233,8 @@ BattleScene.prototype._endUnitTurn = function() {
   }
 
   this._currentUnitOnTurn = this._battleUnitsOnTurn().getAliveUnit('next');
-  this._battleUnitsOnTurn().getUnitsGroup().cursorIndex++;
+  var newIndex = this._battleUnitsOnTurn().getUnitsGroup().getIndex(this._currentUnitOnTurn);
+  this._battleUnitsOnTurn().getUnitsGroup().cursorIndex = newIndex;
   if (!this._currentUnitOnTurn) {
     this._negateTurn();
     this._battleUnitsOnTurn()._resetCursor();

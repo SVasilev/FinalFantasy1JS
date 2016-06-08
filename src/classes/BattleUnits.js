@@ -79,7 +79,10 @@ BattleUnits.prototype._setUnitPosition = function(unitSprite, unitIndex) {
 BattleUnits.prototype.getAliveUnit = function(orientation) {
   var startIndex = this._unitsGroup.cursorIndex;
   var characters = this._unitsGroup.filter(function(child, index) {
-    return child.alive && orientation === 'next' ? index > startIndex : index < startIndex;
+    if (!child.alive) {
+      return false;
+    }
+    return orientation === 'next' ? index > startIndex : index < startIndex;
   }, true);
   return orientation === 'next' ? characters.first : characters.list[characters.total - 1];
 };
