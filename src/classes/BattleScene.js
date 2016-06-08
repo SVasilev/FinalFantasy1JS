@@ -290,6 +290,7 @@ BattleScene.prototype._endBattle = function(outcome) {
     partyGroup.forEachAlive(function(characterSprite) {
       characterSprite.animations.play('neutral');
     });
+    partyGroup.resetCursor();
     this._destroyScene();
     this.onBattleEndCallback();
     // Do more stuff if outcome === 'lost'
