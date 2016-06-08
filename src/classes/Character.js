@@ -1,17 +1,15 @@
-/* global Phaser, Common, UnitActions, GameConstants, _ */
+/* global Common, Unit, GameConstants, _ */
 
-// Extends Phaser.Sprite, Mixin UnitActions.
-Character.prototype = _.extend(Object.create(Phaser.Sprite.prototype), UnitActions.prototype);
+// Extends Unit.
+Character.prototype = Object.create(Unit.prototype);
 Character.prototype.constructor = Character;
 function Character(phaserGame, x, y, spriteKey) {
-  Phaser.Sprite.call(this, phaserGame, x, y, spriteKey);
+  var jsonData = phaserGame.cache.getJSON(GameConstants.ASSETS_KEYS.CHARACTERS_DATA_JSON);
+  var characterData = _.findWhere(jsonData, { role: spriteKey });
+  Unit.call(this, phaserGame, x, y, spriteKey, characterData);
 
-  var charactersData = phaserGame.cache.getJSON(GameConstants.ASSETS_KEYS.CHARACTERS_DATA_JSON);
-  _.extendOwn(this, _.findWhere(charactersData, { role: spriteKey }));
-  this.health = this.stats.HP;
-  this.maxHealth = this.stats.maxHP;
+  this.role = spriteKey;
   this._attachAnimations(phaserGame, spriteKey);
-  phaserGame.add.existing(this);
 }
 
 Character.prototype._attachAnimations = function(phaserGame, spriteKey) {
@@ -21,7 +19,7 @@ Character.prototype._attachAnimations = function(phaserGame, spriteKey) {
 };
 
 Character.prototype.kill = function() {
-  Phaser.Sprite.prototype.kill.call(this);
+  Unit.prototype.kill.call(this);
   this.exists = true;
   this.health = 0;
 };

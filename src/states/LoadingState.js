@@ -11,7 +11,7 @@ LoadingState.prototype = {
 
   loadScripts: function() {
     var FF1_CLASSES = [
-      'Common', 'GameMenu', 'UnitActions', 'Monster', 'BattleUnits',
+      'Common', 'GameMenu', 'Unit', 'Monster', 'BattleUnits',
       'BattleGround', 'BattleScene', 'World', 'Character', 'Party'
     ];
 

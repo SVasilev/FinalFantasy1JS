@@ -42,8 +42,7 @@ BattleGround.prototype._addMonsters = function() {
     var contour = this._getContourFromText(monsterData.spritecoords);
     for (var i = 0; i < monsterCountFromType; i++) {
       var monsterSprite = new Monster(
-        this.phaserGame, 0, 0, contour.width, contour.height,
-        GameConstants.ASSETS_KEYS.MONSTERS_ATLAS, monsterData
+        this.phaserGame, 0, 0, GameConstants.ASSETS_KEYS.MONSTERS_ATLAS, monsterData
       );
       monsterSprite.scale.setTo(3, 3);
       this._monsterUnits.addUnit(monsterSprite);

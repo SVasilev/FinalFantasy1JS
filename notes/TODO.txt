@@ -18,6 +18,7 @@ The project cannot be used completely offline, the tests cannot run offline beca
 Worldmap texture is too big so it does not load correctly on my Samsung Galaxy J5 with Chrome and default Browser.
 The party is not exactly centered in the world.
 Remove event.keyIdentifier occurrences since it is deprecated for a DOM event and does not work on IE. Possible solution https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode or just use the lastKey.keyCode (for which I opened a discussion https://github.com/photonstorm/phaser/issues/2542).
+If you win a battle with spell MP will be updated on the next battle.
 
 REFACTORING:
 All the things around Spells are kinda messy. Think of an appropriate approach for spells. Enable casting a spell animations.
@@ -25,8 +26,6 @@ Consider using EventEmmiter for battle start and battle end.
 Consider using EventEmmiter when waiting the battle animations to finish.
 Consider having a savegame files rather than storing the data in the DB.
 Add tests for all stable classes.
-Right now the inheritance of the Monster and Character from Phaser.Sprite is only made in order to deal with kill method. But I found there is a onKilled event for the spirte so consider not using inheritance.
 Consider BattleUnits not to be a Phaser.Group wrapper but to extend Phaser.Group.
 Function findUserWithProperty in /services/login/utils.js can be achieved using underscore.
-Make UnitActions a base class for Monster and Character.
 Implement function which loads whole folder with configuration files or use filewalker module.

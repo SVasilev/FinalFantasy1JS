@@ -1,9 +1,19 @@
 /* global _, Phaser, Monster */
 
-// Common unit functionallity used as Mixin in Character.js and Monster.js
-function UnitActions() {}
+// Common unit functionallity which extends Phaser.Sprite and is used in Character.js and Monster.js
+Unit.prototype = Object.create(Phaser.Sprite.prototype);
+Unit.prototype.constructor = Unit;
+function Unit(phaserGame, x, y, spriteKey, unitData, frame) {
+  Phaser.Sprite.call(this, phaserGame, x, y, spriteKey, frame);
 
-UnitActions.prototype._adjustActedUnitsAnimations = function(targetUnit) {
+  this.name = unitData.name;
+  this.stats = unitData.stats;
+  this.health = this.stats.HP;
+  this.maxHealth = this.stats.maxHP;
+  phaserGame.add.existing(this);
+}
+
+Unit.prototype._adjustActedUnitsAnimations = function(targetUnit) {
   [this, targetUnit].forEach(function(actedUnit) {
     var animationToPlay = 'neutral';
     if (actedUnit.health < 1 / 10 * actedUnit.maxHealth) { // If unit is below 10% health.
@@ -14,7 +24,7 @@ UnitActions.prototype._adjustActedUnitsAnimations = function(targetUnit) {
   });
 };
 
-UnitActions.prototype._waitAnimations = function(onAnimationComplete, targetUnit, willEscape) {
+Unit.prototype._waitAnimations = function(onAnimationComplete, targetUnit, willEscape) {
   typeof willEscape !== 'boolean' && this._adjustActedUnitsAnimations(targetUnit);
   var slowestTween = _.max(this.game.tweens.getAll(), function(tween) {
     // Sum the duration of all the chained tweens.
@@ -33,7 +43,7 @@ UnitActions.prototype._waitAnimations = function(onAnimationComplete, targetUnit
   slowestTween.onComplete.add(onAnimationComplete);
 };
 
-UnitActions.prototype._changeHealth = function(targetUnit, amount) {
+Unit.prototype._changeHealth = function(targetUnit, amount) {
   var functionName = amount < 0 ? 'damage' : 'heal';
   var absAmount = Math.abs(amount);
 
@@ -56,7 +66,7 @@ UnitActions.prototype._changeHealth = function(targetUnit, amount) {
   amountTextTween.start();
 };
 
-UnitActions.prototype._attack = function(targetUnit, onAnimationComplete) {
+Unit.prototype._attack = function(targetUnit, onAnimationComplete) {
   var walkSpeed = this instanceof Monster ? 250 : 600;
   var goBackToPosition = this.game.add.tween(this).to({ x: this.x, y: this.y }, walkSpeed, 'Quart.easeOut');
   goBackToPosition.onComplete.add(function() {
@@ -87,7 +97,7 @@ UnitActions.prototype._attack = function(targetUnit, onAnimationComplete) {
   goToEnemy.start();
 };
 
-UnitActions.prototype._castSpell = function(magicName, targetUnit, onAnimationComplete) {
+Unit.prototype._castSpell = function(magicName, targetUnit, onAnimationComplete) {
   var magicDamage = { 'MagicFire': 4, 'MagicFira': 5, 'MagicFera': 7 };
   var fireBall = this.game.add.sprite(this.world.x - this.width, this.world.y, 'spellSpriteSheet');
 
@@ -110,14 +120,14 @@ UnitActions.prototype._castSpell = function(magicName, targetUnit, onAnimationCo
   spellCastTween.start();
 };
 
-UnitActions.prototype._useItem = function(itemName, targetUnit, onAnimationComplete) {
+Unit.prototype._useItem = function(itemName, targetUnit, onAnimationComplete) {
   var healAmount = (itemName.match(/\+/g) || []).length;
   this._changeHealth(targetUnit, healAmount * 5);
   this.game.tweens.update();
   this._waitAnimations(onAnimationComplete, targetUnit);
 };
 
-UnitActions.prototype._tryToEscape = function(targetUnit, onAnimationComplete) {
+Unit.prototype._tryToEscape = function(targetUnit, onAnimationComplete) {
   var willEscape = Phaser.Utils.chanceRoll(50);
 
   var goBack = this.game.add.tween(this).to({ x: 0, y: this.y }, 1000, 'Quart.easeOut');
@@ -142,7 +152,7 @@ UnitActions.prototype._tryToEscape = function(targetUnit, onAnimationComplete) {
   runAway.start();
 };
 
-UnitActions.prototype.act = function(action, targetUnit, onAnimationComplete) {
+Unit.prototype.act = function(action, targetUnit, onAnimationComplete) {
   switch (action) {
     case 'Attack':
       this._attack(targetUnit, onAnimationComplete);
