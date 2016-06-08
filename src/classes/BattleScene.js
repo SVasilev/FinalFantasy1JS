@@ -237,7 +237,7 @@ BattleScene.prototype._endUnitTurn = function() {
   this._battleUnitsOnTurn().getUnitsGroup().cursorIndex = newIndex;
   if (!this._currentUnitOnTurn) {
     this._negateTurn();
-    this._battleUnitsOnTurn()._resetCursor();
+    this._battleUnitsOnTurn().resetCursor();
     this._currentUnitOnTurn = this._battleUnitsOnTurn().getFirstAlive();
   }
 
@@ -269,6 +269,7 @@ BattleScene.prototype._aiMove = function() {
 };
 
 BattleScene.prototype._init = function() {
+  this._battleGround.getPartyUnits().resetCursor();
   this._updateMonsterList();
   this._updateCharacterList();
   this._initBattleMenu();
@@ -291,7 +292,6 @@ BattleScene.prototype._endBattle = function(outcome) {
     partyGroup.forEachAlive(function(characterSprite) {
       characterSprite.animations.play('neutral');
     });
-    partyGroup.resetCursor();
     this._destroyScene();
     this.onBattleEndCallback();
     // Do more stuff if outcome === 'lost'

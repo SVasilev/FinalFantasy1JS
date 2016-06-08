@@ -59,7 +59,7 @@ BattleUnits.prototype._setCursorToUnit = function(index) {
   this._cursorSprite.y = this._unitsGroup.y + unit.y + this._cursorSprite.height;
 };
 
-BattleUnits.prototype._resetCursor = function() {
+BattleUnits.prototype.resetCursor = function() {
   var firstAliveUnit = this._unitsGroup.getFirstAlive();
   this._unitsGroup.cursorIndex = this._unitsGroup.getIndex(firstAliveUnit);
   firstAliveUnit && this._setCursorToUnit(this._unitsGroup.cursorIndex);
@@ -100,14 +100,14 @@ BattleUnits.prototype.addUnit = function(unitSprite) {
 
   this._setUnitPosition(unitSprite, this._unitsGroup.length);
   unitSprite.events.onKilled.add(function() {
-    this._resetCursor();
+    this.resetCursor();
   }, this);
 
   this._unitsGroup.add(unitSprite);
 };
 
 BattleUnits.prototype.activate = function(action, onSelectCallback) {
-  action && this._resetCursor();
+  action && this.resetCursor();
   this._cursorSprite.visible = action;
   this._onSelectCallback = onSelectCallback;
   action && this._attachKeyPressEvents();
