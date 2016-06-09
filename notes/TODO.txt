@@ -17,7 +17,6 @@ BUGS:
 The project cannot be used completely offline, the tests cannot run offline because of Node.js bug.
 Worldmap texture is too big so it does not load correctly on my Samsung Galaxy J5 with Chrome and default Browser.
 The party is not exactly centered in the world.
-Remove event.keyIdentifier occurrences since it is deprecated for a DOM event and does not work on IE. Possible solution https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode or just use the lastKey.keyCode (for which I opened a discussion https://github.com/photonstorm/phaser/issues/2542).
 
 REFACTORING:
 All the things around Spells are kinda messy. Think of an appropriate approach for spells. Enable casting a spell animations.

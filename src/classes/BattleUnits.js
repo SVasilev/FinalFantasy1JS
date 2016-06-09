@@ -29,7 +29,7 @@ BattleUnits.prototype._attachKeyPressEvents = function() {
 
     var unitsGroupArray = this._unitsGroup.children;
     var cursorIndex = this._unitsGroup.cursorIndex;
-    var pressedKey = event.keyIdentifier.toLowerCase();
+    var pressedKey = GameConstants.KEY_CODES_MAPPING[event.keyCode];
     if (pressedKey === 'enter') {
       this._cursorSprite.visible = false;
       this._onSelectCallback(unitsGroupArray[cursorIndex]);

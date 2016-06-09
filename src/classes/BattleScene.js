@@ -140,7 +140,7 @@ BattleScene.prototype._initBattleMenu = function() {
       case 'ItemHP++':
       case 'ItemHP+++':
         menu.enabled = true;
-        self.phaserGame.input.keyboard.onUpCallback({ keyIdentifier: escapeKey });
+        self.phaserGame.input.keyboard.onUpCallback({ keyCode: Phaser.KeyCode.ESC });
         this._battleUnitsOnTurn().activate(true, function(unit) {
           unit.act(selectedOption, unit, function() {
             self._battleUnitsOnTurn().getUnitsGroup().cursorIndex = currentUnitIndex;
@@ -154,7 +154,7 @@ BattleScene.prototype._initBattleMenu = function() {
       case 'MagicFera':
         var currentUnitRole = self._currentUnitOnTurn.role; // HERE WILL LIE A BUG IF IT IS THE AI TURN.
         menu.enabled = true;
-        self.phaserGame.input.keyboard.onUpCallback({ keyIdentifier: escapeKey });
+        self.phaserGame.input.keyboard.onUpCallback({ keyCode: Phaser.KeyCode.ESC });
         if (currentUnitRole === 'warrior' || currentUnitRole === 'thief') {
           alert('Not enough MP!');
           break;
@@ -264,7 +264,7 @@ BattleScene.prototype._aiMove = function() {
   setTimeout(function() {
     this._onMenuSelect(this._battleMenu, 'Attack');
     this._battleGround.getPartyUnits()._setCursorToUnit(randomIndex);
-    this.phaserGame.input.keyboard.onUpCallback({ keyIdentifier: 'enter' });
+    this.phaserGame.input.keyboard.onUpCallback({ keyCode: Phaser.KeyCode.ENTER });
   }.bind(this), 500);
 };
 

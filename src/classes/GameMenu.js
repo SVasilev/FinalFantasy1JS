@@ -97,8 +97,7 @@ GameMenu.prototype._attachKeyPressEvents = function() {
       return;
     }
 
-    var pressedKey = event.keyIdentifier.toLowerCase();
-    var escapeKey = 'u+001b';
+    var pressedKey = GameConstants.KEY_CODES_MAPPING[event.keyCode]
     switch (pressedKey) {
       case 'up':
       case 'down':
@@ -132,7 +131,7 @@ GameMenu.prototype._attachKeyPressEvents = function() {
           );
         }
         break;
-      case escapeKey:
+      case 'escape':
         if (this.config.canBeClosed) {
           this.destroy();
           this.config.onExit && this.config.onExit();

@@ -1,4 +1,13 @@
 {
+  "KEY_CODES_MAPPING": {
+    "13": "enter",
+    "27": "escape",
+    "37": "left",
+    "38": "up",
+    "39": "right",
+    "40": "down"
+  },
+
   "ASSETS_KEYS": {
     "FF1_LOGO_IMG": "ff1logo",
     "PROGRESS_BAR_IMG": "progressbar",

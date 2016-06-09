@@ -44,8 +44,8 @@ MainState.prototype = {
             var worldPosition = JSON.parse(loginUtils.loadGame());
             this.world.sprite.tilePosition.x = worldPosition.x;
             this.world.sprite.tilePosition.y = worldPosition.y;
-            var escapeKey = 'u+001b';
-            this.game.input.keyboard.onUpCallback({ keyIdentifier: escapeKey });
+            this.game.input.keyboard.onUpCallback({ keyCode: Phaser.KeyCode.ESC });
+
             break;
           case 'Exit':
             this.game.destroy();
@@ -106,16 +106,16 @@ MainState.prototype = {
   update: function() {
     var PARTY_MOVE_PIXELS = 1.5;
 
-    // Move the party if a key is pressed.
     var lastKey = this.game.input.keyboard.lastKey;
-    var acceptedDirections = { 'left': true, 'right': true, 'up': true, 'down': true };
-    var direction = lastKey && lastKey.event && lastKey.event.keyIdentifier.toLowerCase();
-    if (acceptedDirections[direction] && this.cursorKeys[direction].isDown && this.party.enabled) {
-      this.party.move(direction, PARTY_MOVE_PIXELS, this.onBattleEncounter.bind(this));
+    var allowedDirections = ['left', 'up', 'right', 'down'];
+    var direction = GameConstants.KEY_CODES_MAPPING[lastKey && lastKey.keyCode];
+    if (!direction || !_.contains(allowedDirections, direction) ||
+        !this.cursorKeys[direction].isDown || !this.party.enabled) {
+      return this.party.sprites[this.party.currentVehicle].animations.stop();
     }
-    else {
-      this.party.sprites[this.party.currentVehicle].animations.stop();
-    }
+
+    // Move the party if a key is pressed.
+    this.party.move(direction, PARTY_MOVE_PIXELS, this.onBattleEncounter.bind(this));
   },
 
   render: function() {
