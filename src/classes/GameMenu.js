@@ -158,7 +158,7 @@ GameMenu.prototype.visible = function(action, skipOne) {
 };
 
 GameMenu.prototype.activate = function(action) {
-  this._menuItems.cursor.visible = action;
+  this.enabled = this._menuItems.cursor.visible = action;
   action && this._attachKeyPressEvents();
 };
 

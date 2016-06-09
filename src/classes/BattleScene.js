@@ -118,7 +118,6 @@ BattleScene.prototype._updateCharacterList = function() {
 
 BattleScene.prototype._initBattleMenu = function() {
   this._onMenuSelect = function(menu, selectedOption) {
-    var escapeKey = 'u+001b';
     var self = this;
     var currentUnitIndex = self._battleUnitsOnTurn().getUnitsGroup().cursorIndex;
     var oppositeUnitGroup = this._oppositeUnitsOnTurn();
@@ -128,13 +127,11 @@ BattleScene.prototype._initBattleMenu = function() {
         oppositeUnitGroup.activate(true, function(unit) {
           self._currentUnitOnTurn.act('Attack', unit, function() {
             self._endUnitTurn();
-            menu.enabled = true;
           });
         });
         break;
       case 'Defend':
         self._endUnitTurn();
-        menu.enabled = true;
         break;
       case 'ItemHP+':
       case 'ItemHP++':
@@ -145,7 +142,6 @@ BattleScene.prototype._initBattleMenu = function() {
           unit.act(selectedOption, unit, function() {
             self._battleUnitsOnTurn().getUnitsGroup().cursorIndex = currentUnitIndex;
             self._endUnitTurn();
-            menu.enabled = true;
           });
         });
         break;
@@ -168,12 +164,10 @@ BattleScene.prototype._initBattleMenu = function() {
       case 'Flee':
         self._currentUnitOnTurn.act(selectedOption, null, function(escaped) {
           if (escaped) {
-            self._endBattle();
-            return;
+            return self._endBattle();
           }
           self._battleUnitsOnTurn().getUnitsGroup().cursorIndex = currentUnitIndex;
           self._endUnitTurn();
-          menu.enabled = true;
         });
         break;
       default:
@@ -270,6 +264,10 @@ BattleScene.prototype._aiMove = function() {
 
 BattleScene.prototype._init = function() {
   this._battleGround.getPartyUnits().resetCursor();
+  this._battleGround.getPartyUnits().onCancel =
+  this._battleGround.getMonsterUnits().onCancel = function () {
+    this._setMenuFocus(true);
+  }.bind(this);
   this._updateMonsterList();
   this._updateCharacterList();
   this._initBattleMenu();

@@ -2,6 +2,7 @@
 
 function BattleUnits(config, phaserGame) {
   this.config = config;
+  this.onCancel = null; // On canceling choice callback.
   this.phaserGame = phaserGame;
 
   this._unitsGroup = null;
@@ -22,6 +23,7 @@ BattleUnits.prototype._init = function() {
 };
 
 BattleUnits.prototype._attachKeyPressEvents = function() {
+  var cursorIndexUponActivation = this._unitsGroup.cursorIndex;
   this.phaserGame.input.keyboard.onUpCallback = function(event) {
     if (!this._cursorSprite.visible) {
       return;
@@ -30,25 +32,32 @@ BattleUnits.prototype._attachKeyPressEvents = function() {
     var unitsGroupArray = this._unitsGroup.children;
     var cursorIndex = this._unitsGroup.cursorIndex;
     var pressedKey = GameConstants.KEY_CODES_MAPPING[event.keyCode];
-    if (pressedKey === 'enter') {
-      this._cursorSprite.visible = false;
-      this._onSelectCallback(unitsGroupArray[cursorIndex]);
-      return;
-    }
+    switch (pressedKey) {
+      case 'enter':
+        this._cursorSprite.visible = false;
+        this._onSelectCallback(unitsGroupArray[cursorIndex]);
+        break;
+      case 'escape':
+        this._unitsGroup.cursorIndex = cursorIndexUponActivation;
+        this.onCancel && this.onCancel();
+        break;
+      case 'left':
+      case 'up':
+      case 'right':
+      case 'down':
+        if (this.config.isParty && _.contains(['left', 'right'], pressedKey)) {
+          return;
+        }
 
-    var keyIsNotDirection = !_.contains(['left', 'right', 'up', 'down'], pressedKey);
-    var partyLeftRight = this.config.isParty && _.contains(['left', 'right'], pressedKey);
-    if (keyIsNotDirection || partyLeftRight) {
-      return;
+        var directionValue = { 'left': -3, 'right': 3, 'up': -1, 'down': 1 };
+        var selectedUnit = unitsGroupArray[cursorIndex + directionValue[pressedKey]];
+        if (selectedUnit && !selectedUnit.alive) { // Check for the next or previous alive unit.
+          var findNextUnit = _.contains(['right', 'down'], pressedKey);
+          selectedUnit = this.getAliveUnit(findNextUnit ? 'next' : 'previous');
+        }
+        selectedUnit && this._setCursorToUnit(selectedUnit.z);
+        break;
     }
-
-    var directionValue = { 'left': -3, 'right': 3, 'up': -1, 'down': 1 };
-    var selectedUnit = unitsGroupArray[cursorIndex + directionValue[pressedKey]];
-    if (selectedUnit && !selectedUnit.alive) { // Check for the next or previous alive unit.
-      var findNextUnit = _.contains(['right', 'down'], pressedKey);
-      selectedUnit = this.getAliveUnit(findNextUnit ? 'next' : 'previous');
-    }
-    selectedUnit && this._setCursorToUnit(selectedUnit.z);
   }.bind(this);
 };
 
@@ -107,10 +116,10 @@ BattleUnits.prototype.addUnit = function(unitSprite) {
 };
 
 BattleUnits.prototype.activate = function(action, onSelectCallback) {
-  action && this.resetCursor();
   this._cursorSprite.visible = action;
   this._onSelectCallback = onSelectCallback;
   action && this._attachKeyPressEvents();
+  action && this.resetCursor();
 };
 
 BattleUnits.prototype.getUnitsGroup = function() {
