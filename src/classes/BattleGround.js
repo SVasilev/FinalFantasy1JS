@@ -1,8 +1,7 @@
 /* global _, Monster, GameConstants, BattleUnits */
 
-function BattleGround(party, randomizedMonsters, phaserGame) {
+function BattleGround(party, phaserGame) {
   this.party = party;
-  this.randomizedMonsters = randomizedMonsters;
   this.phaserGame = phaserGame;
 
   this._groundSprite = null;
@@ -10,11 +9,6 @@ function BattleGround(party, randomizedMonsters, phaserGame) {
   this._partyUnits = null;
   this._init();
 }
-
-// Gets [Int, Int, Int, Int] and returns { x: Int, y: Int, width: Int, height: Int }
-BattleGround.prototype._getContourFromText = function(text) {
-  return _.object(['x', 'y', 'width', 'height'], text);
-};
 
 // Set battle background according to the tile on which the party is.
 BattleGround.prototype._setBattleBackground = function() {
@@ -27,6 +21,45 @@ BattleGround.prototype._setBattleBackground = function() {
   this._groundSprite.scale.setTo(scaleX, scaleY);
 };
 
+BattleGround.prototype._randomizeMonsterCountForGivenRange = function(range) {
+  var rangeLength = parseInt(range.max) - parseInt(range.min) + 1;
+  return Math.floor(Math.random() * rangeLength) + parseInt(range.min);
+};
+
+BattleGround.prototype._randomizeMonsters = function() {
+  var debug = SYS_CONFIG.BATTLE_DEBUG;
+  var monsterTypes = 0;
+  var monsterCount = 0;
+  var monstersData = this.phaserGame.cache.getJSON(GameConstants.ASSETS_KEYS.MONSTERS_DATA_JSON);
+
+  return monstersData.reduce(function(randomizedMonsters, monsterType, index) {
+    var shouldSpawn = debug ? index === 48 : Phaser.Utils.chanceRoll(monsterType.encounterchance);
+    var countRange = _.object(['min', 'max'], monsterType.countrange.split('-'));
+    var randomizedCount = debug ? 1 : this._randomizeMonsterCountForGivenRange(countRange);
+    var countFromType = shouldSpawn ? randomizedCount : 0;
+
+    // Do not let a battle with no monsters loaded.
+    if (monsterCount === 0 && index === monstersData.length - 1) {
+      countFromType = randomizedCount;
+    }
+
+    // Add the monsterType if the maximum count of monsters and monster types
+    // are not exceeded and monster location matches party's location.
+    var maxTypesNotExceeded = monsterTypes < GameConstants.MAX_ENEMY_TYPES_IN_BATTLE;
+    var maxCountNotExceeded = monsterCount + countFromType <= GameConstants.MAX_ENEMIES_IN_BATTLE;
+    var monsterLocationMatch = monsterType.location === this.party.location;
+    if (countFromType && maxTypesNotExceeded && maxCountNotExceeded && monsterLocationMatch) {
+      randomizedMonsters[monsterType.name] = {
+        monster: monsterType,
+        count: countFromType
+      };
+      monsterCount += countFromType;
+      monsterTypes++;
+    }
+    return randomizedMonsters;
+  }.bind(this), {});
+};
+
 BattleGround.prototype._addMonsters = function() {
   var monsterUnitsConfig = {
     x: this.phaserGame.width * 1 / 10,
@@ -36,10 +69,11 @@ BattleGround.prototype._addMonsters = function() {
   };
 
   this._monsterUnits = new BattleUnits(monsterUnitsConfig, this.phaserGame);
-  Object.keys(this.randomizedMonsters).forEach(function(monsterName) {
-    var monsterData = this.randomizedMonsters[monsterName].monster;
-    var monsterCountFromType = this.randomizedMonsters[monsterName].count;
-    var contour = this._getContourFromText(monsterData.spritecoords);
+  var randomizedMonsters = this._randomizeMonsters();
+  Object.keys(randomizedMonsters).forEach(function(monsterName) {
+    var monsterData = randomizedMonsters[monsterName].monster;
+    var monsterCountFromType = randomizedMonsters[monsterName].count;
+    var contour = _.object(['x', 'y', 'width', 'height'], monsterData.spritecoords);
     for (var i = 0; i < monsterCountFromType; i++) {
       var monsterSprite = new Monster(
         this.phaserGame, 0, 0, GameConstants.ASSETS_KEYS.MONSTERS_ATLAS, monsterData

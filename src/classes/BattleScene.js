@@ -9,8 +9,7 @@ function BattleScene(party, onBattleEndCallback, phaserGame) {
     background: GameConstants.ASSETS_KEYS.MENU_BACKGROUND_IMG,
     cursor: GameConstants.ASSETS_KEYS.MENU_CURSOR_IMG
   };
-  this._randomizedMonsters = this._randomizeMonsters();
-  this._battleGround = new BattleGround(party, this._randomizedMonsters, phaserGame);
+  this._battleGround = new BattleGround(party, phaserGame);
   // this._turn = ['ai', 'player'][Math.round(Math.random())];
   this._turn = 'player';
   this._currentUnitOnTurn = this._battleUnitsOnTurn().getUnitsGroup().getFirstAlive();
@@ -21,51 +20,6 @@ function BattleScene(party, onBattleEndCallback, phaserGame) {
   this._init();
   this._repositionCharacters();
 }
-
-BattleScene.prototype._randomizeMonsterCountForGivenRange = function(range) {
-  var rangeLength = parseInt(range.max) - parseInt(range.min) + 1;
-  return Math.floor(Math.random() * rangeLength) + parseInt(range.min);
-};
-
-BattleScene.prototype._randomizeMonsters = function() {
-  var possibleMonsterTypes = [];
-  var monstersData = this.phaserGame.cache.getJSON(GameConstants.ASSETS_KEYS.MONSTERS_DATA_JSON);
-  monstersData.forEach(function(monsterType) {
-    if (monsterType.location === this.party.location) {
-      possibleMonsterTypes.push(monsterType);
-    }
-  }, this);
-
-  var debug = SYS_CONFIG.BATTLE_DEBUG;
-  var monsterTypes = 0;
-  var monsterCount = 0;
-  var randomizedMonsters = {};
-  possibleMonsterTypes.forEach(function(monsterType, index) {
-    var shouldSpawn = debug ? index === 2 : Phaser.Utils.chanceRoll(monsterType.encounterchance);
-    var countRange = _.object(['min', 'max'], monsterType.countrange.split('-'));
-    var randomizedCount = debug ? 1 : this._randomizeMonsterCountForGivenRange(countRange);
-    var countFromType = shouldSpawn ? randomizedCount : 0;
-
-    // Do not let a battle with no monsters loaded.
-    if (monsterCount === 0 && index === possibleMonsterTypes.length - 1) {
-      countFromType = randomizedCount;
-    }
-
-    // Add the monsterType if the maximum count of monsters and monster types are not exceeded.
-    var maxTypesNotExceeded = monsterTypes < GameConstants.MAX_ENEMY_TYPES_IN_BATTLE;
-    var maxCountNotExceeded = monsterCount + countFromType <= GameConstants.MAX_ENEMIES_IN_BATTLE;
-    if (countFromType && maxTypesNotExceeded && maxCountNotExceeded) {
-      randomizedMonsters[monsterType.name] = {
-        monster: monsterType,
-        count: countFromType
-      };
-      monsterCount += countFromType;
-      monsterTypes++;
-    }
-  }, this);
-
-  return randomizedMonsters;
-};
 
 BattleScene.prototype._updateMonsterList = function() {
   this._monsterList && this._monsterList.destroy();
@@ -120,11 +74,10 @@ BattleScene.prototype._initBattleMenu = function() {
   this._onMenuSelect = function(menu, selectedOption) {
     var self = this;
     var currentUnitIndex = self._battleUnitsOnTurn().getUnitsGroup().cursorIndex;
-    var oppositeUnitGroup = this._oppositeUnitsOnTurn();
     menu.enabled = false;
     switch (selectedOption) {
       case 'Attack':
-        oppositeUnitGroup.activate(true, function(unit) {
+        this._oppositeUnitsOnTurn().activate(true, function(unit) {
           self._currentUnitOnTurn.act('Attack', unit, function() {
             self._endUnitTurn();
           });
@@ -155,7 +108,7 @@ BattleScene.prototype._initBattleMenu = function() {
           alert('Not enough MP!');
           break;
         }
-        oppositeUnitGroup.activate(true, function(monster) {
+        this._oppositeUnitsOnTurn().activate(true, function(monster) {
           self._currentUnitOnTurn.act(selectedOption, monster, function() {
             self._endUnitTurn();
           });
