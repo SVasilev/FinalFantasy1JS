@@ -1,4 +1,4 @@
-/* global alert, SYS_CONFIG, Phaser, GameConstants, GameMenu, BattleGround, _ */
+/* global alert, Phaser, GameConstants, GameMenu, BattleGround */
 
 function BattleScene(party, onBattleEndCallback, phaserGame) {
   this.party = party;
@@ -62,8 +62,9 @@ BattleScene.prototype._updateCharacterList = function() {
   };
 
   var characterList = [];
-  this._battleGround.getPartyUnits().getUnitsGroup().children.forEach(function(c) {
-    characterList.push(c.name + '\tHP: ' + c.health + '/' + c.maxHealth + '\tMP: ' + c.stats.MP + '/' + c.stats.maxMP);
+  this._battleGround.getPartyUnits().getUnitsGroup().children.forEach(function(character) {
+    var stats = character.unitStats.stats;
+    characterList.push(character.name + '\tHP: ' + stats.HP + '/' + stats.maxHP + '\tMP: ' + stats.MP + '/' + stats.maxMP);
   }, this);
 
   this._characterList = new GameMenu(this._menuAssetsKeys, characterList, menuConfig, this.phaserGame);
@@ -84,7 +85,9 @@ BattleScene.prototype._initBattleMenu = function() {
         });
         break;
       case 'Defend':
-        self._endUnitTurn();
+        this._currentUnitOnTurn.act(selectedOption, null, function() {
+          self._endUnitTurn();
+        });
         break;
       case 'ItemHP+':
       case 'ItemHP++':
@@ -175,6 +178,7 @@ BattleScene.prototype._oppositeUnitsOnTurn = function() {
 };
 
 BattleScene.prototype._endUnitTurn = function() {
+  this._currentUnitOnTurn.unitStats.update();
   this._updateMonsterList();
   this._updateCharacterList();
   if (this._oppositeUnitsOnTurn().getUnitsGroup().countLiving() === 0) {

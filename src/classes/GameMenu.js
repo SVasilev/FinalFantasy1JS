@@ -1,4 +1,4 @@
-/* global _ */
+/* global _, GameConstants */
 
 function GameMenu(spriteKeys, options, config, phaserGame) {
   this.enabled = true;
@@ -97,7 +97,7 @@ GameMenu.prototype._attachKeyPressEvents = function() {
       return;
     }
 
-    var pressedKey = GameConstants.KEY_CODES_MAPPING[event.keyCode]
+    var pressedKey = GameConstants.KEY_CODES_MAPPING[event.keyCode];
     switch (pressedKey) {
       case 'up':
       case 'down':
