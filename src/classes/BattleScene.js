@@ -62,8 +62,9 @@ BattleScene.prototype._updateCharacterList = function() {
   };
 
   var characterList = [];
-  this._battleGround.getPartyUnits().getUnitsGroup().children.forEach(function(c) {
-    characterList.push(c.name + '\tHP: ' + c.health + '/' + c.maxHealth + '\tMP: ' + c.stats.MP + '/' + c.stats.maxMP);
+  this._battleGround.getPartyUnits().getUnitsGroup().children.forEach(function(character) {
+    var stats = character.unitStats.stats;
+    characterList.push(character.name + '\tHP: ' + stats.HP + '/' + stats.maxHP + '\tMP: ' + stats.MP + '/' + stats.maxMP);
   }, this);
 
   this._characterList = new GameMenu(this._menuAssetsKeys, characterList, menuConfig, this.phaserGame);
@@ -84,7 +85,9 @@ BattleScene.prototype._initBattleMenu = function() {
         });
         break;
       case 'Defend':
-        self._endUnitTurn();
+        this._currentUnitOnTurn.act(selectedOption, null, function() {
+          self._endUnitTurn();
+        });
         break;
       case 'ItemHP+':
       case 'ItemHP++':
@@ -185,6 +188,10 @@ BattleScene.prototype._endUnitTurn = function() {
   var newIndex = this._battleUnitsOnTurn().getUnitsGroup().getIndex(this._currentUnitOnTurn);
   this._battleUnitsOnTurn().getUnitsGroup().cursorIndex = newIndex;
   if (!this._currentUnitOnTurn) {
+    this._battleUnitsOnTurn().getUnitsGroup().forEach(function(unit) {
+      unit.unitStats.update();
+      unit.name === 'Arus' && console.log(unit.unitStats);
+    });
     this._negateTurn();
     this._battleUnitsOnTurn().resetCursor();
     this._currentUnitOnTurn = this._battleUnitsOnTurn().getFirstAlive();

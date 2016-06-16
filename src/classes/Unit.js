@@ -1,4 +1,4 @@
-/* global _, Phaser, Monster */
+/* global _, Phaser, Monster, UnitStats */
 
 // Common unit functionallity which extends Phaser.Sprite and is used in Character.js and Monster.js
 Unit.prototype = Object.create(Phaser.Sprite.prototype);
@@ -7,11 +7,16 @@ function Unit(phaserGame, x, y, spriteKey, unitData, frame) {
   Phaser.Sprite.call(this, phaserGame, x, y, spriteKey, frame);
 
   this.name = unitData.name;
-  this.stats = unitData.stats;
-  this.health = this.stats.HP;
-  this.maxHealth = this.stats.maxHP;
+  this.unitStats = new UnitStats(unitData.stats);
+  this.health = this.unitStats.stats.HP;
+  this.maxHealth = this.unitStats.stats.maxHP;
   phaserGame.add.existing(this);
 }
+
+// Unit.prototype.kill = function() {
+//   this.unitStats.removeAllStatusEffects();
+//   Phaser.Sprite.kill.call(this);
+// }
 
 Unit.prototype._adjustActedUnitsAnimations = function(targetUnit) {
   [this, targetUnit].forEach(function(actedUnit) {
@@ -49,11 +54,12 @@ Unit.prototype._changeHealth = function(targetUnit, amount) {
 
   // Deal damage or heal the unit.
   targetUnit[functionName](absAmount);
+  targetUnit.unitStats.stats.HP = targetUnit.health;
 
   // Animate the amount.
   var redColor = 'rgb(250, 20, 20)';
   var greenColor = 'rgb(23, 98, 20)';
-  var textColor = amount < 0 ? redColor : greenColor;
+  var textColor = amount < 0 ? redColor : greenColor; // Not really, if someone attacks and deals 0 dmg, the text "0" will be green.
   var amountText = this.game.add.text(targetUnit.world.x , targetUnit.world.y, absAmount, {
     font: 'bold 20pt Courier New',
     fill: textColor
@@ -78,7 +84,7 @@ Unit.prototype._attack = function(targetUnit, onAnimationComplete) {
   var attack = this.game.add.tween(targetUnit).to({ alpha: 0.2 }, 150, 'Quart.easeOut', false, 0, 0, true);
   attack.chain(goBackToPosition);
   attack.onComplete.add(function() {
-    var damage = Math.max(0, this.stats.atk - targetUnit.stats.def);
+    var damage = Math.max(0, this.unitStats.stats.atk - targetUnit.unitStats.stats.def);
     this._changeHealth(targetUnit, -damage);
 
     this.scale.x = this.scale.y * -1;
@@ -97,6 +103,11 @@ Unit.prototype._attack = function(targetUnit, onAnimationComplete) {
   goToEnemy.start();
 };
 
+Unit.prototype._defend = function(onAnimationComplete) {
+  this.unitStats.addStatus('def+');
+  onAnimationComplete();
+};
+
 Unit.prototype._castSpell = function(magicName, targetUnit, onAnimationComplete) {
   var magicDamage = { 'MagicFire': 4, 'MagicFira': 5, 'MagicFera': 7 };
   var fireBall = this.game.add.sprite(this.world.x - this.width, this.world.y, 'spellSpriteSheet');
@@ -112,8 +123,8 @@ Unit.prototype._castSpell = function(magicName, targetUnit, onAnimationComplete)
   spellCastTween.onComplete.add(function() {
     fireBall.animations.add('fire');
     fireBall.animations.play('fire', 10, true);
-    this.stats.MP -= magicDamage[magicName];
-    this.stats.MP = Math.max(0, this.stats.MP);
+    this.unitStats.stats.MP -= magicDamage[magicName];
+    this.unitStats.stats.MP = Math.max(0, this.unitStats.stats.MP);
     this._changeHealth(targetUnit, -magicDamage[magicName]);
   }, this);
   spellCastTween.chain(waitFireExplosion);
@@ -156,6 +167,9 @@ Unit.prototype.act = function(action, targetUnit, onAnimationComplete) {
   switch (action) {
     case 'Attack':
       this._attack(targetUnit, onAnimationComplete);
+      break;
+    case 'Defend':
+      this._defend(onAnimationComplete);
       break;
     case 'MagicFire':
     case 'MagicFira':
