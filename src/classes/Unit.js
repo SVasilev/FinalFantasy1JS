@@ -7,7 +7,7 @@ function Unit(phaserGame, x, y, spriteKey, unitData, frame) {
   Phaser.Sprite.call(this, phaserGame, x, y, spriteKey, frame);
 
   this.name = unitData.name;
-  this.unitStats = new UnitStats(unitData.stats);
+  this.unitStats = new UnitStats(unitData.stats, this);
   this.health = this.unitStats.stats.HP;
   this.maxHealth = this.unitStats.stats.maxHP;
   phaserGame.add.existing(this);
@@ -104,7 +104,8 @@ Unit.prototype._attack = function(targetUnit, onAnimationComplete) {
 };
 
 Unit.prototype._defend = function(onAnimationComplete) {
-  this.unitStats.addStatus('def+');
+  this.unitStats.addStatusEffect('def+');
+  // this.unitStats.addStatusEffect('poison');
   onAnimationComplete();
 };
 

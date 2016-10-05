@@ -1,4 +1,4 @@
-/* global alert, SYS_CONFIG, Phaser, GameConstants, GameMenu, BattleGround, _ */
+/* global alert, Phaser, GameConstants, GameMenu, BattleGround */
 
 function BattleScene(party, onBattleEndCallback, phaserGame) {
   this.party = party;
@@ -178,6 +178,7 @@ BattleScene.prototype._oppositeUnitsOnTurn = function() {
 };
 
 BattleScene.prototype._endUnitTurn = function() {
+  this._currentUnitOnTurn.unitStats.update();
   this._updateMonsterList();
   this._updateCharacterList();
   if (this._oppositeUnitsOnTurn().getUnitsGroup().countLiving() === 0) {
@@ -188,10 +189,6 @@ BattleScene.prototype._endUnitTurn = function() {
   var newIndex = this._battleUnitsOnTurn().getUnitsGroup().getIndex(this._currentUnitOnTurn);
   this._battleUnitsOnTurn().getUnitsGroup().cursorIndex = newIndex;
   if (!this._currentUnitOnTurn) {
-    this._battleUnitsOnTurn().getUnitsGroup().forEach(function(unit) {
-      unit.unitStats.update();
-      unit.name === 'Arus' && console.log(unit.unitStats);
-    });
     this._negateTurn();
     this._battleUnitsOnTurn().resetCursor();
     this._currentUnitOnTurn = this._battleUnitsOnTurn().getFirstAlive();
@@ -213,7 +210,7 @@ BattleScene.prototype._endUnitTurn = function() {
 };
 
 BattleScene.prototype._aiMove = function() {
-  var randomIndex = [0, 1, 2, 3][Math.round(Math.random() * 3)];
+  var randomIndex = 3;//[0, 1, 2, 3][Math.round(Math.random() * 3)];
 
   setTimeout(function() {
     this._onMenuSelect(this._battleMenu, 'Attack');

@@ -1,4 +1,4 @@
-/* global _, Monster, GameConstants, BattleUnits */
+/* global _, Monster, GameConstants, BattleUnits, SYS_CONFIG, Phaser */
 
 function BattleGround(party, phaserGame) {
   this.party = party;
@@ -73,7 +73,6 @@ BattleGround.prototype._addMonsters = function() {
   Object.keys(randomizedMonsters).forEach(function(monsterName) {
     var monsterData = randomizedMonsters[monsterName].monster;
     var monsterCountFromType = randomizedMonsters[monsterName].count;
-    var contour = _.object(['x', 'y', 'width', 'height'], monsterData.spritecoords);
     for (var i = 0; i < monsterCountFromType; i++) {
       var monsterSprite = new Monster(
         this.phaserGame, 0, 0, GameConstants.ASSETS_KEYS.MONSTERS_ATLAS, monsterData

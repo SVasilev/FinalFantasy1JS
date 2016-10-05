@@ -1,4 +1,4 @@
-/* global Phaser, Unit, _ */
+/* global Unit */
 
 // Extends Unit.
 Monster.prototype = Object.create(Unit.prototype);

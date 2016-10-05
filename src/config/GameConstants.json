@@ -25,5 +25,81 @@
   },
 
   "MAX_ENEMIES_IN_BATTLE": 9,
-  "MAX_ENEMY_TYPES_IN_BATTLE": 4
+  "MAX_ENEMY_TYPES_IN_BATTLE": 4,
+
+  "STATUS_EFFECTS": [
+    {
+      "name": "def+",
+      "duration": 2,
+      "recoveryChance": 0,
+      "effects": [
+        { "statName": "def", "updateBy": 25 }
+      ]
+    },
+    {
+      "name": "def++",
+      "duration": 2,
+      "recoveryChance": 0,
+      "effects": [
+        { "statName": "def", "updateBy": 50 }
+      ]
+    },
+    {
+      "name": "darkness",
+      "duration": 9007199254740992,
+      "recoveryChance": 0,
+      "effects": [
+        { "statName": "hitRate", "updateBy": -40 },
+        { "statName": "EVAS", "updateBy": -40 }
+      ]
+    },
+    {
+      "name": "paralysis",
+      "duration": 9007199254740992,
+      "recoveryChance": 25,
+      "effects": [
+        { "statName": "def", "updateBy": -25 },
+        { "statName": "EVAS", "updateBy": -100 }
+      ]
+    },
+    {
+      "name": "poison",
+      "duration": 9007199254740992,
+      "recoveryChance": 0,
+      "effects": []
+    },
+    {
+      "name": "silence",
+      "duration": 9007199254740992,
+      "recoveryChance": 0,
+      "effects": []
+    },
+    {
+      "name": "stone",
+      "duration": 9007199254740992,
+      "recoveryChance": 0,
+      "effects": []
+    },
+    {
+      "name": "sleep",
+      "duration": 9007199254740992,
+      "recoveryChance": 25,
+      "effects": [
+        { "statName": "def", "updateBy": -25 },
+        { "statName": "EVAS", "updateBy": -100 }
+      ]
+    },
+    {
+      "name": "KO",
+      "duration": 9007199254740992,
+      "recoveryChance": 0,
+      "effects": []
+    },
+    {
+      "name": "confusion",
+      "duration": 9007199254740992,
+      "recoveryChance": 25,
+      "effects": []
+    }
+  ]
 }
