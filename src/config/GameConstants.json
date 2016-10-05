@@ -27,6 +27,7 @@
   "MAX_ENEMIES_IN_BATTLE": 9,
   "MAX_ENEMY_TYPES_IN_BATTLE": 4,
 
+  "STATUS_EFFECTS_WITH_IMAGES": ["darkness", "paralysis", "poison", "silence", "sleep"],
   "STATUS_EFFECTS": [
     {
       "name": "def+",

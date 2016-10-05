@@ -14,6 +14,12 @@ MORE STATS -> http://finalfantasy.wikia.com/wiki/Stats
 NEW SPRITES -> http://ffclassic.com/
 INTERESTING PROJECT -> https://github.com/nhydock/FF1-Battle-System
 
+http://www.spriters-resource.com/nes/finalfantasy1/ -> Spells sprites, Towns for NES
+http://www.spriters-resource.com/game_boy_advance/finalfantasy1dawnofsouls/ -> More cool
+http://www.spriters-resource.com/psp/finalfantasy1/ -> Some sprites too
+
+http://www.spriters-resource.com/game_boy_advance/finalfantasy2dawnofsouls/sheet/25031/ -> Airship
+
 MySQL
 EXPORT:
   mysqldump -u root --password ff1 > ff1.sql

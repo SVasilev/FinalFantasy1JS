@@ -35,6 +35,7 @@ LoadingState.prototype = {
     this.load.image('menuBackground', './assets/img/game/common/menuBackground.png');
     this.load.image('menuCursor', './assets/img/game/common/menuCursor.png');
     this.loadResources(['warrior', 'thief', 'whiteMage', 'blackMage'], './assets/img/game/battle/characters/', 'image', 'gif');
+    this.load.spritesheet('statuseffects', './assets/img/game/battle/statuseffects/statuseffects.gif', 32, 20, 10);
 
     var backgroundsAtlasDir = './assets/img/game/battle/backgrounds/';
     this.load.atlas('battleBackgrounds', backgroundsAtlasDir + 'atlas.png', backgroundsAtlasDir + 'atlasData.json');
