@@ -2,16 +2,17 @@ FEATURES:
 Add support for mobile. (arrow keys, etc.).
 Add percentage while game is loading (http://phaser.io/examples/v2/loader/load-events).
 Upload GameMenu on github. Well documented example: https://github.com/bmarwane/phaser.healthbar
-Add eye candy for the battle. Use camera flash before the battle, use sounds, etc.
+Add eye candy for the battle. Use sounds, etc.
 Add GameOver logic.
-Make Defend option in battle actually do something.
 Update the README.md.
 Fix the login form like: http://bootsnipp.com/tags/registration and add the first screen of the game like the conceptArt.png.
 Consider adding Phaser.Camera.shake effect in the battle (on Attack and Spell).
 Dealing with locations.
 Add towns and stuff - https://github.com/thansber/final-fantasy-1-old/tree/master/js/data. This guy has almost everything. Or here - http://www.spriters-resource.com/submitter/Karrior+Cyredghymn/ (Not every place is ripped).
 Should GameMenu have a "stretchToFit" configuration option, which should stretch the menu options text horizontal/vertical or both. Right now text is stretched only if it exceeds the menu bounds.
-See and implement the status effect change for every magic here: http://finalfantasy.wikia.com/wiki/List_of_Final_Fantasy_statuses. Also see the images in the right corner of every status effect.
+See how status effects inflict after monster or spell attacks. Mechanics are listed here: http://finalfantasy.wikia.com/wiki/List_of_Final_Fantasy_statuses#Mechanics_of_Status_Resistance
+I think there is no "Defend" option in the battle, so remove it. Reference: http://finalfantasy.wikia.com/wiki/File:FFI_Petrify_Status_PS.png.
+FINAL TASK: Implement level up logic. Implement enemies level logic. Implement all logics in the game. Here are the formulas: http://www.ffcompendium.com/h/faqs/ff1bsiron.txt
 
 BUGS:
 The project cannot be used completely offline, the tests cannot run offline because of Node.js bug.
@@ -20,10 +21,12 @@ The party is not exactly centered in the world.
 
 REFACTORING:
 All the things around Spells are kinda messy. Think of an appropriate approach for spells. Enable casting a spell animations.
+  Here is the spell sheet: http://www.spriters-resource.com/nes/finalfantasy1/sheet/56957/
+  Here is the spell explanation: http://finalfantasy.wikia.com/wiki/Category:Final_Fantasy_NES_Spell_Images
+  Try finding the PSP spell sheet. It is very hard.
 Consider using EventEmmiter for battle start and battle end.
 Consider using EventEmmiter when waiting the battle animations to finish.
 Consider having a savegame files rather than storing the data in the DB.
-Consider Unit.status should be a class. It should allow multiple statuses at the same time and should mutate the unit's stats property. Consider this carefully.
 Move Unit, Character, Monster, UnitStats classes to floder named "unit". Move other classes accordingly. Or do I need this?
 Add tests for all stable classes.
 Consider BattleUnits not to be a Phaser.Group wrapper but to extend Phaser.Group.
