@@ -1,4 +1,4 @@
-/* global _, Phaser, Monster, UnitStats */
+/* global _, Phaser, Monster, UnitStats, GameConstants */
 
 // Common unit functionallity which extends Phaser.Sprite and is used in Character.js and Monster.js
 Unit.prototype = Object.create(Phaser.Sprite.prototype);
@@ -104,8 +104,7 @@ Unit.prototype._attack = function(targetUnit, onAnimationComplete) {
 };
 
 Unit.prototype._defend = function(onAnimationComplete) {
-  // this.unitStats.addStatusEffect('def+');
-  this.unitStats.addStatusEffect('poison'); // 'poison', 'darkness', etc should be in GLOBAL ENUM
+  this.unitStats.addStatusEffect(GameConstants.STATUS_DEF1);
   onAnimationComplete();
 };
 

@@ -12,25 +12,37 @@
     "FF1_LOGO_IMG": "ff1logo",
     "PROGRESS_BAR_IMG": "progressbar",
     "WORLDMAP_IMG": "worldmap",
+    "MENU_BACKGROUND_IMG": "menuBackground",
+    "MENU_CURSOR_IMG": "menuCursor",
+    "STATUS_EFFECTS_IMG": "statuseffects",
     "WORLDMAP_TILE_DATA_JSON": "worldmapData",
     "WORLDMAP_PARTY_SPRITES_DATA_JSON": "worldMapPartySpritesData",
     "IN_BATTLE_PARTY_SPRITES_DATA_JSON": "inBattlePartySpritesData",
-    "PARTY_DATA_JSON": "partyData",
-    "MENU_BACKGROUND_IMG": "menuBackground",
-    "MENU_CURSOR_IMG": "menuCursor",
-    "BATTLE_BACKGROUNDS_ATLAS": "battleBackgrounds",
-    "MONSTERS_ATLAS": "monstersAtlas",
     "CHARACTERS_DATA_JSON": "characters",
-    "MONSTERS_DATA_JSON": "monsters"
+    "MONSTERS_DATA_JSON": "monsters",
+    "PARTY_DATA_JSON": "partyData",
+    "BATTLE_BACKGROUNDS_ATLAS": "battleBackgrounds",
+    "MONSTERS_ATLAS": "monstersAtlas"
   },
 
   "MAX_ENEMIES_IN_BATTLE": 9,
   "MAX_ENEMY_TYPES_IN_BATTLE": 4,
 
+  "STATUS_DEF1": "def1",
+  "STATUS_DEF2": "def2",
+  "STATUS_DARKNESS": "darkness",
+  "STATUS_PARALYSIS": "paralysis",
+  "STATUS_POISON": "poison",
+  "STATUS_SILENCE": "silence",
+  "STATUS_STONE": "stone",
+  "STATUS_SLEEP": "sleep",
+  "STATUS_KO": "KO",
+  "STATUS_CONFUSION": "confusion",
+
   "STATUS_EFFECTS_WITH_IMAGES": ["darkness", "paralysis", "poison", "silence", "sleep"],
   "STATUS_EFFECTS": [
     {
-      "name": "def+",
+      "name": "def1",
       "duration": 2,
       "recoveryChance": 0,
       "effects": [
@@ -38,7 +50,7 @@
       ]
     },
     {
-      "name": "def++",
+      "name": "def2",
       "duration": 2,
       "recoveryChance": 0,
       "effects": [
