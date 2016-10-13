@@ -239,13 +239,14 @@ BattleScene.prototype._destroyScene = function() {
 
 BattleScene.prototype._endBattle = function(outcome) {
   var partyGroup = this._battleGround.getPartyUnits().getUnitsGroup();
-  outcome === 'won' && partyGroup.forEachAlive(function(characterSprite) {
-    characterSprite.animations.play('win', 4);
+  outcome === 'won' && partyGroup.forEachAlive(function(character) {
+    // Add exp for each character.
+    character.animations.play('win', 4);
   });
 
   setTimeout(function() {
-    partyGroup.forEachAlive(function(characterSprite) {
-      characterSprite.animations.play('neutral');
+    partyGroup.forEachAlive(function(character) {
+      character.animations.play('neutral');
     });
     this._destroyScene();
     this.onBattleEndCallback();

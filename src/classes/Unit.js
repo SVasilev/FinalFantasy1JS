@@ -73,7 +73,8 @@ Unit.prototype._changeHealth = function(targetUnit, amount) {
 };
 
 Unit.prototype._attack = function(targetUnit, onAnimationComplete) {
-  var walkSpeed = this instanceof Monster ? 250 : 600;
+  var unitIsMonster = this instanceof Monster;
+  var walkSpeed = unitIsMonster ? 250 : 600;
   var goBackToPosition = this.game.add.tween(this).to({ x: this.x, y: this.y }, walkSpeed, 'Quart.easeOut');
   goBackToPosition.onComplete.add(function() {
     this.animations.stop();
@@ -84,7 +85,14 @@ Unit.prototype._attack = function(targetUnit, onAnimationComplete) {
   var attack = this.game.add.tween(targetUnit).to({ alpha: 0.2 }, 150, 'Quart.easeOut', false, 0, 0, true);
   attack.chain(goBackToPosition);
   attack.onComplete.add(function() {
-    var damage = Math.max(0, this.unitStats.stats.atk - targetUnit.unitStats.stats.def);
+    var unitStats = this.unitStats.stats;
+    var hitRateForClass = { 'warrior': 2, 'thief': 3, 'whiteMage': 1, 'blackMage': 1 };
+    var hitRate = unitIsMonster ? unitStats.lvl * 5 : unitStats.hitRate + hitRateForClass[this.role] * (unitStats.lvl - 1);
+    var numberOfHits = Math.floor(hitRate / 32) + 1;
+    var damage = Math.max(1, _.range(numberOfHits).reduce(function(previous) {
+      // Do not consider critical hits for now, since the AI engine will become harder.
+      return previous + Math.floor(unitStats.str / 2) - targetUnit.unitStats.stats.def;
+    }, 0), 1);
     this._changeHealth(targetUnit, -damage);
 
     this.scale.x = this.scale.y * -1;
@@ -92,7 +100,7 @@ Unit.prototype._attack = function(targetUnit, onAnimationComplete) {
   }, this);
 
   this.animations.play('walk');
-  var targetUnitX = this instanceof Monster ? targetUnit.world.x - targetUnit.width * 2 : -this.game.width * 3 / 10;
+  var targetUnitX = unitIsMonster ? targetUnit.world.x - targetUnit.width * 2 : -this.game.width * 3 / 10;
   var goToEnemy = this.game.add.tween(this);
   goToEnemy.to({ x: targetUnitX, y: targetUnit.y }, walkSpeed, 'Quart.easeOut');
   goToEnemy.chain(attack);
