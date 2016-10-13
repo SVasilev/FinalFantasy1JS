@@ -1,6 +1,6 @@
 [
-  { "name": "Arus",   "role": "warrior",   "stats": { "agi": 7,  "atk": 5, "def": 2, "str": 5, "vit": 5, "int": 1, "lvl": 1, "hitRate": 1,   "luck": 70, "exp": 0, "expToNxtLvl": 100, "HP": 35, "maxHP": 35, "MP": 0,  "maxMP": 0,  "EVAS": 1 } },
-  { "name": "Wedge",  "role": "thief",     "stats": { "agi": 10, "atk": 4, "def": 1, "str": 3, "vit": 3, "int": 1, "lvl": 1, "hitRate": 1,   "luck": 90, "exp": 0, "expToNxtLvl": 110, "HP": 30, "maxHP": 30, "MP": 0,  "maxMP": 0,  "EVAS": 5 } },
-  { "name": "Jenica", "role": "whiteMage", "stats": { "agi": 5,  "atk": 2, "def": 0, "str": 1, "vit": 2, "int": 5, "lvl": 1, "hitRate": 0.5, "luck": 75, "exp": 0, "expToNxtLvl": 90,  "HP": 33, "maxHP": 33, "MP": 10, "maxMP": 10, "EVAS": 2 } },
-  { "name": "Topapa", "role": "blackMage", "stats": { "agi": 4,  "atk": 1, "def": 0, "str": 2, "vit": 3, "int": 6, "lvl": 1, "hitRate": 0.5, "luck": 78, "exp": 0, "expToNxtLvl": 105, "HP": 25, "maxHP": 25, "MP": 10, "maxMP": 10, "EVAS": 2 } }
+  { "name": "Arus",   "role": "warrior",   "stats": { "str": 20, "agi": 5,  "int": 1,  "vit": 10, "luck": 5,  "hitRate": 10, "maxHP": 35, "atk": 5, "def": 2, "HP": 35, "MP": 0,  "maxMP": 0,  "lvl": 1, "exp": 0, "expToNxtLvl": 100, "EVAS": 1 } },
+  { "name": "Wedge",  "role": "thief",     "stats": { "str": 5,  "agi": 10, "int": 5,  "vit": 5,  "luck": 15, "hitRate": 5,  "maxHP": 30, "atk": 4, "def": 1, "HP": 30, "MP": 0,  "maxMP": 0,  "lvl": 1, "exp": 0, "expToNxtLvl": 110, "EVAS": 5 } },
+  { "name": "Jenica", "role": "whiteMage", "stats": { "str": 5,  "agi": 5,  "int": 15, "vit": 10, "luck": 5,  "hitRate": 5,  "maxHP": 28, "atk": 2, "def": 0, "HP": 33, "MP": 10, "maxMP": 10, "lvl": 1, "exp": 0, "expToNxtLvl": 90,  "EVAS": 2 } },
+  { "name": "Topapa", "role": "blackMage", "stats": { "str": 1,  "agi": 10, "int": 20, "vit": 1,  "luck": 10, "hitRate": 5,  "maxHP": 25, "atk": 1, "def": 0, "HP": 25, "MP": 10, "maxMP": 10, "lvl": 1, "exp": 0, "expToNxtLvl": 105, "EVAS": 2 } }
 ]
